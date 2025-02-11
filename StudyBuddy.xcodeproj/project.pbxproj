@@ -3,13 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 63;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CAAA3AB22D5B102D00D9A631 /* StudySetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3AA62D5B102D00D9A631 /* StudySetModel.swift */; };
 		CAAA3AB32D5B102D00D9A631 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3AA72D5B102D00D9A631 /* UserModel.swift */; };
-		CAAA3AB42D5B102D00D9A631 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3AAB2D5B102D00D9A631 /* HomeView.swift */; };
 		CAAA3AB52D5B102D00D9A631 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3AAD2D5B102D00D9A631 /* UserViewModel.swift */; };
 		CAAA3AB62D5B102D00D9A631 /* StudyBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3AB02D5B102D00D9A631 /* StudyBuddyApp.swift */; };
 		CAAA3AB72D5B102D00D9A631 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAAA3AA92D5B102D00D9A631 /* Preview Assets.xcassets */; };
@@ -22,10 +20,8 @@
 
 /* Begin PBXFileReference section */
 		9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CAAA3AA62D5B102D00D9A631 /* StudySetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySetModel.swift; sourceTree = "<group>"; };
 		CAAA3AA72D5B102D00D9A631 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		CAAA3AA92D5B102D00D9A631 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		CAAA3AAB2D5B102D00D9A631 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CAAA3AAD2D5B102D00D9A631 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		CAAA3AAF2D5B102D00D9A631 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CAAA3AB02D5B102D00D9A631 /* StudyBuddyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyBuddyApp.swift; sourceTree = "<group>"; };
@@ -34,6 +30,12 @@
 		CAAA3AC12D5B110800D9A631 /* IntelligenceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceResponse.swift; sourceTree = "<group>"; };
 		CAAA3AC32D5B116300D9A631 /* IntelligenceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		AA20A0C72D5C050D00A5E7BE /* Flashcards */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Flashcards; sourceTree = "<group>"; };
+		AA20A0C92D5C053A00A5E7BE /* Home */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Home; sourceTree = "<group>"; };
+		AA20A0CA2D5C054800A5E7BE /* Flashcards */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Flashcards; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		9402BD182D558ABA00F2C00B /* Frameworks */ = {
@@ -65,8 +67,8 @@
 		CAAA3AA82D5B102D00D9A631 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				AA20A0C72D5C050D00A5E7BE /* Flashcards */,
 				CAAA3ABC2D5B10B600D9A631 /* AI */,
-				CAAA3AA62D5B102D00D9A631 /* StudySetModel.swift */,
 				CAAA3AA72D5B102D00D9A631 /* UserModel.swift */,
 			);
 			path = Models;
@@ -83,7 +85,8 @@
 		CAAA3AAC2D5B102D00D9A631 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				CAAA3AAB2D5B102D00D9A631 /* HomeView.swift */,
+				AA20A0CA2D5C054800A5E7BE /* Flashcards */,
+				AA20A0C92D5C053A00A5E7BE /* Home */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -134,6 +137,11 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				AA20A0C72D5C050D00A5E7BE /* Flashcards */,
+				AA20A0C92D5C053A00A5E7BE /* Home */,
+				AA20A0CA2D5C054800A5E7BE /* Flashcards */,
 			);
 			name = StudyBuddy;
 			packageProductDependencies = (
@@ -194,10 +202,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAAA3AC42D5B116300D9A631 /* IntelligenceModel.swift in Sources */,
-				CAAA3AB22D5B102D00D9A631 /* StudySetModel.swift in Sources */,
 				CAAA3AB32D5B102D00D9A631 /* UserModel.swift in Sources */,
 				CAAA3ABE2D5B10C200D9A631 /* IntelligenceRequest.swift in Sources */,
-				CAAA3AB42D5B102D00D9A631 /* HomeView.swift in Sources */,
 				CAAA3AB52D5B102D00D9A631 /* UserViewModel.swift in Sources */,
 				CAAA3AB62D5B102D00D9A631 /* StudyBuddyApp.swift in Sources */,
 				CAAA3AC02D5B10D700D9A631 /* IntelligenceManager.swift in Sources */,
