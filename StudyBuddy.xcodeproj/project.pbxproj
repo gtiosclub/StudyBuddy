@@ -16,6 +16,9 @@
 		CAAA3AC02D5B10D700D9A631 /* IntelligenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3ABF2D5B10D700D9A631 /* IntelligenceManager.swift */; };
 		CAAA3AC22D5B110800D9A631 /* IntelligenceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3AC12D5B110800D9A631 /* IntelligenceResponse.swift */; };
 		CAAA3AC42D5B116300D9A631 /* IntelligenceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3AC32D5B116300D9A631 /* IntelligenceModel.swift */; };
+		EABD4AED2D5C223900146DEB /* UploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABD4AEC2D5C223900146DEB /* UploadView.swift */; };
+		EABD4AEF2D5C227900146DEB /* UploadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABD4AEE2D5C227900146DEB /* UploadViewModel.swift */; };
+		EABD4AF22D5C22B200146DEB /* UploadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABD4AF12D5C22B200146DEB /* UploadModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +32,9 @@
 		CAAA3ABF2D5B10D700D9A631 /* IntelligenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceManager.swift; sourceTree = "<group>"; };
 		CAAA3AC12D5B110800D9A631 /* IntelligenceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceResponse.swift; sourceTree = "<group>"; };
 		CAAA3AC32D5B116300D9A631 /* IntelligenceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceModel.swift; sourceTree = "<group>"; };
+		EABD4AEC2D5C223900146DEB /* UploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadView.swift; sourceTree = "<group>"; };
+		EABD4AEE2D5C227900146DEB /* UploadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewModel.swift; sourceTree = "<group>"; };
+		EABD4AF12D5C22B200146DEB /* UploadModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -67,6 +73,7 @@
 		CAAA3AA82D5B102D00D9A631 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				EABD4AF02D5C228B00146DEB /* Upload */,
 				AA20A0C72D5C050D00A5E7BE /* Flashcards */,
 				CAAA3ABC2D5B10B600D9A631 /* AI */,
 				CAAA3AA72D5B102D00D9A631 /* UserModel.swift */,
@@ -85,6 +92,7 @@
 		CAAA3AAC2D5B102D00D9A631 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				EABD4AE62D5C215000146DEB /* Upload */,
 				AA20A0CA2D5C054800A5E7BE /* Flashcards */,
 				AA20A0C92D5C053A00A5E7BE /* Home */,
 			);
@@ -95,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				CAAA3AAD2D5B102D00D9A631 /* UserViewModel.swift */,
+				EABD4AEE2D5C227900146DEB /* UploadViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -121,6 +130,22 @@
 				CAAA3AC32D5B116300D9A631 /* IntelligenceModel.swift */,
 			);
 			path = AI;
+			sourceTree = "<group>";
+		};
+		EABD4AE62D5C215000146DEB /* Upload */ = {
+			isa = PBXGroup;
+			children = (
+				EABD4AEC2D5C223900146DEB /* UploadView.swift */,
+			);
+			path = Upload;
+			sourceTree = "<group>";
+		};
+		EABD4AF02D5C228B00146DEB /* Upload */ = {
+			isa = PBXGroup;
+			children = (
+				EABD4AF12D5C22B200146DEB /* UploadModel.swift */,
+			);
+			path = Upload;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,9 +228,12 @@
 			files = (
 				CAAA3AC42D5B116300D9A631 /* IntelligenceModel.swift in Sources */,
 				CAAA3AB32D5B102D00D9A631 /* UserModel.swift in Sources */,
+				EABD4AF22D5C22B200146DEB /* UploadModel.swift in Sources */,
 				CAAA3ABE2D5B10C200D9A631 /* IntelligenceRequest.swift in Sources */,
+				EABD4AED2D5C223900146DEB /* UploadView.swift in Sources */,
 				CAAA3AB52D5B102D00D9A631 /* UserViewModel.swift in Sources */,
 				CAAA3AB62D5B102D00D9A631 /* StudyBuddyApp.swift in Sources */,
+				EABD4AEF2D5C227900146DEB /* UploadViewModel.swift in Sources */,
 				CAAA3AC02D5B10D700D9A631 /* IntelligenceManager.swift in Sources */,
 				CAAA3AC22D5B110800D9A631 /* IntelligenceResponse.swift in Sources */,
 			);
