@@ -28,10 +28,6 @@
 
 /* Begin PBXFileReference section */
 		9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CA0CE20E2D5C232200DD8FD2 /* StudySetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySetModel.swift; sourceTree = "<group>"; };
-		CA0CE2112D5C232500DD8FD2 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
-		CA0CE2122D5C232500DD8FD2 /* StudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyView.swift; sourceTree = "<group>"; };
-		CA0CE2162D5C232700DD8FD2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CA0CE2CD2D5C2AF500DD8FD2 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
 		CA0CE2CE2D5C2AF500DD8FD2 /* StudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyView.swift; sourceTree = "<group>"; };
@@ -67,7 +63,6 @@
 			children = (
 				CAAA3AB12D5B102D00D9A631 /* StudyBuddy */,
 				9402BD1C2D558ABA00F2C00B /* Products */,
-				CA0CE2C72D5C28A200DD8FD2 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,17 +72,6 @@
 				9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		CA0CE2C72D5C28A200DD8FD2 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				CA0CE20E2D5C232200DD8FD2 /* StudySetModel.swift */,
-				CA0CE2162D5C232700DD8FD2 /* HomeView.swift */,
-				CA0CE2112D5C232500DD8FD2 /* SetView.swift */,
-				CA0CE2122D5C232500DD8FD2 /* StudyView.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		CA0CE2CB2D5C2AE600DD8FD2 /* Home */ = {
