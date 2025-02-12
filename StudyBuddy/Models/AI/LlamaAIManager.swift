@@ -1,5 +1,5 @@
 //
-//  Feature - 14.swift
+//  LlamaAIManager.swift
 //  StudyBuddy
 //
 //  Created by Matthew Dong on 2/11/25.
