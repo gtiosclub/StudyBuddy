@@ -3,10 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AABFD6032D5C253D00699533 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABFD6002D5C253D00699533 /* SetView.swift */; };
+		AABFD6042D5C253D00699533 /* StudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABFD6012D5C253D00699533 /* StudyView.swift */; };
+		AABFD6072D5C254700699533 /* StudySetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABFD6052D5C254700699533 /* StudySetModel.swift */; };
+		AABFD60A2D5C254900699533 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABFD6082D5C254900699533 /* HomeView.swift */; };
 		CAAA3AB32D5B102D00D9A631 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3AA72D5B102D00D9A631 /* UserModel.swift */; };
 		CAAA3AB52D5B102D00D9A631 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3AAD2D5B102D00D9A631 /* UserViewModel.swift */; };
 		CAAA3AB62D5B102D00D9A631 /* StudyBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3AB02D5B102D00D9A631 /* StudyBuddyApp.swift */; };
@@ -20,6 +24,10 @@
 
 /* Begin PBXFileReference section */
 		9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABFD6002D5C253D00699533 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
+		AABFD6012D5C253D00699533 /* StudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyView.swift; sourceTree = "<group>"; };
+		AABFD6052D5C254700699533 /* StudySetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySetModel.swift; sourceTree = "<group>"; };
+		AABFD6082D5C254900699533 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CAAA3AA72D5B102D00D9A631 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		CAAA3AA92D5B102D00D9A631 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CAAA3AAD2D5B102D00D9A631 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
@@ -30,12 +38,6 @@
 		CAAA3AC12D5B110800D9A631 /* IntelligenceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceResponse.swift; sourceTree = "<group>"; };
 		CAAA3AC32D5B116300D9A631 /* IntelligenceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		AA20A0C72D5C050D00A5E7BE /* Flashcards */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Flashcards; sourceTree = "<group>"; };
-		AA20A0C92D5C053A00A5E7BE /* Home */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Home; sourceTree = "<group>"; };
-		AA20A0CA2D5C054800A5E7BE /* Flashcards */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Flashcards; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		9402BD182D558ABA00F2C00B /* Frameworks */ = {
@@ -64,10 +66,35 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		AABFD6022D5C253D00699533 /* Flashcards */ = {
+			isa = PBXGroup;
+			children = (
+				AABFD6002D5C253D00699533 /* SetView.swift */,
+				AABFD6012D5C253D00699533 /* StudyView.swift */,
+			);
+			path = Flashcards;
+			sourceTree = "<group>";
+		};
+		AABFD6062D5C254700699533 /* Flashcards */ = {
+			isa = PBXGroup;
+			children = (
+				AABFD6052D5C254700699533 /* StudySetModel.swift */,
+			);
+			path = Flashcards;
+			sourceTree = "<group>";
+		};
+		AABFD6092D5C254900699533 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				AABFD6082D5C254900699533 /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		CAAA3AA82D5B102D00D9A631 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				AA20A0C72D5C050D00A5E7BE /* Flashcards */,
+				AABFD6062D5C254700699533 /* Flashcards */,
 				CAAA3ABC2D5B10B600D9A631 /* AI */,
 				CAAA3AA72D5B102D00D9A631 /* UserModel.swift */,
 			);
@@ -85,8 +112,8 @@
 		CAAA3AAC2D5B102D00D9A631 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				AA20A0CA2D5C054800A5E7BE /* Flashcards */,
-				AA20A0C92D5C053A00A5E7BE /* Home */,
+				AABFD6022D5C253D00699533 /* Flashcards */,
+				AABFD6092D5C254900699533 /* Home */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -137,11 +164,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				AA20A0C72D5C050D00A5E7BE /* Flashcards */,
-				AA20A0C92D5C053A00A5E7BE /* Home */,
-				AA20A0CA2D5C054800A5E7BE /* Flashcards */,
 			);
 			name = StudyBuddy;
 			packageProductDependencies = (
@@ -201,11 +223,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AABFD6072D5C254700699533 /* StudySetModel.swift in Sources */,
 				CAAA3AC42D5B116300D9A631 /* IntelligenceModel.swift in Sources */,
 				CAAA3AB32D5B102D00D9A631 /* UserModel.swift in Sources */,
 				CAAA3ABE2D5B10C200D9A631 /* IntelligenceRequest.swift in Sources */,
 				CAAA3AB52D5B102D00D9A631 /* UserViewModel.swift in Sources */,
+				AABFD60A2D5C254900699533 /* HomeView.swift in Sources */,
 				CAAA3AB62D5B102D00D9A631 /* StudyBuddyApp.swift in Sources */,
+				AABFD6032D5C253D00699533 /* SetView.swift in Sources */,
+				AABFD6042D5C253D00699533 /* StudyView.swift in Sources */,
 				CAAA3AC02D5B10D700D9A631 /* IntelligenceManager.swift in Sources */,
 				CAAA3AC22D5B110800D9A631 /* IntelligenceResponse.swift in Sources */,
 			);
