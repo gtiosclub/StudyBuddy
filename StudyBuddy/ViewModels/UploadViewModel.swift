@@ -9,5 +9,5 @@ import Foundation
 import SwiftUI
 
 class UploadViewModel: ObservableObject {
-    
+
 }

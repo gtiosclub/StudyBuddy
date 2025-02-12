@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StudyView: View {
     var hardcodedSet: [String: String] = ["Hello": "World", "Swift": "UI", "SwiftUI": "Is"]
-    
+
     var body: some View {
         Text("Study Words")
     }

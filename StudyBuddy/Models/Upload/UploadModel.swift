@@ -6,6 +6,6 @@
 //
 
 import Foundation
-    struct UploadModel {
-    
+struct UploadModel {
+
 }
