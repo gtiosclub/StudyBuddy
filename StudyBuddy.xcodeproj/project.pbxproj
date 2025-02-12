@@ -25,10 +25,6 @@
 
 /* Begin PBXFileReference section */
 		9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CA0CE20E2D5C232200DD8FD2 /* StudySetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySetModel.swift; sourceTree = "<group>"; };
-		CA0CE2112D5C232500DD8FD2 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
-		CA0CE2122D5C232500DD8FD2 /* StudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyView.swift; sourceTree = "<group>"; };
-		CA0CE2162D5C232700DD8FD2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CA0CE2CD2D5C2AF500DD8FD2 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
 		CA0CE2CE2D5C2AF500DD8FD2 /* StudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyView.swift; sourceTree = "<group>"; };
@@ -61,7 +57,6 @@
 			children = (
 				CAAA3AB12D5B102D00D9A631 /* StudyBuddy */,
 				9402BD1C2D558ABA00F2C00B /* Products */,
-				CA0CE2C72D5C28A200DD8FD2 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,17 +66,6 @@
 				9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		CA0CE2C72D5C28A200DD8FD2 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				CA0CE20E2D5C232200DD8FD2 /* StudySetModel.swift */,
-				CA0CE2162D5C232700DD8FD2 /* HomeView.swift */,
-				CA0CE2112D5C232500DD8FD2 /* SetView.swift */,
-				CA0CE2122D5C232500DD8FD2 /* StudyView.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		CA0CE2CB2D5C2AE600DD8FD2 /* Home */ = {
@@ -113,7 +97,6 @@
 			isa = PBXGroup;
 			children = (
 				CA0CE2D32D5C2B1700DD8FD2 /* Flashcards */,
-				EABD4AF02D5C228B00146DEB /* Upload */,
 				CAAA3ABC2D5B10B600D9A631 /* AI */,
 				CAAA3AA72D5B102D00D9A631 /* UserModel.swift */,
 			);
@@ -133,7 +116,6 @@
 			children = (
 				CA0CE2CF2D5C2AF500DD8FD2 /* Flashcards */,
 				CA0CE2CB2D5C2AE600DD8FD2 /* Home */,
-				EABD4AE62D5C215000146DEB /* Upload */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -274,11 +256,9 @@
 				CAAA3AB32D5B102D00D9A631 /* UserModel.swift in Sources */,
 				CAAA3ABE2D5B10C200D9A631 /* IntelligenceRequest.swift in Sources */,
 				CA0CE2D42D5C2B1700DD8FD2 /* StudySetModel.swift in Sources */,
-				EABD4AED2D5C223900146DEB /* UploadView.swift in Sources */,
 				CA0CE2CC2D5C2AE600DD8FD2 /* HomeView.swift in Sources */,
 				CAAA3AB52D5B102D00D9A631 /* UserViewModel.swift in Sources */,
 				CAAA3AB62D5B102D00D9A631 /* StudyBuddyApp.swift in Sources */,
-				EABD4AEF2D5C227900146DEB /* UploadViewModel.swift in Sources */,
 				CA0CE2D02D5C2AF500DD8FD2 /* SetView.swift in Sources */,
 				CA0CE2D12D5C2AF500DD8FD2 /* StudyView.swift in Sources */,
 				CAAA3AC02D5B10D700D9A631 /* IntelligenceManager.swift in Sources */,
