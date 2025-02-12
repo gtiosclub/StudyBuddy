@@ -8,7 +8,7 @@
 import Foundation
 
 enum IntelligenceModel {
-    case openai_4o_mini
-    case llama_3_2_1b
-    case llama_3_2_3b
+    case openai4oMini
+    case llama321b
+    case llama323b
 }

@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CA0CE2102D5C232200DD8FD2 /* StudySetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE20E2D5C232200DD8FD2 /* StudySetModel.swift */; };
-		CA0CE2142D5C232500DD8FD2 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2112D5C232500DD8FD2 /* SetView.swift */; };
-		CA0CE2152D5C232500DD8FD2 /* StudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2122D5C232500DD8FD2 /* StudyView.swift */; };
-		CA0CE2182D5C232700DD8FD2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2162D5C232700DD8FD2 /* HomeView.swift */; };
+		CA0CE2CC2D5C2AE600DD8FD2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */; };
+		CA0CE2D02D5C2AF500DD8FD2 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2CD2D5C2AF500DD8FD2 /* SetView.swift */; };
+		CA0CE2D12D5C2AF500DD8FD2 /* StudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2CE2D5C2AF500DD8FD2 /* StudyView.swift */; };
+		CA0CE2D42D5C2B1700DD8FD2 /* StudySetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2D22D5C2B1700DD8FD2 /* StudySetModel.swift */; };
+		CA0CE2D82D5C405700DD8FD2 /* swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = CA0CE2D72D5C404E00DD8FD2 /* swiftlint.yml */; };
 		CAAA3AB32D5B102D00D9A631 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3AA72D5B102D00D9A631 /* UserModel.swift */; };
 		CAAA3AB52D5B102D00D9A631 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3AAD2D5B102D00D9A631 /* UserViewModel.swift */; };
 		CAAA3AB62D5B102D00D9A631 /* StudyBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3AB02D5B102D00D9A631 /* StudyBuddyApp.swift */; };
@@ -31,6 +32,11 @@
 		CA0CE2112D5C232500DD8FD2 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
 		CA0CE2122D5C232500DD8FD2 /* StudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyView.swift; sourceTree = "<group>"; };
 		CA0CE2162D5C232700DD8FD2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		CA0CE2CD2D5C2AF500DD8FD2 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
+		CA0CE2CE2D5C2AF500DD8FD2 /* StudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyView.swift; sourceTree = "<group>"; };
+		CA0CE2D22D5C2B1700DD8FD2 /* StudySetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySetModel.swift; sourceTree = "<group>"; };
+		CA0CE2D72D5C404E00DD8FD2 /* swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftlint.yml; sourceTree = "<group>"; };
 		CAAA3AA72D5B102D00D9A631 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		CAAA3AA92D5B102D00D9A631 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CAAA3AAD2D5B102D00D9A631 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
@@ -61,6 +67,7 @@
 			children = (
 				CAAA3AB12D5B102D00D9A631 /* StudyBuddy */,
 				9402BD1C2D558ABA00F2C00B /* Products */,
+				CA0CE2C72D5C28A200DD8FD2 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,36 +79,47 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CA0CE20F2D5C232200DD8FD2 /* Flashcards */ = {
+		CA0CE2C72D5C28A200DD8FD2 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
 				CA0CE20E2D5C232200DD8FD2 /* StudySetModel.swift */,
-			);
-			path = Flashcards;
-			sourceTree = "<group>";
-		};
-		CA0CE2132D5C232500DD8FD2 /* Flashcards */ = {
-			isa = PBXGroup;
-			children = (
+				CA0CE2162D5C232700DD8FD2 /* HomeView.swift */,
 				CA0CE2112D5C232500DD8FD2 /* SetView.swift */,
 				CA0CE2122D5C232500DD8FD2 /* StudyView.swift */,
 			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		CA0CE2CB2D5C2AE600DD8FD2 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		CA0CE2CF2D5C2AF500DD8FD2 /* Flashcards */ = {
+			isa = PBXGroup;
+			children = (
+				CA0CE2CD2D5C2AF500DD8FD2 /* SetView.swift */,
+				CA0CE2CE2D5C2AF500DD8FD2 /* StudyView.swift */,
+			);
 			path = Flashcards;
 			sourceTree = "<group>";
 		};
-		CA0CE2172D5C232700DD8FD2 /* Home */ = {
+		CA0CE2D32D5C2B1700DD8FD2 /* Flashcards */ = {
 			isa = PBXGroup;
 			children = (
-				CA0CE2162D5C232700DD8FD2 /* HomeView.swift */,
+				CA0CE2D22D5C2B1700DD8FD2 /* StudySetModel.swift */,
 			);
-			path = Home;
+			path = Flashcards;
 			sourceTree = "<group>";
 		};
 		CAAA3AA82D5B102D00D9A631 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CA0CE2D32D5C2B1700DD8FD2 /* Flashcards */,
 				EABD4AF02D5C228B00146DEB /* Upload */,
-				AA20A0C72D5C050D00A5E7BE /* Flashcards */,
 				CAAA3ABC2D5B10B600D9A631 /* AI */,
 				CAAA3AA72D5B102D00D9A631 /* UserModel.swift */,
 			);
@@ -119,9 +137,9 @@
 		CAAA3AAC2D5B102D00D9A631 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				CA0CE2CF2D5C2AF500DD8FD2 /* Flashcards */,
+				CA0CE2CB2D5C2AE600DD8FD2 /* Home */,
 				EABD4AE62D5C215000146DEB /* Upload */,
-				AA20A0CA2D5C054800A5E7BE /* Flashcards */,
-				AA20A0C92D5C053A00A5E7BE /* Home */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -138,6 +156,7 @@
 		CAAA3AB12D5B102D00D9A631 /* StudyBuddy */ = {
 			isa = PBXGroup;
 			children = (
+				CA0CE2D72D5C404E00DD8FD2 /* swiftlint.yml */,
 				CAAA3AA82D5B102D00D9A631 /* Models */,
 				CAAA3AAA2D5B102D00D9A631 /* Preview Content */,
 				CAAA3AAC2D5B102D00D9A631 /* Screens */,
@@ -185,10 +204,12 @@
 				9402BD172D558ABA00F2C00B /* Sources */,
 				9402BD182D558ABA00F2C00B /* Frameworks */,
 				9402BD192D558ABA00F2C00B /* Resources */,
+				CA0CE2C92D5C291500DD8FD2 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				CA0CE2D62D5C2BFA00DD8FD2 /* PBXTargetDependency */,
 			);
 			name = StudyBuddy;
 			packageProductDependencies = (
@@ -222,6 +243,9 @@
 			);
 			mainGroup = 9402BD122D558ABA00F2C00B;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				CA0CE2C82D5C290100DD8FD2 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+			);
 			productRefGroup = 9402BD1C2D558ABA00F2C00B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -237,35 +261,63 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAAA3AB72D5B102D00D9A631 /* Preview Assets.xcassets in Resources */,
+				CA0CE2D82D5C405700DD8FD2 /* swiftlint.yml in Resources */,
 				CAAA3AB82D5B102D00D9A631 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		CA0CE2C92D5C291500DD8FD2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9402BD172D558ABA00F2C00B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA0CE2102D5C232200DD8FD2 /* StudySetModel.swift in Sources */,
 				CAAA3AC42D5B116300D9A631 /* IntelligenceModel.swift in Sources */,
 				CAAA3AB32D5B102D00D9A631 /* UserModel.swift in Sources */,
 				EABD4AF22D5C22B200146DEB /* UploadModel.swift in Sources */,
 				CAAA3ABE2D5B10C200D9A631 /* IntelligenceRequest.swift in Sources */,
+				CA0CE2D42D5C2B1700DD8FD2 /* StudySetModel.swift in Sources */,
 				EABD4AED2D5C223900146DEB /* UploadView.swift in Sources */,
+				CA0CE2CC2D5C2AE600DD8FD2 /* HomeView.swift in Sources */,
 				CAAA3AB52D5B102D00D9A631 /* UserViewModel.swift in Sources */,
-				CA0CE2182D5C232700DD8FD2 /* HomeView.swift in Sources */,
 				CAAA3AB62D5B102D00D9A631 /* StudyBuddyApp.swift in Sources */,
 				EABD4AEF2D5C227900146DEB /* UploadViewModel.swift in Sources */,
-				CA0CE2142D5C232500DD8FD2 /* SetView.swift in Sources */,
-				CA0CE2152D5C232500DD8FD2 /* StudyView.swift in Sources */,
+				CA0CE2D02D5C2AF500DD8FD2 /* SetView.swift in Sources */,
+				CA0CE2D12D5C2AF500DD8FD2 /* StudyView.swift in Sources */,
 				CAAA3AC02D5B10D700D9A631 /* IntelligenceManager.swift in Sources */,
 				CAAA3AC22D5B110800D9A631 /* IntelligenceResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CA0CE2D62D5C2BFA00DD8FD2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = CA0CE2D52D5C2BFA00DD8FD2 /* SwiftLintBuildToolPlugin */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		9402BD272D558ABC00F2C00B /* Debug */ = {
@@ -469,6 +521,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CA0CE2C82D5C290100DD8FD2 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.58.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CA0CE2D52D5C2BFA00DD8FD2 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CA0CE2C82D5C290100DD8FD2 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9402BD132D558ABA00F2C00B /* Project object */;
 }
