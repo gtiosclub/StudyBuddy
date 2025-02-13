@@ -17,9 +17,10 @@ struct DocumentPickerView: UIViewControllerRepresentable {
     }
 
     func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
+        // Create a document picker that only allows users to select PDF files
         let picker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType.pdf])
         picker.delegate = context.coordinator
-        picker.allowsMultipleSelection = true
+        picker.allowsMultipleSelection = true // Enable multiple file selection
         return picker
     }
 
@@ -33,8 +34,10 @@ struct DocumentPickerView: UIViewControllerRepresentable {
         }
 
         func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+            // Extract the names of the selected documents
             let selectedDocuments = urls.map { $0.lastPathComponent }
             DispatchQueue.main.async {
+                // Update the view model with the selected document names
                 self.parent.uploadViewModel.selectedDocumentNames = selectedDocuments
             }
         }
