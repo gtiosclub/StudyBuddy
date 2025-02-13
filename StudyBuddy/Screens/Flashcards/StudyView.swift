@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct StudyView: View {
-    var hardcoded_set: [String: String] = ["Hello": "World", "Swift": "UI", "SwiftUI": "Is"]
-    
+    var hardcodedSet: [String: String] = ["Hello": "World", "Swift": "UI", "SwiftUI": "Is"]
+
     var body: some View {
         Text("Study Words")
     }

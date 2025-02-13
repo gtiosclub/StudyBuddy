@@ -9,7 +9,7 @@ import Foundation
 
 class StudySet: ObservableObject {
     @Published var set: [String: String]
-    
+
     init(set: [String: String]) {
         self.set = set
     }
