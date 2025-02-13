@@ -27,9 +27,20 @@
 		EAFA584A2D5D418700ADC214 /* UploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA58492D5D418700ADC214 /* UploadView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		96CCEFEA2D5E949D00B7D5E6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9402BD132D558ABA00F2C00B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9402BD1A2D558ABA00F2C00B;
+			remoteInfo = StudyBuddy;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96CCEFE02D5D8CCA00B7D5E6 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
+		96CCEFE62D5E949D00B7D5E6 /* StudyBuddyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudyBuddyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CA0CE2CD2D5C2AF500DD8FD2 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
 		CA0CE2CE2D5C2AF500DD8FD2 /* StudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyView.swift; sourceTree = "<group>"; };
@@ -57,6 +68,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		96CCEFE32D5E949D00B7D5E6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -72,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */,
+				96CCEFE62D5E949D00B7D5E6 /* StudyBuddyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -213,6 +232,26 @@
 			productReference = 9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */;
 			productType = "com.apple.product-type.application";
 		};
+		96CCEFE52D5E949D00B7D5E6 /* StudyBuddyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96CCEFEE2D5E949D00B7D5E6 /* Build configuration list for PBXNativeTarget "StudyBuddyTests" */;
+			buildPhases = (
+				96CCEFE22D5E949D00B7D5E6 /* Sources */,
+				96CCEFE32D5E949D00B7D5E6 /* Frameworks */,
+				96CCEFE42D5E949D00B7D5E6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				96CCEFEB2D5E949D00B7D5E6 /* PBXTargetDependency */,
+			);
+			name = StudyBuddyTests;
+			packageProductDependencies = (
+			);
+			productName = StudyBuddyTests;
+			productReference = 96CCEFE62D5E949D00B7D5E6 /* StudyBuddyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -220,11 +259,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1600;
+				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					9402BD1A2D558ABA00F2C00B = {
 						CreatedOnToolsVersion = 16.0;
+					};
+					96CCEFE52D5E949D00B7D5E6 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 9402BD1A2D558ABA00F2C00B;
 					};
 				};
 			};
@@ -246,6 +289,7 @@
 			projectRoot = "";
 			targets = (
 				9402BD1A2D558ABA00F2C00B /* StudyBuddy */,
+				96CCEFE52D5E949D00B7D5E6 /* StudyBuddyTests */,
 			);
 		};
 /* End PBXProject section */
@@ -258,6 +302,13 @@
 				CAAA3AB72D5B102D00D9A631 /* Preview Assets.xcassets in Resources */,
 				CA0CE2D82D5C405700DD8FD2 /* swiftlint.yml in Resources */,
 				CAAA3AB82D5B102D00D9A631 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96CCEFE42D5E949D00B7D5E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,9 +357,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		96CCEFE22D5E949D00B7D5E6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		96CCEFEB2D5E949D00B7D5E6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9402BD1A2D558ABA00F2C00B /* StudyBuddy */;
+			targetProxy = 96CCEFEA2D5E949D00B7D5E6 /* PBXContainerItemProxy */;
+		};
 		CA0CE2D62D5C2BFA00DD8FD2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = CA0CE2D52D5C2BFA00DD8FD2 /* SwiftLintBuildToolPlugin */;
@@ -495,6 +558,42 @@
 			};
 			name = Release;
 		};
+		96CCEFEC2D5E949D00B7D5E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = aryan.StudyBuddyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StudyBuddy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/StudyBuddy";
+			};
+			name = Debug;
+		};
+		96CCEFED2D5E949D00B7D5E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = aryan.StudyBuddyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StudyBuddy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/StudyBuddy";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -512,6 +611,15 @@
 			buildConfigurations = (
 				9402BD2A2D558ABC00F2C00B /* Debug */,
 				9402BD2B2D558ABC00F2C00B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96CCEFEE2D5E949D00B7D5E6 /* Build configuration list for PBXNativeTarget "StudyBuddyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96CCEFEC2D5E949D00B7D5E6 /* Debug */,
+				96CCEFED2D5E949D00B7D5E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -5,102 +5,71 @@
 //  Created by Krish Kapoor on 12/02/2025.
 //
 
+import UIKit
 import Vision
 import PDFKit
-import UIKit
 
-class Text {
-    enum ExtractionError: Error {
-        case pdfLoadFailed
-        case pageProcessingFailed(Int, Error)
-        case imageConversionFailed(Int)
+func extractTextFromPDF(pdfURL: URL, completion: @escaping (String) -> Void) {
+    guard let pdfDocument = PDFDocument(url: pdfURL) else {
+        completion("")
+        return
     }
-    
-    func extractText(from url: URL, completion: @escaping (Result<[String], ExtractionError>) -> Void) {
-        guard let pdfDocument = PDFDocument(url: url) else {
-            completion(.failure(.pdfLoadFailed))
+
+    var extractedText = ""
+    let dispatchGroup = DispatchGroup()
+
+    for pageIndex in 0..<pdfDocument.pageCount {
+        guard let page = pdfDocument.page(at: pageIndex) else { continue }
+        
+        // Convert PDF page to image
+        let pageRect = page.bounds(for: .mediaBox)
+        let renderer = UIGraphicsImageRenderer(size: pageRect.size)
+        let image = renderer.image { ctx in
+            UIColor.white.set()
+            ctx.fill(pageRect)
+            ctx.cgContext.translateBy(x: 0.0, y: pageRect.size.height)
+            ctx.cgContext.scaleBy(x: 1.0, y: -1.0)
+            page.draw(with: .mediaBox, to: ctx.cgContext)
+        }
+
+        dispatchGroup.enter()
+        recognizeTextInImage(image) { text in
+            if let text = text {
+                extractedText += text + "\n"
+            }
+            dispatchGroup.leave()
+        }
+    }
+
+    dispatchGroup.notify(queue: .main) {
+        completion(extractedText)
+    }
+}
+
+func recognizeTextInImage(_ image: UIImage, completion: @escaping (String?) -> Void) {
+    guard let cgImage = image.cgImage else {
+        completion(nil)
+        return
+    }
+
+    let request = VNRecognizeTextRequest { request, error in
+        guard let observations = request.results as? [VNRecognizedTextObservation], error == nil else {
+            completion(nil)
             return
         }
-        
-        var allText: [String] = []
-        var extractionErrors: [Error] = []
-        let group = DispatchGroup()
-        let queue = DispatchQueue(label: "com.pdfrecognizer.extraction", qos: .userInitiated, attributes: .concurrent)
-        
-        for pageIndex in 0..<pdfDocument.pageCount {
-            group.enter()
-            
-            queue.async {
-                guard let page = pdfDocument.page(at: pageIndex) else {
-                    group.leave()
-                    return
-                }
-                
-                let pageRect = page.bounds(for: .mediaBox)
-                UIGraphicsBeginImageContextWithOptions(pageRect.size, true, 0.0)
-                guard let context = UIGraphicsGetCurrentContext() else {
-                    extractionErrors.append(ExtractionError.imageConversionFailed(pageIndex))
-                    group.leave()
-                    return
-                }
-                
-                context.setFillColor(UIColor.white.cgColor)
-                context.fill(pageRect)
-                
-                context.translateBy(x: 0.0, y: pageRect.size.height)
-                context.scaleBy(x: 1.0, y: -1.0)
-                page.draw(with: .mediaBox, to: context)
-                
-                guard let image = UIGraphicsGetImageFromCurrentImageContext()?.cgImage else {
-                    UIGraphicsEndImageContext()
-                    extractionErrors.append(ExtractionError.imageConversionFailed(pageIndex))
-                    group.leave()
-                    return
-                }
-                
-                UIGraphicsEndImageContext()
-                
-                let requestHandler = VNImageRequestHandler(cgImage: image)
-                let request = VNRecognizeTextRequest { request, error in
-                    defer { group.leave() }
-                    
-                    if let error = error {
-                        extractionErrors.append(ExtractionError.pageProcessingFailed(pageIndex, error))
-                        return
-                    }
-                    
-                    guard let observations = request.results as? [VNRecognizedTextObservation] else { return }
-                    
-                    let pageText = observations.compactMap { observation in
-                        observation.topCandidates(3).first?.string
-                    }
-                    
-                    DispatchQueue.main.async {
-                        allText.append(contentsOf: pageText)
-                    }
-                }
-                
-                request.revision = 2
-                request.recognitionLevel = .accurate
-                request.usesLanguageCorrection = true
-                
-                do {
-                    try requestHandler.perform([request])
-                } catch {
-                    extractionErrors.append(ExtractionError.pageProcessingFailed(pageIndex, error))
-                    group.leave()
-                }
-            }
-        }
-        
-        group.notify(queue: .main) {
-            if extractionErrors.isEmpty {
-                completion(.success(allText))
-            } else {
-                if let firstError = extractionErrors.first as? ExtractionError {
-                    completion(.failure(firstError))
-                }
-            }
+
+        let recognizedStrings = observations.compactMap { $0.topCandidates(1).first?.string }
+        completion(recognizedStrings.joined(separator: "\n"))
+    }
+
+    request.recognitionLevel = .accurate
+    let requestHandler = VNImageRequestHandler(cgImage: cgImage, options: [:])
+
+    DispatchQueue.global(qos: .userInitiated).async {
+        do {
+            try requestHandler.perform([request])
+        } catch {
+            completion(nil)
         }
     }
 }
