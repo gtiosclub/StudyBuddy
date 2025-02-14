@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9688CEE62D5EBED8009C719A /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688CEE52D5EBED6009C719A /* Text.swift */; };
+		9688CEE82D5EC24B009C719A /* TextParsingPDFs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688CEE72D5EC246009C719A /* TextParsingPDFs.swift */; };
 		CA0CE2CC2D5C2AE600DD8FD2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */; };
 		CA0CE2D02D5C2AF500DD8FD2 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2CD2D5C2AF500DD8FD2 /* SetView.swift */; };
 		CA0CE2D12D5C2AF500DD8FD2 /* StudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2CE2D5C2AF500DD8FD2 /* StudyView.swift */; };
@@ -29,7 +29,7 @@
 
 /* Begin PBXFileReference section */
 		9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9688CEE52D5EBED6009C719A /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
+		9688CEE72D5EC246009C719A /* TextParsingPDFs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextParsingPDFs.swift; sourceTree = "<group>"; };
 		CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CA0CE2CD2D5C2AF500DD8FD2 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
 		CA0CE2CE2D5C2AF500DD8FD2 /* StudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyView.swift; sourceTree = "<group>"; };
@@ -133,7 +133,6 @@
 		CAAA3AAE2D5B102D00D9A631 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				9688CEE52D5EBED6009C719A /* Text.swift */,
 				EAFA58412D5D413E00ADC214 /* UploadViewModel */,
 				CAAA3AAD2D5B102D00D9A631 /* UserViewModel.swift */,
 			);
@@ -168,6 +167,7 @@
 		EAFA58412D5D413E00ADC214 /* UploadViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				9688CEE72D5EC246009C719A /* TextParsingPDFs.swift */,
 				EAFA58472D5D417D00ADC214 /* UploadViewModel.swift */,
 			);
 			path = UploadViewModel;
@@ -289,11 +289,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAAA3AC42D5B116300D9A631 /* IntelligenceModel.swift in Sources */,
-				9688CEE62D5EBED8009C719A /* Text.swift in Sources */,
 				CAAA3AB32D5B102D00D9A631 /* UserModel.swift in Sources */,
 				EAFA58462D5D417600ADC214 /* UploadModel.swift in Sources */,
 				CAAA3ABE2D5B10C200D9A631 /* IntelligenceRequest.swift in Sources */,
 				CA0CE2D42D5C2B1700DD8FD2 /* StudySetModel.swift in Sources */,
+				9688CEE82D5EC24B009C719A /* TextParsingPDFs.swift in Sources */,
 				CA0CE2CC2D5C2AE600DD8FD2 /* HomeView.swift in Sources */,
 				CAAA3AB52D5B102D00D9A631 /* UserViewModel.swift in Sources */,
 				CAAA3AB62D5B102D00D9A631 /* StudyBuddyApp.swift in Sources */,
