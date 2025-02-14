@@ -1,0 +1,15 @@
+# Enabled/disabled rules
+disabled_rules:
+ - type_name
+ - multiple_closures_with_trailing_closure
+
+opt_in_rules:
+ - force_unwrapping
+ - sorted_imports
+ - fallthrough
+ - private_swiftui_state
+ - toggle_bool
+ - unused_parameter
+ - indentation_width
+
+force_unwrapping: error
