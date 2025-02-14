@@ -17,9 +17,9 @@ struct OpenAIRequest: Codable {
         case model, messages, temperature
         case maxCompletionTokens = "max_completion_tokens"
     }
-}
 
-struct Message: Codable {
-    let role: String
-    let content: String
+    struct Message: Codable {
+        let role: String
+        let content: String
+    }
 }
