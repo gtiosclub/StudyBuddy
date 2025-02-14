@@ -1,10 +1,20 @@
 import Foundation
 
 protocol IntelligenceManager {
+    // Remove this version
     func sendRequest(prompt: String, completion: @escaping (Result<String, Error>) -> Void)
+    
+    // this was the original version; let's keep it
+    func makeRequest(_ req: IntelligenceRequest) async throws -> IntelligenceResponse
 }
 
 final class OpenAIManager: IntelligenceManager {
+    
+    // you should move your logic here
+    func makeRequest(_ req: any IntelligenceRequest) async throws -> any IntelligenceResponse {
+        throw NSError(domain: "OpenAIManager", code: 1)
+    }
+    
     
     static let shared = OpenAIManager()
     
@@ -16,9 +26,10 @@ final class OpenAIManager: IntelligenceManager {
     
     private let session = URLSession.shared
     
+    // this method should be removed
     func sendRequest(prompt: String, completion: @escaping (Result<String, Error>) -> Void) {
         let requestBody: [String: Any] = [
-            "model": "text-davinci-003", // Specify the model
+            "model": "gpt-4o-2024-08-06", // Specify the model
             "prompt": prompt,
             "max_tokens": 150,
             "temperature": 0.7

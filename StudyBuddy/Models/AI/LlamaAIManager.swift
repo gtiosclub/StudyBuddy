@@ -12,6 +12,10 @@ struct LlamaResponse: IntelligenceResponse {
 }
 
 class LlamaAIManager: IntelligenceManager {
+    func sendRequest(prompt: String, completion: @escaping (Result<String, any Error>) -> Void) {
+        print("TODO")
+    }
+    
     static let shared = LlamaAIManager()
 
     private init() {}
