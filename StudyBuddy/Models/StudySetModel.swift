@@ -6,3 +6,12 @@
 //
 
 import Foundation
+struct StudySetModel {
+    //contains a list of flashcards objects
+    //includes meta data when it was created who created it etc
+    //user id
+    var list: [Flashcard] = []
+    let dateCreated: Date //date format
+    let createdBy: String
+    //create multiple study sets and initialize it with values
+}
