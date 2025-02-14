@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 struct LLMRequest {
     var prompt: String
     var continuous: Bool
@@ -30,5 +31,7 @@ class LlamaAIManager: IntelligenceManager {
 
     func makeRequest(_ req: IntelligenceRequest) async throws -> IntelligenceResponse {
  
+        // TODO: Implement feature
+        throw NSError(domain: "missing method", code: 1)
     }
 }
