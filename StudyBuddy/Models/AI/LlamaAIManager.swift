@@ -17,6 +17,7 @@ class LlamaAIManager: IntelligenceManager {
     private init() {}
 
     func makeRequest(_ req: IntelligenceRequest) async throws -> IntelligenceResponse {
- 
+        // TODO: Implement feature
+        throw NSError(domain: "missing method", code: 1)
     }
 }
