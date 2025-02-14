@@ -10,7 +10,6 @@ import SwiftUI
 struct UploadView: View {
     // ViewModel to manage uploaded documents
     @StateObject var uploadViewModel = UploadViewModel()
-    
     // State variable to control document picker presentation
     @State private var isPickerPresented = false
 
