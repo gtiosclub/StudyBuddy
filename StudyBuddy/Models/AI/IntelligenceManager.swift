@@ -62,3 +62,5 @@ final class OpenAIManager: IntelligenceManager {
         task.resume()
     }
 }
+
+
