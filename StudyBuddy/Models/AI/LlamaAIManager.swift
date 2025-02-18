@@ -28,6 +28,10 @@ class LlamaAIManager: IntelligenceManager {
     static let shared = LlamaAIManager()
 
     private init() {}
+    
+    func sendRequest(prompt: String, completion: @escaping (Result<String, any Error>) -> Void) {
+        
+    }
 
     func makeRequest(_ req: IntelligenceRequest) async throws -> IntelligenceResponse {
  
