@@ -7,6 +7,7 @@
 
 import Foundation
 struct Flashcard: Identifiable {
+    let id = UUID()
     var text: String
     let createdBy: String
 }

@@ -17,10 +17,10 @@ struct UserModel: Identifiable {
 }
 
 func createTestUser(_ email: String, _ userName: String, _ date1: Date, _ date2: Date, _ date3: Date, _ flashcardText1: String, _ flashcardText2: String, _ flashcardText3: String) -> UserModel {
-    var user: UserModel = UserModel(email: email, userName: userName)
-    var flashcard1 = Flashcard(text: "test123", createdBy: user.userName)
-    var flashcard2 = Flashcard(text: "test455", createdBy: user.userName)
-    var flashcard3 = Flashcard(text: "testagain", createdBy: user.userName)
+    let user: UserModel = UserModel(email: email, userName: userName)
+    let flashcard1 = Flashcard(text: "test123", createdBy: user.userName)
+    let flashcard2 = Flashcard(text: "test455", createdBy: user.userName)
+    let flashcard3 = Flashcard(text: "testagain", createdBy: user.userName)
     user1.studySets = [
         StudySetModel(list: [flashcard1], dateCreated: date1, createdBy: user.userName),
         StudySetModel(list: [flashcard2], dateCreated: date2, createdBy: user.userName),

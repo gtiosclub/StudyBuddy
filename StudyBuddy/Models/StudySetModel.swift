@@ -6,10 +6,10 @@
 //
 
 import Foundation
-struct StudySetModel {
+struct StudySetModel: Identifiable {
     //contains a list of flashcards objects
     //includes meta data when it was created who created it etc
-    //user id
+    let id = UUID()
     var list: [Flashcard] = []
     let dateCreated: Date //date format
     let createdBy: String
