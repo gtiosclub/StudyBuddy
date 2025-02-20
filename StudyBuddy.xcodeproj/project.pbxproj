@@ -17,7 +17,7 @@
 		CA0CE2CC2D5C2AE600DD8FD2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */; };
 		CA0CE2D02D5C2AF500DD8FD2 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2CD2D5C2AF500DD8FD2 /* SetView.swift */; };
 		CA0CE2D12D5C2AF500DD8FD2 /* StudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2CE2D5C2AF500DD8FD2 /* StudyView.swift */; };
-		CA0CE2D42D5C2B1700DD8FD2 /* StudySetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2D22D5C2B1700DD8FD2 /* StudySetModel.swift */; };
+		CA0CE2D42D5C2B1700DD8FD2 /* FlashcardStudySetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2D22D5C2B1700DD8FD2 /* FlashcardStudySetModel.swift */; };
 		CA0CE2D82D5C405700DD8FD2 /* swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = CA0CE2D72D5C404E00DD8FD2 /* swiftlint.yml */; };
 		CAAA3AB32D5B102D00D9A631 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3AA72D5B102D00D9A631 /* UserModel.swift */; };
 		CAAA3AB52D5B102D00D9A631 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3AAD2D5B102D00D9A631 /* UserViewModel.swift */; };
@@ -45,7 +45,7 @@
 		CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CA0CE2CD2D5C2AF500DD8FD2 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
 		CA0CE2CE2D5C2AF500DD8FD2 /* StudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyView.swift; sourceTree = "<group>"; };
-		CA0CE2D22D5C2B1700DD8FD2 /* StudySetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySetModel.swift; sourceTree = "<group>"; };
+		CA0CE2D22D5C2B1700DD8FD2 /* FlashcardStudySetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardStudySetModel.swift; sourceTree = "<group>"; };
 		CA0CE2D72D5C404E00DD8FD2 /* swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftlint.yml; sourceTree = "<group>"; };
 		CAAA3AA72D5B102D00D9A631 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		CAAA3AA92D5B102D00D9A631 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 		CA0CE2D32D5C2B1700DD8FD2 /* Flashcards */ = {
 			isa = PBXGroup;
 			children = (
-				CA0CE2D22D5C2B1700DD8FD2 /* StudySetModel.swift */,
+				CA0CE2D22D5C2B1700DD8FD2 /* FlashcardStudySetModel.swift */,
 			);
 			path = Flashcards;
 			sourceTree = "<group>";
@@ -311,7 +311,7 @@
 				9B70DE112D5C2FA900F447CD /* LlamaAIManager.swift in Sources */,
 				EAFA58462D5D417600ADC214 /* UploadModel.swift in Sources */,
 				CAAA3ABE2D5B10C200D9A631 /* IntelligenceRequest.swift in Sources */,
-				CA0CE2D42D5C2B1700DD8FD2 /* StudySetModel.swift in Sources */,
+				CA0CE2D42D5C2B1700DD8FD2 /* FlashcardStudySetModel.swift in Sources */,
 				94B653E32D6562F7001D3727 /* Flashcard.swift in Sources */,
 				9688CEE82D5EC24B009C719A /* TextParsingPDFs.swift in Sources */,
 				CA0CE2CC2D5C2AE600DD8FD2 /* HomeView.swift in Sources */,
