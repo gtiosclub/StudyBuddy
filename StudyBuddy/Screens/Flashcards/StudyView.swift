@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StudyView: View {
-    let hardcoded_set: [(String, String)] = [("Hello", "World"), ("Swift", "UI"), ("SwiftUI", "Is")]
+    let hardcodedSet: [(String, String)] = [("Hello", "World"), ("Swift", "UI"), ("SwiftUI", "Is")]
 
     @State private var flashCardIndex = 0
     @State private var showBack = false
@@ -25,7 +25,7 @@ struct StudyView: View {
             navBar()
             Spacer()
         }
-        
+
     }
     private func cardView() -> some View {
         ZStack {
@@ -33,7 +33,7 @@ struct StudyView: View {
                 .fill(Color.blue)
                 .frame(width: 300, height: 200)
                 .shadow(radius: 5)
-            Text(showBack ? hardcoded_set[flashCardIndex].1 : hardcoded_set[flashCardIndex].0)
+            Text(showBack ? hardcodedSet[flashCardIndex].1 : hardcodedSet[flashCardIndex].0)
                     .font(.title)
         }
         .onTapGesture {
@@ -43,9 +43,9 @@ struct StudyView: View {
     }
     private func navBar() -> some View {
         HStack {
-            
+
             Button(action: {
-                if (flashCardIndex > 0) {
+                if flashCardIndex > 0 {
                     flashCardIndex -= 1
                     showBack = false
                 }
@@ -56,7 +56,7 @@ struct StudyView: View {
                 }
             }
             Button(action: {
-                if (flashCardIndex < hardcoded_set.count - 1) {
+                if flashCardIndex < hardcodedSet.count - 1 {
                     flashCardIndex += 1
                     showBack = false
                 }
@@ -68,7 +68,7 @@ struct StudyView: View {
             }
         }
     }
-    
+
 }
 
 #Preview {
