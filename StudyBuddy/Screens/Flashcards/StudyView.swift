@@ -25,7 +25,7 @@ struct StudyView: View {
             navBar()
             Spacer()
         }
-        
+
     }
     private func cardView() -> some View {
         ZStack {
@@ -43,9 +43,9 @@ struct StudyView: View {
     }
     private func navBar() -> some View {
         HStack {
-            
+
             Button(action: {
-                if (flashCardIndex > 0) {
+                if flashCardIndex > 0 {
                     flashCardIndex -= 1
                     showBack = false
                 }
@@ -56,7 +56,7 @@ struct StudyView: View {
                 }
             }
             Button(action: {
-                if (flashCardIndex < hardcodedSet.count - 1) {
+                if flashCardIndex < hardcodedSet.count - 1 {
                     flashCardIndex += 1
                     showBack = false
                 }
@@ -68,7 +68,7 @@ struct StudyView: View {
             }
         }
     }
-    
+
 }
 
 #Preview {
