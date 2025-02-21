@@ -12,8 +12,8 @@ struct UploadView: View {
     @StateObject var uploadViewModel = UploadViewModel()
     // State variable to control document picker presentation
     @State private var isPickerPresented = false
-    // State variable to control additional Upload Button
-    @State private var showUploadButton = false
+    // State variable to control the upload file visibility
+    @State private var isPublic = false
     var body: some View {
         VStack {
             // Button to open document picker
@@ -26,13 +26,11 @@ struct UploadView: View {
                     .foregroundColor(.white)
                     .cornerRadius(8)
             })
-
             // Display selected document names if any
             if !uploadViewModel.selectedDocumentNames.isEmpty {
                 VStack(alignment: .leading) {
                     Text("Selected Documents:")
                         .font(.headline)
-
                     // List each selected document name
                     ForEach(uploadViewModel.selectedDocumentNames, id: \.self) { document in
                         Text(document)
@@ -47,66 +45,35 @@ struct UploadView: View {
         .sheet(isPresented: $isPickerPresented) {
             DocumentPickerView(uploadViewModel: uploadViewModel)
         }
-        
-        VStack (spacing: 20) {
+        VStack(spacing: 20) {
             Spacer()
-            // if showUploadButton is true, then display two new buttons
-            if showUploadButton {
-                Button { // display upload files button
-                    withAnimation {
-                        showUploadButton = true
-                    }
-                } label: {
-                    Image(systemName:
-                            "square.and.arrow.up")
-                    Text("Upload Files")
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(.black)
-                .bold()
-                Button { // displays Go Back button
-                    withAnimation {
-                        showUploadButton = false;
-                    }
-                    
-                }  label: {
-                    Image(systemName:
-                            "chevron.left")
-                    Text("Go Back")
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(.red)
-                .bold()
-            } else { // if showUploadButton is false
-                Button { // display public upload option
-                    withAnimation {
-                        showUploadButton = true
-                    }
-                } label: {
-                    Image(systemName:
-                            "square.and.arrow.up")
-                    Text("Upload (Public)")
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(.green)
-                .bold()
 
-                Button { // display private upload option
-                    withAnimation {
-                        showUploadButton = true
-                    }
-                } label: {
-                    Image(systemName:
-                            "square.and.arrow.up")
-                    Text("Upload (Private)")
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(.blue)
-                .bold()
+            HStack {
+                Text("Private")
+                    .foregroundColor(.blue)
+                    .bold()
+                Toggle("", isOn: $isPublic)
+                    .toggleStyle(SwitchToggleStyle(tint: .green))
+                    .labelsHidden()
+                Text("Public")
+                    .foregroundColor(.green)
+                    .bold()
             }
+            Button { // display upload files button
+            } label: {
+                Image(systemName:
+                        "square.and.arrow.up")
+                Text("Upload Files")
+            }
+            .buttonStyle(.borderedProminent)
+            .tint(isPublic ? .green : .blue)
+            .bold()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()
-        .animation(.easeInOut, value: showUploadButton)
     }
+}
+
+#Preview {
+    UploadView()
 }
