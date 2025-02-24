@@ -57,6 +57,7 @@ struct StudyView: View {
             }
             Button(action: {
                 if flashCardIndex < hardcodedSet.count - 1 {
+
                     flashCardIndex += 1
                     showBack = false
                 }

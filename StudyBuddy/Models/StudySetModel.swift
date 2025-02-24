@@ -14,4 +14,5 @@ struct StudySetModel: Identifiable {
     let dateCreated: Date // date format
     let createdBy: String
     // create multiple study sets and initialize it with values
+
 }

@@ -13,6 +13,8 @@ struct UserModel: Identifiable {
     var userName: String
     var studySets: [StudySetModel] = []
 
+
+
 }
 
 func createTestUser(_ email: String, _ userName: String, _ date1: Date, _ date2: Date, _ date3: Date, _ flashcardText1: String, _ flashcardText2: String, _ flashcardText3: String) -> UserModel {
@@ -23,7 +25,9 @@ func createTestUser(_ email: String, _ userName: String, _ date1: Date, _ date2:
     user1.studySets = [
         StudySetModel(list: [flashcard1], dateCreated: date1, createdBy: user.userName),
         StudySetModel(list: [flashcard2], dateCreated: date2, createdBy: user.userName),
+
         StudySetModel(list: [flashcard3], dateCreated: date3, createdBy: user.userName)
+
     ]
     return user
 }
@@ -33,6 +37,7 @@ func createDate(date: String) -> Date {
     if let date = formatter.date(from: date) {
         return date
     }
+
     // default date if the string is invalid
     return formatter.date(from: "0000-00-00")!
 }
