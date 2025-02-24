@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		213871AD2D5CEED900B83A04 /* OpenAIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213871AC2D5CEED600B83A04 /* OpenAIRequest.swift */; };
 		213871B22D5CF2B500B83A04 /* OpenAIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213871B12D5CF2B400B83A04 /* OpenAIResponse.swift */; };
+		9234242D2D67FEE5004FC038 /* OpenAIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234242C2D67FEDC004FC038 /* OpenAIManager.swift */; };
 		94B653E12D6562EE001D3727 /* StudySetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B653E02D6562EE001D3727 /* StudySetModel.swift */; };
 		94B653E32D6562F7001D3727 /* Flashcard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B653E22D6562F7001D3727 /* Flashcard.swift */; };
 		9688CEE82D5EC24B009C719A /* TextParsingPDFs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688CEE72D5EC246009C719A /* TextParsingPDFs.swift */; };
@@ -37,6 +38,7 @@
 /* Begin PBXFileReference section */
 		213871AC2D5CEED600B83A04 /* OpenAIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIRequest.swift; sourceTree = "<group>"; };
 		213871B12D5CF2B400B83A04 /* OpenAIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIResponse.swift; sourceTree = "<group>"; };
+		9234242C2D67FEDC004FC038 /* OpenAIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIManager.swift; sourceTree = "<group>"; };
 		9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94B653E02D6562EE001D3727 /* StudySetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySetModel.swift; sourceTree = "<group>"; };
 		94B653E22D6562F7001D3727 /* Flashcard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flashcard.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 		CAAA3ABC2D5B10B600D9A631 /* AI */ = {
 			isa = PBXGroup;
 			children = (
+				9234242C2D67FEDC004FC038 /* OpenAIManager.swift */,
 				213871B12D5CF2B400B83A04 /* OpenAIResponse.swift */,
 				213871AC2D5CEED600B83A04 /* OpenAIRequest.swift */,
 				CAAA3ABD2D5B10C200D9A631 /* IntelligenceRequest.swift */,
@@ -237,7 +240,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				CA0CE2D62D5C2BFA00DD8FD2 /* PBXTargetDependency */,
+				CABC819F2D6BF567002D5657 /* PBXTargetDependency */,
 			);
 			name = StudyBuddy;
 			packageProductDependencies = (
@@ -322,6 +325,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAAA3AC42D5B116300D9A631 /* IntelligenceModel.swift in Sources */,
+				9234242D2D67FEE5004FC038 /* OpenAIManager.swift in Sources */,
 				CAAA3AB32D5B102D00D9A631 /* UserModel.swift in Sources */,
 				9B70DE112D5C2FA900F447CD /* LlamaAIManager.swift in Sources */,
 				EAFA58462D5D417600ADC214 /* UploadModel.swift in Sources */,
@@ -349,9 +353,9 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		CA0CE2D62D5C2BFA00DD8FD2 /* PBXTargetDependency */ = {
+		CABC819F2D6BF567002D5657 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = CA0CE2D52D5C2BFA00DD8FD2 /* SwiftLintBuildToolPlugin */;
+			productRef = CABC819E2D6BF567002D5657 /* SwiftLintBuildToolPlugin */;
 		};
 /* End PBXTargetDependency section */
 
@@ -570,7 +574,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CA0CE2D52D5C2BFA00DD8FD2 /* SwiftLintBuildToolPlugin */ = {
+		CABC819E2D6BF567002D5657 /* SwiftLintBuildToolPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CA0CE2C82D5C290100DD8FD2 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";
