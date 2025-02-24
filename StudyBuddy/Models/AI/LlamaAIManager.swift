@@ -11,13 +11,13 @@ struct LlamaResponse: IntelligenceResponse {
     var output: String
 }
 
-// class LlamaAIManager: IntelligenceManager {
-//     static let shared = LlamaAIManager()
+ class LlamaAIManager: IntelligenceManager {
+     static let shared = LlamaAIManager()
 
-//     private init() {}
+     private init() {}
 
-//     func makeRequest(_ req: IntelligenceRequest) async throws -> IntelligenceResponse {
-//         // TODO: Implement feature
-//         throw NSError(domain: "missing method", code: 1)
-//     }
-// }
+     func makeRequest(_ req: IntelligenceRequest) async throws -> IntelligenceResponse {
+         // TODO: Implement feature
+         throw NSError(domain: "missing method", code: 1)
+     }
+ }
