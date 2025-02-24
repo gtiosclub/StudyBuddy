@@ -240,6 +240,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				CABC819F2D6BF567002D5657 /* PBXTargetDependency */,
 			);
 			name = StudyBuddy;
 			packageProductDependencies = (
@@ -350,6 +351,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CABC819F2D6BF567002D5657 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = CABC819E2D6BF567002D5657 /* SwiftLintBuildToolPlugin */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		9402BD272D558ABC00F2C00B /* Debug */ = {
@@ -564,6 +572,14 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CABC819E2D6BF567002D5657 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CA0CE2C82D5C290100DD8FD2 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9402BD132D558ABA00F2C00B /* Project object */;
 }
