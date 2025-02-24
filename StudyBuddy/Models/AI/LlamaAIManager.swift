@@ -7,12 +7,24 @@
 
 import Foundation
 
+struct LLMRequest {
+    var prompt: String
+    var continuous: Bool
+    var systemPrompt: String
+    var maxCharacters: Int?
+}
+
+struct LLMResponse {
+    var output: String
+    var trimmedresponse: Bool
+}
+
 struct LlamaResponse: IntelligenceResponse {
     var output: String
 }
 
-class LlamaAIManager: IntelligenceManager {
-    static let shared = LlamaAIManager()
+ class LlamaAIManager: IntelligenceManager {
+     static let shared = LlamaAIManager()
 
     private init() {}
 

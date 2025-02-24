@@ -9,7 +9,7 @@ import UIKit
 import Vision
 import PDFKit
 
-//Extracts text content from a PDF file
+// Extracts text content from a PDF file
 // pdfURL: The URL of the PDF file to process
 // completion: receives the extracted text as a String
 func extractTextFromPDF(pdfURL: URL, completion: @escaping (String) -> Void) {
@@ -25,12 +25,11 @@ func extractTextFromPDF(pdfURL: URL, completion: @escaping (String) -> Void) {
     // Iterates through each page of the PDF
     for pageIndex in 0..<pdfDocument.pageCount {
         guard let page = pdfDocument.page(at: pageIndex) else { continue }
-        
         // Convert PDFs page to image for OCR processing
         let pageRect = page.bounds(for: .mediaBox)
         let renderer = UIGraphicsImageRenderer(size: pageRect.size)
         let image = renderer.image { ctx in
-            //convert background to white and change coordinates
+            // convert background to white and change coordinates
             UIColor.white.set()
             ctx.fill(pageRect)
             ctx.cgContext.translateBy(x: 0.0, y: pageRect.size.height)
@@ -86,5 +85,3 @@ func recognizeTextInImage(_ image: UIImage, completion: @escaping (String?) -> V
         }
     }
 }
-
-
