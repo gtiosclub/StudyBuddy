@@ -6,12 +6,17 @@
 //
 
 import Foundation
+import SwiftUI
 
-struct UserModel: Identifiable {
-    let id: UUID = UUID()
-    var email: String
-    var userName: String
+import FirebaseFirestore
+
+struct UserModel: Codable, Identifiable {
+    @DocumentID var id: String?
+    var email: String = ""
+    var userName: String = ""
     var studySets: [StudySetModel] = []
+    
+    var userID = UUID()
     
     
 }

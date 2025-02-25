@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		213871AD2D5CEED900B83A04 /* OpenAIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213871AC2D5CEED600B83A04 /* OpenAIRequest.swift */; };
 		213871B22D5CF2B500B83A04 /* OpenAIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213871B12D5CF2B400B83A04 /* OpenAIResponse.swift */; };
+		7F2C8B592D67FF5800B7A259 /* StudySetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2C8B582D67FF5800B7A259 /* StudySetViewModel.swift */; };
+		7F2C8B5B2D67FF6300B7A259 /* FlashcardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2C8B5A2D67FF6300B7A259 /* FlashcardViewModel.swift */; };
+		7F2C8B5E2D6804E900B7A259 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 7F2C8B5D2D6804E900B7A259 /* FirebaseFirestore */; };
 		94B653E12D6562EE001D3727 /* StudySetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B653E02D6562EE001D3727 /* StudySetModel.swift */; };
 		94B653E32D6562F7001D3727 /* Flashcard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B653E22D6562F7001D3727 /* Flashcard.swift */; };
 		9688CEE82D5EC24B009C719A /* TextParsingPDFs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688CEE72D5EC246009C719A /* TextParsingPDFs.swift */; };
@@ -36,6 +39,8 @@
 /* Begin PBXFileReference section */
 		213871AC2D5CEED600B83A04 /* OpenAIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIRequest.swift; sourceTree = "<group>"; };
 		213871B12D5CF2B400B83A04 /* OpenAIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIResponse.swift; sourceTree = "<group>"; };
+		7F2C8B582D67FF5800B7A259 /* StudySetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySetViewModel.swift; sourceTree = "<group>"; };
+		7F2C8B5A2D67FF6300B7A259 /* FlashcardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardViewModel.swift; sourceTree = "<group>"; };
 		9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94B653E02D6562EE001D3727 /* StudySetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySetModel.swift; sourceTree = "<group>"; };
 		94B653E22D6562F7001D3727 /* Flashcard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flashcard.swift; sourceTree = "<group>"; };
@@ -66,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F2C8B5E2D6804E900B7A259 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +155,8 @@
 			children = (
 				EAFA58412D5D413E00ADC214 /* UploadViewModel */,
 				CAAA3AAD2D5B102D00D9A631 /* UserViewModel.swift */,
+				7F2C8B582D67FF5800B7A259 /* StudySetViewModel.swift */,
+				7F2C8B5A2D67FF6300B7A259 /* FlashcardViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -226,6 +234,7 @@
 			);
 			name = StudyBuddy;
 			packageProductDependencies = (
+				7F2C8B5D2D6804E900B7A259 /* FirebaseFirestore */,
 			);
 			productName = StudyBuddy;
 			productReference = 9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */;
@@ -258,6 +267,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				CA0CE2C82D5C290100DD8FD2 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+				7F2C8B5C2D6804E900B7A259 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 9402BD1C2D558ABA00F2C00B /* Products */;
 			projectDirPath = "";
@@ -319,12 +329,14 @@
 				213871B22D5CF2B500B83A04 /* OpenAIResponse.swift in Sources */,
 				CAAA3AB62D5B102D00D9A631 /* StudyBuddyApp.swift in Sources */,
 				EAFA58482D5D417D00ADC214 /* UploadViewModel.swift in Sources */,
+				7F2C8B5B2D67FF6300B7A259 /* FlashcardViewModel.swift in Sources */,
 				94B653E12D6562EE001D3727 /* StudySetModel.swift in Sources */,
 				CA0CE2D02D5C2AF500DD8FD2 /* SetView.swift in Sources */,
 				C7BCD2BC2D5DAA8A00F89A0C /* DocumentPickerView.swift in Sources */,
 				CA0CE2D12D5C2AF500DD8FD2 /* StudyView.swift in Sources */,
 				EAFA584A2D5D418700ADC214 /* UploadView.swift in Sources */,
 				CAAA3AC02D5B10D700D9A631 /* IntelligenceManager.swift in Sources */,
+				7F2C8B592D67FF5800B7A259 /* StudySetViewModel.swift in Sources */,
 				CAAA3AC22D5B110800D9A631 /* IntelligenceResponse.swift in Sources */,
 				213871AD2D5CEED900B83A04 /* OpenAIRequest.swift in Sources */,
 			);
@@ -543,6 +555,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		7F2C8B5C2D6804E900B7A259 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.8.1;
+			};
+		};
 		CA0CE2C82D5C290100DD8FD2 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
@@ -554,6 +574,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		7F2C8B5D2D6804E900B7A259 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7F2C8B5C2D6804E900B7A259 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
 		CA0CE2D52D5C2BFA00DD8FD2 /* SwiftLintBuildToolPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CA0CE2C82D5C290100DD8FD2 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
