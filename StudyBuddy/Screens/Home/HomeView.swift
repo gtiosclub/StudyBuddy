@@ -7,18 +7,26 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct HomeView: View {
+    @EnvironmentObject var authViewModel: AuthViewModel
+
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("Hello, world!")
+                .padding()
+            
+            Button(action: authViewModel.logoutUser) {
+                Text("Log Out")
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.red)
+                    .cornerRadius(10)
+            }
+            .padding()
         }
-        .padding()
     }
-}
-
-#Preview {
-    ContentView()
 }
