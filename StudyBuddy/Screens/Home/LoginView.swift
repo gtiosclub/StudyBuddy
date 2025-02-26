@@ -12,11 +12,19 @@ struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var errorMessage: String?
+    @State private var isLoginMode: Bool = true
 
     @EnvironmentObject var authViewModel: AuthViewModel
 
     var body: some View {
         VStack {
+            Picker(selection: $isLoginMode, label: Text("Picker here")) {
+                            Text("Login").tag(true)
+                            Text("Create Account").tag(false)
+            }
+                        .pickerStyle(SegmentedPickerStyle())
+                        .padding()
+            
             TextField("Enter email", text: $email)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .keyboardType(.emailAddress)
@@ -33,21 +41,16 @@ struct LoginView: View {
                     .padding()
             }
 
-            Button(action: loginUser) {
-                Text("Login")
+            Button(action: isLoginMode ? loginUser : registerUser) {
+                Text(isLoginMode ? "Login" : "Create Account")
                     .foregroundColor(.white)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color.blue)
+                    .background(isLoginMode ? Color.blue : Color.green)
                     .cornerRadius(10)
             }
             .padding()
-
-            Button(action: registerUser) {
-                Text("Create Account")
-                    .foregroundColor(.blue)
-            }
-            .padding()
+            
         }
         .padding()
     }
