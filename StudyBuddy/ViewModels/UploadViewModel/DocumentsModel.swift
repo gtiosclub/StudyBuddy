@@ -15,7 +15,7 @@ struct Document: Identifiable {
     let content: String  // Raw content of the document
     let dateCreated: Date  // Timestamp when the document was created
     var parsedContent: String?  // Stores extracted text after parsing (optional)
-    
+
     /// Initializes a new document with a given file name and content.
     /// - Parameters:
     ///   - fileName: Name of the document file.
@@ -28,7 +28,7 @@ struct Document: Identifiable {
         self.dateCreated = Date()  // Set creation timestamp
         self.parsedContent = parsedContent
     }
-    
+
     /// Updates the parsed content of the document after text extraction.
     /// - Parameter parsed: The extracted text from the document.
     mutating func updateParsedContent(_ parsed: String) {
