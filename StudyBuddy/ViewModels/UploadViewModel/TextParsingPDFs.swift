@@ -11,10 +11,11 @@ import PDFKit
 
 // Extracts text content from a PDF file
 // pdfURL: The URL of the PDF file to process
-// completion: receives the extracted text as a String
-func extractTextFromPDF(pdfURL: URL, completion: @escaping (String) -> Void) {
+// document: The Document model to update with parsed text
+// completion: receives the extracted text as a String and the updated document
+func extractTextFromPDF(pdfURL: URL, document: Document, completion: @escaping (String, Document) -> Void) {
     guard let pdfDocument = PDFDocument(url: pdfURL) else {
-        completion("")
+        completion("", document)
         return
     }
 
@@ -50,7 +51,10 @@ func extractTextFromPDF(pdfURL: URL, completion: @escaping (String) -> Void) {
     }
 
     dispatchGroup.notify(queue: .main) {
-        completion(extractedText)
+        // Create a new document with updated content
+        var updatedDocument = document
+        updatedDocument.updateParsedContent(extractedText)
+        completion(extractedText, updatedDocument)
     }
 }
 
