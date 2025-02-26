@@ -14,6 +14,7 @@
 		94B653E32D6562F7001D3727 /* Flashcard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B653E22D6562F7001D3727 /* Flashcard.swift */; };
 		9688CEE82D5EC24B009C719A /* TextParsingPDFs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688CEE72D5EC246009C719A /* TextParsingPDFs.swift */; };
 		9B70DE112D5C2FA900F447CD /* LlamaAIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B70DE102D5C2FA900F447CD /* LlamaAIManager.swift */; };
+		AADE96032D6E983B008DD19B /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADE96022D6E983B008DD19B /* AddView.swift */; };
 		C7BCD2BC2D5DAA8A00F89A0C /* DocumentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BCD2BB2D5DAA8100F89A0C /* DocumentPickerView.swift */; };
 		CA0CE2CC2D5C2AE600DD8FD2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */; };
 		CA0CE2D02D5C2AF500DD8FD2 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2CD2D5C2AF500DD8FD2 /* SetView.swift */; };
@@ -44,6 +45,7 @@
 		94B653E22D6562F7001D3727 /* Flashcard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flashcard.swift; sourceTree = "<group>"; };
 		9688CEE72D5EC246009C719A /* TextParsingPDFs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextParsingPDFs.swift; sourceTree = "<group>"; };
 		9B70DE102D5C2FA900F447CD /* LlamaAIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LlamaAIManager.swift; sourceTree = "<group>"; };
+		AADE96022D6E983B008DD19B /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 		C7BCD2BB2D5DAA8100F89A0C /* DocumentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerView.swift; sourceTree = "<group>"; };
 		CA0CE2112D5C232500DD8FD2 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
 		CA0CE2122D5C232500DD8FD2 /* StudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyView.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 			children = (
 				CA0CE2CD2D5C2AF500DD8FD2 /* SetView.swift */,
 				CA0CE2CE2D5C2AF500DD8FD2 /* StudyView.swift */,
+				AADE96022D6E983B008DD19B /* AddView.swift */,
 			);
 			path = Flashcards;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				C7BCD2BC2D5DAA8A00F89A0C /* DocumentPickerView.swift in Sources */,
 				CA0CE2D12D5C2AF500DD8FD2 /* StudyView.swift in Sources */,
 				EAFA584A2D5D418700ADC214 /* UploadView.swift in Sources */,
+				AADE96032D6E983B008DD19B /* AddView.swift in Sources */,
 				CAAA3AC02D5B10D700D9A631 /* IntelligenceManager.swift in Sources */,
 				CAAA3AC22D5B110800D9A631 /* IntelligenceResponse.swift in Sources */,
 				213871AD2D5CEED900B83A04 /* OpenAIRequest.swift in Sources */,
