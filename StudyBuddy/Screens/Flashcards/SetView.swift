@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SetView: View {
-    var hardcodedSet: [String: String] = ["Hello": "World", "Swift": "UI", "SwiftUI": "Is", "Card": "definition", "Onemore": "card"]
+    var hardcodedSet: [String: String] = ["Hello": "World", "Swift": "UI", "SwiftUI": "booo", "Card": "definition", "Onemore": "card"]
 
     var body: some View {
         NavigationStack {
@@ -17,9 +17,7 @@ struct SetView: View {
                     Text("Flashcards")
                         .font(.title)
                         .padding()
-                    
-                    ForEach(hardcodedSet.keys.sorted(), id: \.self)
-                    { key in
+                    ForEach(hardcodedSet.keys.sorted(), id: \.self) { key in
                         HStack { // Loops through the flashcards from hardcodedSet and adds them to the scrollable views
                             Text(key)
                                 .font(.headline)
@@ -57,23 +55,3 @@ struct SetView: View {
 SetView()
 }
 
-
-
-
-
-
-
-
-
-
-
-
-//
-    //    var body: some View {
-    //        Text("View All the Words")
-    //    }
-    //}
-    //
-    //#Preview {
-    //    SetView()
-    //}
