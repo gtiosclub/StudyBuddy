@@ -21,6 +21,7 @@
 		40BC4EB22D5C26520013E6BC /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 40BC4EB12D5C26520013E6BC /* FirebaseStorageCombine-Community */; };
 		40BC4EB42D5C27510013E6BC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BC4EB32D5C274B0013E6BC /* LoginView.swift */; };
 		40C8A38F2D68059E00EB5B6E /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C8A38E2D68059900EB5B6E /* AuthViewModel.swift */; };
+		40C8A3912D7119AD00EB5B6E /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C8A3902D7119A700EB5B6E /* ChangePasswordView.swift */; };
 		CA0CE2102D5C232200DD8FD2 /* StudySetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE20E2D5C232200DD8FD2 /* StudySetModel.swift */; };
 		CA0CE2142D5C232500DD8FD2 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2112D5C232500DD8FD2 /* SetView.swift */; };
 		CA0CE2152D5C232500DD8FD2 /* StudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2122D5C232500DD8FD2 /* StudyView.swift */; };
@@ -40,6 +41,7 @@
 		40BC4E9A2D5C24EC0013E6BC /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		40BC4EB32D5C274B0013E6BC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		40C8A38E2D68059900EB5B6E /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		40C8A3902D7119A700EB5B6E /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA0CE20E2D5C232200DD8FD2 /* StudySetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySetModel.swift; sourceTree = "<group>"; };
 		CA0CE2112D5C232500DD8FD2 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 		CA0CE2172D5C232700DD8FD2 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				40C8A3902D7119A700EB5B6E /* ChangePasswordView.swift */,
 				40C8A38E2D68059900EB5B6E /* AuthViewModel.swift */,
 				40BC4EB32D5C274B0013E6BC /* LoginView.swift */,
 				CA0CE2162D5C232700DD8FD2 /* HomeView.swift */,
@@ -270,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA0CE2102D5C232200DD8FD2 /* StudySetModel.swift in Sources */,
+				40C8A3912D7119AD00EB5B6E /* ChangePasswordView.swift in Sources */,
 				CAAA3AC42D5B116300D9A631 /* IntelligenceModel.swift in Sources */,
 				CAAA3AB32D5B102D00D9A631 /* UserModel.swift in Sources */,
 				CAAA3ABE2D5B10C200D9A631 /* IntelligenceRequest.swift in Sources */,
