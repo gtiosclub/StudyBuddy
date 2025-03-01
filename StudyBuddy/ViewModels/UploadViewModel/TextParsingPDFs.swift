@@ -53,8 +53,6 @@ func extractTextFromPDF(pdfURL: URL, completion: @escaping (String) -> Void) {
         completion(extractedText)
     }
 }
-
-
 // Performs OCR on a single image using Vision framework
 func recognizeTextInImage(_ image: UIImage, completion: @escaping (String?) -> Void) {
     // Convert UIImage to CGImage for Vision framework

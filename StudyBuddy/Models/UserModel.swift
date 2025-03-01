@@ -13,8 +13,6 @@ struct UserModel: Identifiable {
     var userName: String
     var studySets: [StudySetModel] = []
 
-
-
 }
 
 func createTestUser(_ email: String, _ userName: String, _ date1: Date, _ date2: Date, _ date3: Date, _ flashcardText1: String, _ flashcardText2: String, _ flashcardText3: String) -> UserModel {

@@ -53,7 +53,7 @@ struct FlashCardApp: View {
 
 struct FlashCardApp_Previews: PreviewProvider {
     static var previews: some View {
-        let hardSet = StudySet(set : ["String" : ("String","String")])
+        let hardSet = StudySet(set: ["String": ("String", "String")])
         FlashCardApp(studySet: hardSet)
     }
 }
