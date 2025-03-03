@@ -7,8 +7,9 @@
 
 import Foundation
 import MLX
-import MLXNN
-import MLXOptim
+import MLXLLM
+import MLXLMCommon
+import MLXRandom
 
 class LLMEvaluator {
     private let modelName1B = "Llama-3.2-1B.mlx"
