@@ -6,11 +6,12 @@
 //
 
 import Foundation
-struct StudySetModel: Identifiable {
+import FirebaseFirestore
+struct StudySetModel: Identifiable, Codable {
     //contains a list of flashcards objects
     //includes meta data when it was created who created it etc
-    let id = UUID()
-    var list: [Flashcard] = []
+    @DocumentID var id: String?
+    var list: [FlashcardModel]
     let dateCreated: Date //date format
     let createdBy: String
     //create multiple study sets and initialize it with values

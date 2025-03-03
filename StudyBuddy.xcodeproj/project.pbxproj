@@ -13,7 +13,7 @@
 		7F2C8B5B2D67FF6300B7A259 /* FlashcardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2C8B5A2D67FF6300B7A259 /* FlashcardViewModel.swift */; };
 		7F2C8B5E2D6804E900B7A259 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 7F2C8B5D2D6804E900B7A259 /* FirebaseFirestore */; };
 		94B653E12D6562EE001D3727 /* StudySetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B653E02D6562EE001D3727 /* StudySetModel.swift */; };
-		94B653E32D6562F7001D3727 /* Flashcard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B653E22D6562F7001D3727 /* Flashcard.swift */; };
+		94B653E32D6562F7001D3727 /* FlashcardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B653E22D6562F7001D3727 /* FlashcardModel.swift */; };
 		9688CEE82D5EC24B009C719A /* TextParsingPDFs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688CEE72D5EC246009C719A /* TextParsingPDFs.swift */; };
 		9B70DE112D5C2FA900F447CD /* LlamaAIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B70DE102D5C2FA900F447CD /* LlamaAIManager.swift */; };
 		C7BCD2BC2D5DAA8A00F89A0C /* DocumentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BCD2BB2D5DAA8100F89A0C /* DocumentPickerView.swift */; };
@@ -43,7 +43,7 @@
 		7F2C8B5A2D67FF6300B7A259 /* FlashcardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardViewModel.swift; sourceTree = "<group>"; };
 		9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94B653E02D6562EE001D3727 /* StudySetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySetModel.swift; sourceTree = "<group>"; };
-		94B653E22D6562F7001D3727 /* Flashcard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flashcard.swift; sourceTree = "<group>"; };
+		94B653E22D6562F7001D3727 /* FlashcardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardModel.swift; sourceTree = "<group>"; };
 		9688CEE72D5EC246009C719A /* TextParsingPDFs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextParsingPDFs.swift; sourceTree = "<group>"; };
 		9B70DE102D5C2FA900F447CD /* LlamaAIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LlamaAIManager.swift; sourceTree = "<group>"; };
 		C7BCD2BB2D5DAA8100F89A0C /* DocumentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerView.swift; sourceTree = "<group>"; };
@@ -127,7 +127,7 @@
 				CAAA3ABC2D5B10B600D9A631 /* AI */,
 				CAAA3AA72D5B102D00D9A631 /* UserModel.swift */,
 				94B653E02D6562EE001D3727 /* StudySetModel.swift */,
-				94B653E22D6562F7001D3727 /* Flashcard.swift */,
+				94B653E22D6562F7001D3727 /* FlashcardModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -322,7 +322,7 @@
 				EAFA58462D5D417600ADC214 /* UploadModel.swift in Sources */,
 				CAAA3ABE2D5B10C200D9A631 /* IntelligenceRequest.swift in Sources */,
 				CA0CE2D42D5C2B1700DD8FD2 /* FlashcardStudySetModel.swift in Sources */,
-				94B653E32D6562F7001D3727 /* Flashcard.swift in Sources */,
+				94B653E32D6562F7001D3727 /* FlashcardModel.swift in Sources */,
 				9688CEE82D5EC24B009C719A /* TextParsingPDFs.swift in Sources */,
 				CA0CE2CC2D5C2AE600DD8FD2 /* HomeView.swift in Sources */,
 				CAAA3AB52D5B102D00D9A631 /* UserViewModel.swift in Sources */,

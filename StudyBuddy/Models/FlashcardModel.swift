@@ -6,8 +6,9 @@
 //
 
 import Foundation
-struct Flashcard: Identifiable {
-    let id = UUID()
+import FirebaseFirestore
+struct FlashcardModel: Identifiable, Codable {
+    @DocumentID var id: String?
     var text: String
     let createdBy: String
 }
