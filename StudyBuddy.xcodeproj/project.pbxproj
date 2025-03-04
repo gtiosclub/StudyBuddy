@@ -20,6 +20,7 @@
 		966B69C42D67F9DA00BB11DE /* DocumentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B69C32D67F9D600BB11DE /* DocumentsModel.swift */; };
 		9688CEE82D5EC24B009C719A /* TextParsingPDFs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688CEE72D5EC246009C719A /* TextParsingPDFs.swift */; };
 		9B70DE112D5C2FA900F447CD /* LlamaAIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B70DE102D5C2FA900F447CD /* LlamaAIManager.swift */; };
+		9B883B362D713DA400AE3DEF /* LLMEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B883B352D713DA400AE3DEF /* LLMEvaluator.swift */; };
 		AADE96032D6E983B008DD19B /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADE96022D6E983B008DD19B /* AddView.swift */; };
 		C7BCD2BC2D5DAA8A00F89A0C /* DocumentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BCD2BB2D5DAA8100F89A0C /* DocumentPickerView.swift */; };
 		CA0CE2CC2D5C2AE600DD8FD2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */; };
@@ -37,6 +38,10 @@
 		CAAA3AC02D5B10D700D9A631 /* IntelligenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3ABF2D5B10D700D9A631 /* IntelligenceManager.swift */; };
 		CAAA3AC22D5B110800D9A631 /* IntelligenceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3AC12D5B110800D9A631 /* IntelligenceResponse.swift */; };
 		CAAA3AC42D5B116300D9A631 /* IntelligenceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3AC32D5B116300D9A631 /* IntelligenceModel.swift */; };
+		CABC81AA2D764E9D002D5657 /* MLXLLM in Frameworks */ = {isa = PBXBuildFile; productRef = CABC81A92D764E9D002D5657 /* MLXLLM */; };
+		CABC81AC2D764E9D002D5657 /* MLXLMCommon in Frameworks */ = {isa = PBXBuildFile; productRef = CABC81AB2D764E9D002D5657 /* MLXLMCommon */; };
+		CABC81B02D77BBEF002D5657 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC81AF2D77BBEF002D5657 /* Models.swift */; };
+		CABC81B22D77BC1D002D5657 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC81B12D77BC1B002D5657 /* ModelData.swift */; };
 		EA89AA4E2D71142F0033CFDF /* FileLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA89AA4D2D71142F0033CFDF /* FileLibraryView.swift */; };
 		EAB1733C2D711BE2005A8CA0 /* FileLibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB1733B2D711BE2005A8CA0 /* FileLibraryViewModel.swift */; };
 		EAFA58462D5D417600ADC214 /* UploadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA58452D5D417600ADC214 /* UploadModel.swift */; };
@@ -57,6 +62,7 @@
 		966B69C32D67F9D600BB11DE /* DocumentsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsModel.swift; sourceTree = "<group>"; };
 		9688CEE72D5EC246009C719A /* TextParsingPDFs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextParsingPDFs.swift; sourceTree = "<group>"; };
 		9B70DE102D5C2FA900F447CD /* LlamaAIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LlamaAIManager.swift; sourceTree = "<group>"; };
+		9B883B352D713DA400AE3DEF /* LLMEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMEvaluator.swift; sourceTree = "<group>"; };
 		AADE96022D6E983B008DD19B /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 		C7BCD2BB2D5DAA8100F89A0C /* DocumentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerView.swift; sourceTree = "<group>"; };
 		CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -74,6 +80,8 @@
 		CAAA3ABF2D5B10D700D9A631 /* IntelligenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceManager.swift; sourceTree = "<group>"; };
 		CAAA3AC12D5B110800D9A631 /* IntelligenceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceResponse.swift; sourceTree = "<group>"; };
 		CAAA3AC32D5B116300D9A631 /* IntelligenceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceModel.swift; sourceTree = "<group>"; };
+		CABC81AF2D77BBEF002D5657 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		CABC81B12D77BC1B002D5657 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		EA89AA4D2D71142F0033CFDF /* FileLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLibraryView.swift; sourceTree = "<group>"; };
 		EAB1733B2D711BE2005A8CA0 /* FileLibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLibraryViewModel.swift; sourceTree = "<group>"; };
 		EAFA58452D5D417600ADC214 /* UploadModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadModel.swift; sourceTree = "<group>"; };
@@ -86,6 +94,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CABC81AC2D764E9D002D5657 /* MLXLMCommon in Frameworks */,
+				CABC81AA2D764E9D002D5657 /* MLXLLM in Frameworks */,
 				963B88922D77A1FF001DAE15 /* FirebaseFirestore in Frameworks */,
 				963B88942D77A1FF001DAE15 /* FirebaseStorage in Frameworks */,
 			);
@@ -222,6 +232,7 @@
 		CAAA3ABC2D5B10B600D9A631 /* AI */ = {
 			isa = PBXGroup;
 			children = (
+				CABC81B12D77BC1B002D5657 /* ModelData.swift */,
 				9234242C2D67FEDC004FC038 /* OpenAIManager.swift */,
 				213871B12D5CF2B400B83A04 /* OpenAIResponse.swift */,
 				213871AC2D5CEED600B83A04 /* OpenAIRequest.swift */,
@@ -231,6 +242,8 @@
 				CAAA3AC32D5B116300D9A631 /* IntelligenceModel.swift */,
 				CA349F2F2D6801440024356A /* LlamaManager.swift */,
 				9B70DE102D5C2FA900F447CD /* LlamaAIManager.swift */,
+				9B883B352D713DA400AE3DEF /* LLMEvaluator.swift */,
+				CABC81AF2D77BBEF002D5657 /* Models.swift */,
 			);
 			path = AI;
 			sourceTree = "<group>";
@@ -297,6 +310,8 @@
 			);
 			name = StudyBuddy;
 			packageProductDependencies = (
+				CABC81A92D764E9D002D5657 /* MLXLLM */,
+				CABC81AB2D764E9D002D5657 /* MLXLMCommon */,
 				963B88912D77A1FF001DAE15 /* FirebaseFirestore */,
 				963B88932D77A1FF001DAE15 /* FirebaseStorage */,
 			);
@@ -331,6 +346,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				CA0CE2C82D5C290100DD8FD2 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+				CABC81A82D764E9D002D5657 /* XCRemoteSwiftPackageReference "mlx-swift-examples" */,
 				963B88902D77A1FF001DAE15 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 9402BD1C2D558ABA00F2C00B /* Products */;
@@ -383,8 +399,10 @@
 				CAAA3AC42D5B116300D9A631 /* IntelligenceModel.swift in Sources */,
 				9234242D2D67FEE5004FC038 /* OpenAIManager.swift in Sources */,
 				CAAA3AB32D5B102D00D9A631 /* UserModel.swift in Sources */,
+				CABC81B22D77BC1D002D5657 /* ModelData.swift in Sources */,
 				9B70DE112D5C2FA900F447CD /* LlamaAIManager.swift in Sources */,
 				EAFA58462D5D417600ADC214 /* UploadModel.swift in Sources */,
+				9B883B362D713DA400AE3DEF /* LLMEvaluator.swift in Sources */,
 				CAAA3ABE2D5B10C200D9A631 /* IntelligenceRequest.swift in Sources */,
 				CA0CE2D42D5C2B1700DD8FD2 /* FlashcardStudySetModel.swift in Sources */,
 				94B653E32D6562F7001D3727 /* Flashcard.swift in Sources */,
@@ -410,6 +428,7 @@
 				CAAA3AC02D5B10D700D9A631 /* IntelligenceManager.swift in Sources */,
 				CAAA3AC22D5B110800D9A631 /* IntelligenceResponse.swift in Sources */,
 				213871AD2D5CEED900B83A04 /* OpenAIRequest.swift in Sources */,
+				CABC81B02D77BBEF002D5657 /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -642,6 +661,14 @@
 				minimumVersion = 0.58.2;
 			};
 		};
+		CABC81A82D764E9D002D5657 /* XCRemoteSwiftPackageReference "mlx-swift-examples" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ml-explore/mlx-swift-examples/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.21.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -659,6 +686,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CA0CE2C82D5C290100DD8FD2 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		CABC81A92D764E9D002D5657 /* MLXLLM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CABC81A82D764E9D002D5657 /* XCRemoteSwiftPackageReference "mlx-swift-examples" */;
+			productName = MLXLLM;
+		};
+		CABC81AB2D764E9D002D5657 /* MLXLMCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CABC81A82D764E9D002D5657 /* XCRemoteSwiftPackageReference "mlx-swift-examples" */;
+			productName = MLXLMCommon;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
