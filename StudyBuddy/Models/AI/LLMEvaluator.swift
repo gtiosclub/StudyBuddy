@@ -4,7 +4,6 @@
 //
 //  Created by Matthew Dong on 2/27/25.
 //
-
 import Foundation
 import MLX
 import MLXLLM
@@ -19,7 +18,7 @@ class LLMEvaluator {
     private let model3BURL = URL(string: "https://huggingface.co/mlx-community/Llama-3.2-3B/resolve/main/model.mlx")!
     
     private let destinationPath: URL
-    private var model: MLX.Module?
+    private var model: (any LLMModel)?
     
     init() {
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -57,13 +56,16 @@ class LLMEvaluator {
         }
     }
     
-    private func loadModel(name: String) -> MLX.Module? {
+    private func loadModel(name: String) -> (any LLMModel)? {
         let modelPath = destinationPath.appendingPathComponent(name).path
-        guard let model = try? MLX.load(modelPath) else {
-            print("Failed to load model: \(name)")
+        do {
+            let model = try LlamaModel(URL(fileURLWithPath: modelPath))
+            print("Successfully loaded model: \(name)")
+            return model
+        } catch {
+            print("Failed to load model: \(name), error: \(error.localizedDescription)")
             return nil
         }
-        return model
     }
     
     private func setupModels() async {
@@ -79,15 +81,21 @@ class LLMEvaluator {
         }
     }
     
-    func generateCompletion(prompt: String) -> String {
-        guard let model = model else {
-            return "Model is not loaded."
+    func generateCompletion(prompt: String) async -> String {
+        guard let llamaModel = model as? LlamaModel else {
+            return "Model is not loaded or incompatible."
         }
-        
-        let inputTensor = MLX.Tensor(prompt)
-        let outputTensor = model.forward(inputTensor)
-        return outputTensor.toString()
+
+        do {
+            let result = try await llamaModel.generate(text: prompt)
+            return result
+        } catch {
+            return "Error generating completion: \(error.localizedDescription)"
+        }
     }
 }
+
+
+
 
 
