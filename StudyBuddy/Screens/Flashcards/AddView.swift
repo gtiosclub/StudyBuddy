@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FlashCardApp: View {
+struct AddView: View {
     @State private var frontText: String = ""
     @State private var backText: String = ""
     var set: [String: (String, String)]
@@ -54,6 +54,6 @@ struct FlashCardApp: View {
 struct FlashCardApp_Previews: PreviewProvider {
     static var previews: some View {
         let hardSet = StudySet(set : ["String" : ("String","String")])
-        FlashCardApp(studySet: hardSet)
+        AddView(studySet: hardSet)
     }
 }

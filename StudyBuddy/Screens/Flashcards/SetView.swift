@@ -8,21 +8,28 @@
 import SwiftUI
 
 struct SetView: View {
+    @ObservedObject var exampleSet: StudySet = StudySet(set: ["1":("print","Prints to console"), "2":("SwiftUI","Used to create UI"), "3":("Firebase","Stores information")])
     var hardcodedSet: [String: String] = ["Hello": "World", "Swift": "UI", "SwiftUI": "booo", "Card": "definition", "Onemore": "card"]
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading) {
-                    Text("Flashcards")
-                        .font(.title)
-                        .padding()
-                    ForEach(hardcodedSet.keys.sorted(), id: \.self) { key in
+                    HStack {
+                        Text("Study Set 1")
+                            .font(.title)
+                            .padding()
+                        NavigationLink(destination: AddView(studySet: exampleSet)) {
+                            Text("+")
+                        }
+                    }
+                    ForEach(exampleSet.set.keys.sorted(), id: \.self) { key in
+                        let value = exampleSet.set[key]!
                         HStack { // Loops through the flashcards from hardcodedSet and adds them to the scrollable views
-                            Text(key)
+                            Text(value.0)
                                 .font(.headline)
                             Spacer()
-                            Text(hardcodedSet[key] ?? "")
+                            Text(value.1)
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                         }
@@ -33,7 +40,7 @@ struct SetView: View {
 
                 }
                 .safeAreaInset(edge: .bottom) { // Idea was to pin the button to the bottom but it isnt doing that
-                    NavigationLink(destination: StudyView()) {
+                    NavigationLink(destination: StudyView(studySet: exampleSet)) {
                     Text("Study")
                         .font(.headline)
                         .foregroundColor(.white)
