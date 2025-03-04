@@ -49,8 +49,6 @@
 		9B70DE102D5C2FA900F447CD /* LlamaAIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LlamaAIManager.swift; sourceTree = "<group>"; };
 		AADE96022D6E983B008DD19B /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 		C7BCD2BB2D5DAA8100F89A0C /* DocumentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerView.swift; sourceTree = "<group>"; };
-		CA0CE2112D5C232500DD8FD2 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
-		CA0CE2122D5C232500DD8FD2 /* StudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyView.swift; sourceTree = "<group>"; };
 		CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CA0CE2CD2D5C2AF500DD8FD2 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
 		CA0CE2CE2D5C2AF500DD8FD2 /* StudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyView.swift; sourceTree = "<group>"; };
@@ -128,8 +126,6 @@
 		CA349F322D6804840024356A /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				CA0CE2112D5C232500DD8FD2 /* SetView.swift */,
-				CA0CE2122D5C232500DD8FD2 /* StudyView.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
