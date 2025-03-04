@@ -12,6 +12,8 @@
 		9234242D2D67FEE5004FC038 /* OpenAIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234242C2D67FEDC004FC038 /* OpenAIManager.swift */; };
 		94B653E12D6562EE001D3727 /* StudySetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B653E02D6562EE001D3727 /* StudySetModel.swift */; };
 		94B653E32D6562F7001D3727 /* Flashcard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B653E22D6562F7001D3727 /* Flashcard.swift */; };
+		963B88922D77A1FF001DAE15 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 963B88912D77A1FF001DAE15 /* FirebaseFirestore */; };
+		963B88942D77A1FF001DAE15 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 963B88932D77A1FF001DAE15 /* FirebaseStorage */; };
 		966B69C42D67F9DA00BB11DE /* DocumentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B69C32D67F9D600BB11DE /* DocumentsModel.swift */; };
 		9688CEE82D5EC24B009C719A /* TextParsingPDFs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688CEE72D5EC246009C719A /* TextParsingPDFs.swift */; };
 		9B70DE112D5C2FA900F447CD /* LlamaAIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B70DE102D5C2FA900F447CD /* LlamaAIManager.swift */; };
@@ -76,6 +78,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				963B88922D77A1FF001DAE15 /* FirebaseFirestore in Frameworks */,
+				963B88942D77A1FF001DAE15 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +254,8 @@
 			);
 			name = StudyBuddy;
 			packageProductDependencies = (
+				963B88912D77A1FF001DAE15 /* FirebaseFirestore */,
+				963B88932D77A1FF001DAE15 /* FirebaseStorage */,
 			);
 			productName = StudyBuddy;
 			productReference = 9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */;
@@ -282,6 +288,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				CA0CE2C82D5C290100DD8FD2 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+				963B88902D77A1FF001DAE15 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 9402BD1C2D558ABA00F2C00B /* Products */;
 			projectDirPath = "";
@@ -571,6 +578,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		963B88902D77A1FF001DAE15 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.9.0;
+			};
+		};
 		CA0CE2C82D5C290100DD8FD2 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
@@ -582,6 +597,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		963B88912D77A1FF001DAE15 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 963B88902D77A1FF001DAE15 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		963B88932D77A1FF001DAE15 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 963B88902D77A1FF001DAE15 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
 		CABC819E2D6BF567002D5657 /* SwiftLintBuildToolPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CA0CE2C82D5C290100DD8FD2 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
