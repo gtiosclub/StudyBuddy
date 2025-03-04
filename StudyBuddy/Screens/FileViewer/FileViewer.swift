@@ -12,7 +12,7 @@ struct FileViewer: View {
 
     var body: some View {
         NavigationView {
-            List(viewModel.files) { file in
+            List($viewModel.files) { $file in
                 VStack(alignment: .leading) {
                     Text(file.name) // Display file name
                     Text("Size: \(file.size) bytes") // Display file size

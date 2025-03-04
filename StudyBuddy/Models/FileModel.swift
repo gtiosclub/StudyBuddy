@@ -10,7 +10,7 @@ import Foundation
 
 struct FileModel: Identifiable {
     let id = UUID() // Unique identifier for each file
-    let name: String // File name
-    let size: Int // File size in bytes
-    let createdAt: Date // File creation date
+    var name: String // File name
+    var size: Int // File size in bytes
+    var createdAt: Date // File creation date
 }
