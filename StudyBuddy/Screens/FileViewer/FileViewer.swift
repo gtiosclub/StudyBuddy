@@ -57,15 +57,27 @@ struct FileViewer: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
-            .toolbar {
-                Button(action: {
-                    withAnimation {
-                        isPickerPresented = true
+            .overlay(
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            withAnimation {
+                                isPickerPresented = true
+                            }
+                        }) {
+                            Image(systemName: "plus")
+                                .foregroundColor(.white)
+                                .frame(width: 72, height: 72) // Increased size by 3 times
+                                .background(Circle().fill(Color.gray))
+                                .padding()
+                                
+                        }
                     }
-                }) {
-                    Image(systemName: "plus")
                 }
-            }
+                .padding()
+            )
             .sheet(isPresented: $isPickerPresented) {
                 DocumentPickerView(uploadViewModel: uploadViewModel)
             }
@@ -73,7 +85,6 @@ struct FileViewer: View {
                 UploadView(uploadViewModel: uploadViewModel)
                     .presentationDetents([.medium, .fraction(0.5)])
                     .cornerRadius(30)
-
             }
         }
     }
