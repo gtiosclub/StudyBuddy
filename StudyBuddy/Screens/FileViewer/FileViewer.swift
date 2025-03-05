@@ -72,6 +72,8 @@ struct FileViewer: View {
             .sheet(isPresented: $uploadViewModel.isUploadPresented) {
                 UploadView(uploadViewModel: uploadViewModel)
                     .presentationDetents([.medium, .fraction(0.5)])
+                    .cornerRadius(30)
+
             }
         }
     }
