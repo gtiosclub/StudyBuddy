@@ -7,14 +7,16 @@
 
 import Foundation
 
-struct OpenAIRequest: Codable {
-    let model: String
+struct OpenAIRequest: Codable, IntelligenceRequest {
+    var input: String
+    var model: IntelligenceModel
+    
     let messages: [Message]
     let maxCompletionTokens: Int?
     let temperature: Double?
 
     enum CodingKeys: String, CodingKey {
-        case model, messages, temperature
+        case input, model, messages, temperature
         case maxCompletionTokens = "max_completion_tokens"
     }
 

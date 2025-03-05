@@ -18,6 +18,8 @@ struct ChatInterfaceView: View {
     @State private var selectedModel: String = "OpenAI"
     let models = ["OpenAI", "LLaMA (On-Device)"]
     
+    @State private var intelligenceManager: IntelligenceManager = OpenAIManager.shared
+    
     var body: some View {
         VStack(spacing: 0) {
             // Model Picker
@@ -60,7 +62,15 @@ struct ChatInterfaceView: View {
                     )
                     .padding(.leading, 10)
                 
-                Button(action: sendMessage) {
+                Button(action: {
+                    Task {
+                        do {
+                            try await sendMessage()
+                        } catch {
+                            print("Error sending message: \(error)")
+                        }
+                    }
+                }) {
                     Image(systemName: "paperplane.fill")
                         .foregroundColor(.white)
                         .padding(14)
@@ -70,21 +80,87 @@ struct ChatInterfaceView: View {
                 .padding(.trailing, 10)
             }
             .padding(.vertical, 8)
-            .background(Color(UIColor.systemBackground).shadow(radius: 2))
         }
-        .edgesIgnoringSafeArea(.bottom)
     }
     
-    func sendMessage() {
+    func sendMessage() async throws {
         guard !inputText.isEmpty else { return }
         let userMessage = ChatMessage(text: inputText, isUser: true)
         messages.append(userMessage)
         inputText = ""
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            let aiMessage = ChatMessage(text: "Response from \(selectedModel)", isUser: false)
+
+        switch selectedModel {
+        case "OpenAI":
+            let openAIManager = OpenAIManager.shared
+            let req = OpenAIRequest(
+                input: inputText,
+                model: .openai_4o_mini,
+                messages: [],
+                maxCompletionTokens: nil,
+                temperature: 0.8
+            )
+            
+            makeOpenAIRequest(text: inputText)
+            
+            let response = try await openAIManager.makeRequest(req)
+            
+            
+            let aiMessage = ChatMessage(text: response.output, isUser: false)
             messages.append(aiMessage)
+            
+        case "LLaMA (On-Device)":
+            intelligenceManager = LlamaAIManager.shared
+        default:
+            break
         }
+        
+        
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//            let aiMessage = ChatMessage(text: "Response from \(selectedModel)", isUser: false)
+//            messages.append(aiMessage)
+//        }
+    }
+    
+    func makeOpenAIRequest(text: String) {
+        // API endpoint
+        let url = URL(string: "https://api.openai.com/v1/chat/completions")!
+        
+        // Create the request
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("Bearer \(OpenAIManager.apiKey)", forHTTPHeaderField: "Authorization")
+        
+        // Request body
+        let requestBody: [String: Any] = [
+            "model": "gpt-4o-mini",
+            "messages": [
+                ["role": "user", "content": text]
+            ],
+            "temperature": 0.7
+        ]
+        
+        // Serialize to JSON
+        let jsonData = try? JSONSerialization.data(withJSONObject: requestBody)
+        guard let jsonData = jsonData else { return }
+            request.httpBody = jsonData
+            
+            // Make the API call
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Error: \(error)")
+                    return
+                }
+                
+                if let data = data {
+                    if let responseString = String(data: data, encoding: .utf8) {
+                        print("Response: \(responseString)")
+                    }
+                }
+            }
+            
+            task.resume()
     }
 }
 

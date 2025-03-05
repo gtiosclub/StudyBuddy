@@ -11,7 +11,20 @@ import SwiftUI
 struct StudyBuddyApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabView {
+                
+                ContentView()
+                    .tabItem {
+                        Image(systemName: "1.circle")
+                        Text("First")
+                    }
+                
+                ChatInterfaceView()
+                    .tabItem {
+                        Image(systemName: "2.circle")
+                        Text("Chat")
+                    }
+            }
         }
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 // swiftlint:disable identifier_name
-enum IntelligenceModel {
+enum IntelligenceModel: Codable {
     case openai_4o_mini
     case llama_3_2_1b
     case llama_3_2_3b
