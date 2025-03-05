@@ -11,7 +11,6 @@
 		213871B22D5CF2B500B83A04 /* OpenAIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213871B12D5CF2B400B83A04 /* OpenAIResponse.swift */; };
 		912404212D77A0EF00A0C7AC /* FileViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9124041F2D77A0EF00A0C7AC /* FileViewer.swift */; };
 		912404242D77A10300A0C7AC /* FileViewerViewModel.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912404222D77A10300A0C7AC /* FileViewerViewModel.swift.swift */; };
-		912404262D77A16300A0C7AC /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912404252D77A16300A0C7AC /* FileModel.swift */; };
 		9234242D2D67FEE5004FC038 /* OpenAIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234242C2D67FEDC004FC038 /* OpenAIManager.swift */; };
 		94B653E12D6562EE001D3727 /* StudySetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B653E02D6562EE001D3727 /* StudySetModel.swift */; };
 		94B653E32D6562F7001D3727 /* Flashcard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B653E22D6562F7001D3727 /* Flashcard.swift */; };
@@ -42,6 +41,8 @@
 		CABC81AC2D764E9D002D5657 /* MLXLMCommon in Frameworks */ = {isa = PBXBuildFile; productRef = CABC81AB2D764E9D002D5657 /* MLXLMCommon */; };
 		CABC81B02D77BBEF002D5657 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC81AF2D77BBEF002D5657 /* Models.swift */; };
 		CABC81B22D77BC1D002D5657 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC81B12D77BC1B002D5657 /* ModelData.swift */; };
+		EA25407E2D77CE8F00BDD841 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = EA25407D2D77CE8F00BDD841 /* FirebaseCore */; };
+		EA2540862D77D5A000BDD841 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA2540852D77D5A000BDD841 /* GoogleService-Info.plist */; };
 		EA89AA4E2D71142F0033CFDF /* FileLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA89AA4D2D71142F0033CFDF /* FileLibraryView.swift */; };
 		EAB1733C2D711BE2005A8CA0 /* FileLibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB1733B2D711BE2005A8CA0 /* FileLibraryViewModel.swift */; };
 		EAFA58462D5D417600ADC214 /* UploadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA58452D5D417600ADC214 /* UploadModel.swift */; };
@@ -54,7 +55,6 @@
 		213871B12D5CF2B400B83A04 /* OpenAIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIResponse.swift; sourceTree = "<group>"; };
 		9124041F2D77A0EF00A0C7AC /* FileViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewer.swift; sourceTree = "<group>"; };
 		912404222D77A10300A0C7AC /* FileViewerViewModel.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewerViewModel.swift.swift; sourceTree = "<group>"; };
-		912404252D77A16300A0C7AC /* FileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
 		9234242C2D67FEDC004FC038 /* OpenAIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIManager.swift; sourceTree = "<group>"; };
 		9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94B653E02D6562EE001D3727 /* StudySetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySetModel.swift; sourceTree = "<group>"; };
@@ -82,6 +82,7 @@
 		CAAA3AC32D5B116300D9A631 /* IntelligenceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceModel.swift; sourceTree = "<group>"; };
 		CABC81AF2D77BBEF002D5657 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		CABC81B12D77BC1B002D5657 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
+		EA2540852D77D5A000BDD841 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EA89AA4D2D71142F0033CFDF /* FileLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLibraryView.swift; sourceTree = "<group>"; };
 		EAB1733B2D711BE2005A8CA0 /* FileLibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLibraryViewModel.swift; sourceTree = "<group>"; };
 		EAFA58452D5D417600ADC214 /* UploadModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadModel.swift; sourceTree = "<group>"; };
@@ -95,6 +96,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CABC81AC2D764E9D002D5657 /* MLXLMCommon in Frameworks */,
+				EA25407E2D77CE8F00BDD841 /* FirebaseCore in Frameworks */,
 				CABC81AA2D764E9D002D5657 /* MLXLLM in Frameworks */,
 				963B88922D77A1FF001DAE15 /* FirebaseFirestore in Frameworks */,
 				963B88942D77A1FF001DAE15 /* FirebaseStorage in Frameworks */,
@@ -173,7 +175,6 @@
 		CAAA3AA82D5B102D00D9A631 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				912404252D77A16300A0C7AC /* FileModel.swift */,
 				EAFA58422D5D414F00ADC214 /* UploadModel */,
 				CA0CE2D32D5C2B1700DD8FD2 /* Flashcards */,
 				CAAA3ABC2D5B10B600D9A631 /* AI */,
@@ -218,6 +219,7 @@
 		CAAA3AB12D5B102D00D9A631 /* StudyBuddy */ = {
 			isa = PBXGroup;
 			children = (
+				EA2540852D77D5A000BDD841 /* GoogleService-Info.plist */,
 				CA0CE2D72D5C404E00DD8FD2 /* swiftlint.yml */,
 				CAAA3AA82D5B102D00D9A631 /* Models */,
 				CAAA3AAA2D5B102D00D9A631 /* Preview Content */,
@@ -314,6 +316,7 @@
 				CABC81AB2D764E9D002D5657 /* MLXLMCommon */,
 				963B88912D77A1FF001DAE15 /* FirebaseFirestore */,
 				963B88932D77A1FF001DAE15 /* FirebaseStorage */,
+				EA25407D2D77CE8F00BDD841 /* FirebaseCore */,
 			);
 			productName = StudyBuddy;
 			productReference = 9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */;
@@ -364,6 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAAA3AB72D5B102D00D9A631 /* Preview Assets.xcassets in Resources */,
+				EA2540862D77D5A000BDD841 /* GoogleService-Info.plist in Resources */,
 				CA0CE2D82D5C405700DD8FD2 /* swiftlint.yml in Resources */,
 				CAAA3AB82D5B102D00D9A631 /* Assets.xcassets in Resources */,
 			);
@@ -423,7 +427,6 @@
 				CA0CE2D12D5C2AF500DD8FD2 /* StudyView.swift in Sources */,
 				EA89AA4E2D71142F0033CFDF /* FileLibraryView.swift in Sources */,
 				EAFA584A2D5D418700ADC214 /* UploadView.swift in Sources */,
-				912404262D77A16300A0C7AC /* FileModel.swift in Sources */,
 				AADE96032D6E983B008DD19B /* AddView.swift in Sources */,
 				CAAA3AC02D5B10D700D9A631 /* IntelligenceManager.swift in Sources */,
 				CAAA3AC22D5B110800D9A631 /* IntelligenceResponse.swift in Sources */,
@@ -696,6 +699,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CABC81A82D764E9D002D5657 /* XCRemoteSwiftPackageReference "mlx-swift-examples" */;
 			productName = MLXLMCommon;
+		};
+		EA25407D2D77CE8F00BDD841 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 963B88902D77A1FF001DAE15 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
