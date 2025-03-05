@@ -50,7 +50,7 @@ struct UploadView: View {
                     uploadViewModel.saveDocumentToFirebase(document, isPublic: isPublic)
                 }
                 // Close view and toggle flags
-                presentationMode.wrappedValue.dismiss()
+                //presentationMode.wrappedValue.dismiss()
                 uploadViewModel.isUploadPresented = false
             }) {
                 HStack {
@@ -63,7 +63,7 @@ struct UploadView: View {
             .bold()
         }
         .padding()
-        .frame(maxWidth: 300)
+        .frame(maxWidth: .infinity, maxHeight: .infinity) // Fill the interrupt screen
         .background(Color(.systemBackground))
         .cornerRadius(12)
         .shadow(radius: 10)
