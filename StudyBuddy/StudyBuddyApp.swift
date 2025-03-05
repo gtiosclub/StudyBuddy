@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct StudyBuddyApp: App {
+    
     var body: some Scene {
         WindowGroup {
             TabView {
@@ -25,6 +26,7 @@ struct StudyBuddyApp: App {
                         Text("Chat")
                     }
             }
+            .modelContainer(for: [Thread.self, Message.self])
         }
     }
 }
