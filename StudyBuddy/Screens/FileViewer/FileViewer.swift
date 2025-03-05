@@ -69,7 +69,6 @@ struct FileViewer: View {
                                 .frame(width: 72, height: 72) // Increased size by 3 times
                                 .background(Circle().fill(Color.gray))
                                 .padding()
-                                
                         }
                     }
                 }
