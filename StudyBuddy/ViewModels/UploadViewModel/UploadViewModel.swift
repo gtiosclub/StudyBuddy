@@ -4,6 +4,7 @@ import FirebaseFirestore
 
 class UploadViewModel: ObservableObject {
     @Published var selectedDocumentNames: [String] = []
+    @Published var isUploadPresented: Bool = false
     private let storage = Storage.storage()
     private let db = Firestore.firestore()
     

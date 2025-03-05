@@ -11,6 +11,7 @@ import UIKit
 
 struct DocumentPickerView: UIViewControllerRepresentable {
     @ObservedObject var uploadViewModel: UploadViewModel
+    @Environment(\.presentationMode) var presentationMode
 
     func makeCoordinator() -> Coordinator {
         return Coordinator(self)
@@ -50,6 +51,11 @@ struct DocumentPickerView: UIViewControllerRepresentable {
                         self.parent.uploadViewModel.saveDocumentToFirebase(updatedDocument)
                     }
                 }
+            }
+            // Dismiss and present upload screen
+            self.parent.presentationMode.wrappedValue.dismiss()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.parent.uploadViewModel.isUploadPresented = true
             }
         }
     }

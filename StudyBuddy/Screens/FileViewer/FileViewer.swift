@@ -9,6 +9,8 @@ import SwiftUI
 
 struct FileViewer: View {
     @StateObject private var viewModel = FileViewerViewModel()
+    @State private var isPickerPresented = false
+    @StateObject private var uploadViewModel = UploadViewModel()
 
     var body: some View {
         NavigationView {
@@ -25,9 +27,16 @@ struct FileViewer: View {
             }
             .navigationTitle("File Viewer")
             .toolbar {
-                NavigationLink(destination: UploadView()) {
+                Button(action: {
+                    withAnimation {
+                        isPickerPresented = true
+                    }    
+                }) {
                     Image(systemName: "plus")
                 }
+            }
+            .sheet(isPresented: $isPickerPresented) {
+                DocumentPickerView(uploadViewModel: uploadViewModel)
             }
         }
     }
