@@ -13,6 +13,8 @@ struct UploadView: View {
     // State variable to control the upload file visibility
     @State private var isPublic = false
 
+    
+
     var body: some View {
         VStack(spacing: 20) {
             Text("Upload Document")

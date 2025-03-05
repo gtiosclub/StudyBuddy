@@ -11,6 +11,7 @@
 		213871B22D5CF2B500B83A04 /* OpenAIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213871B12D5CF2B400B83A04 /* OpenAIResponse.swift */; };
 		912404212D77A0EF00A0C7AC /* FileViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9124041F2D77A0EF00A0C7AC /* FileViewer.swift */; };
 		912404242D77A10300A0C7AC /* FileViewerViewModel.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912404222D77A10300A0C7AC /* FileViewerViewModel.swift.swift */; };
+		9190917E2D78DCCF00988421 /* FileLibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9190917D2D78DCCF00988421 /* FileLibraryViewModel.swift */; };
 		9234242D2D67FEE5004FC038 /* OpenAIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234242C2D67FEDC004FC038 /* OpenAIManager.swift */; };
 		94B653E12D6562EE001D3727 /* StudySetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B653E02D6562EE001D3727 /* StudySetModel.swift */; };
 		94B653E32D6562F7001D3727 /* Flashcard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B653E22D6562F7001D3727 /* Flashcard.swift */; };
@@ -53,6 +54,7 @@
 		213871B12D5CF2B400B83A04 /* OpenAIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIResponse.swift; sourceTree = "<group>"; };
 		9124041F2D77A0EF00A0C7AC /* FileViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewer.swift; sourceTree = "<group>"; };
 		912404222D77A10300A0C7AC /* FileViewerViewModel.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewerViewModel.swift.swift; sourceTree = "<group>"; };
+		9190917D2D78DCCF00988421 /* FileLibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLibraryViewModel.swift; sourceTree = "<group>"; };
 		9234242C2D67FEDC004FC038 /* OpenAIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIManager.swift; sourceTree = "<group>"; };
 		9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94B653E02D6562EE001D3727 /* StudySetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySetModel.swift; sourceTree = "<group>"; };
@@ -116,6 +118,14 @@
 				912404222D77A10300A0C7AC /* FileViewerViewModel.swift.swift */,
 			);
 			path = FileViewerViewModel;
+			sourceTree = "<group>";
+		};
+		9190917C2D78DCC400988421 /* FileLibraryViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9190917D2D78DCCF00988421 /* FileLibraryViewModel.swift */,
+			);
+			path = FileLibraryViewModel;
 			sourceTree = "<group>";
 		};
 		9402BD122D558ABA00F2C00B = {
@@ -203,6 +213,7 @@
 		CAAA3AAE2D5B102D00D9A631 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				9190917C2D78DCC400988421 /* FileLibraryViewModel */,
 				912404232D77A10300A0C7AC /* FileViewerViewModel */,
 				EAFA58412D5D413E00ADC214 /* UploadViewModel */,
 				CAAA3AAD2D5B102D00D9A631 /* UserViewModel.swift */,
@@ -390,6 +401,7 @@
 				94B653E32D6562F7001D3727 /* Flashcard.swift in Sources */,
 				912404242D77A10300A0C7AC /* FileViewerViewModel.swift.swift in Sources */,
 				9688CEE82D5EC24B009C719A /* TextParsingPDFs.swift in Sources */,
+				9190917E2D78DCCF00988421 /* FileLibraryViewModel.swift in Sources */,
 				966B69C42D67F9DA00BB11DE /* DocumentsModel.swift in Sources */,
 				CA0CE2CC2D5C2AE600DD8FD2 /* HomeView.swift in Sources */,
 				CAAA3AB52D5B102D00D9A631 /* UserViewModel.swift in Sources */,
