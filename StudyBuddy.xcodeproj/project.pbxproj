@@ -11,7 +11,6 @@
 		213871B22D5CF2B500B83A04 /* OpenAIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213871B12D5CF2B400B83A04 /* OpenAIResponse.swift */; };
 		912404212D77A0EF00A0C7AC /* FileViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9124041F2D77A0EF00A0C7AC /* FileViewer.swift */; };
 		912404242D77A10300A0C7AC /* FileViewerViewModel.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912404222D77A10300A0C7AC /* FileViewerViewModel.swift.swift */; };
-		912404262D77A16300A0C7AC /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912404252D77A16300A0C7AC /* FileModel.swift */; };
 		9234242D2D67FEE5004FC038 /* OpenAIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234242C2D67FEDC004FC038 /* OpenAIManager.swift */; };
 		94B653E12D6562EE001D3727 /* StudySetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B653E02D6562EE001D3727 /* StudySetModel.swift */; };
 		94B653E32D6562F7001D3727 /* Flashcard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B653E22D6562F7001D3727 /* Flashcard.swift */; };
@@ -56,7 +55,6 @@
 		213871B12D5CF2B400B83A04 /* OpenAIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIResponse.swift; sourceTree = "<group>"; };
 		9124041F2D77A0EF00A0C7AC /* FileViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewer.swift; sourceTree = "<group>"; };
 		912404222D77A10300A0C7AC /* FileViewerViewModel.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewerViewModel.swift.swift; sourceTree = "<group>"; };
-		912404252D77A16300A0C7AC /* FileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
 		9234242C2D67FEDC004FC038 /* OpenAIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIManager.swift; sourceTree = "<group>"; };
 		9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94B653E02D6562EE001D3727 /* StudySetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySetModel.swift; sourceTree = "<group>"; };
@@ -177,7 +175,6 @@
 		CAAA3AA82D5B102D00D9A631 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				912404252D77A16300A0C7AC /* FileModel.swift */,
 				EAFA58422D5D414F00ADC214 /* UploadModel */,
 				CA0CE2D32D5C2B1700DD8FD2 /* Flashcards */,
 				CAAA3ABC2D5B10B600D9A631 /* AI */,
@@ -430,7 +427,6 @@
 				CA0CE2D12D5C2AF500DD8FD2 /* StudyView.swift in Sources */,
 				EA89AA4E2D71142F0033CFDF /* FileLibraryView.swift in Sources */,
 				EAFA584A2D5D418700ADC214 /* UploadView.swift in Sources */,
-				912404262D77A16300A0C7AC /* FileModel.swift in Sources */,
 				AADE96032D6E983B008DD19B /* AddView.swift in Sources */,
 				CAAA3AC02D5B10D700D9A631 /* IntelligenceManager.swift in Sources */,
 				CAAA3AC22D5B110800D9A631 /* IntelligenceResponse.swift in Sources */,
