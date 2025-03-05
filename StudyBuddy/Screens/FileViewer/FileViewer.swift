@@ -38,6 +38,9 @@ struct FileViewer: View {
             .sheet(isPresented: $isPickerPresented) {
                 DocumentPickerView(uploadViewModel: uploadViewModel)
             }
+            .sheet(isPresented: $uploadViewModel.isUploadPresented) {
+                UploadView(uploadViewModel: uploadViewModel)
+            }
         }
     }
 }

@@ -49,6 +49,9 @@ struct UploadView: View {
                 for document in uploadViewModel.documents {
                     uploadViewModel.saveDocumentToFirebase(document, isPublic: isPublic)
                 }
+                // Close view and toggle flags
+                presentationMode.wrappedValue.dismiss()
+                uploadViewModel.isUploadPresented = false
             }) {
                 HStack {
                     Image(systemName: "square.and.arrow.up")
