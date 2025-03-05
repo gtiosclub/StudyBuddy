@@ -4,12 +4,13 @@ import FirebaseFirestore
 
 class UploadViewModel: ObservableObject {
     @Published var selectedDocumentNames: [String] = []
+    @Published var documents: [Document] = []
     @Published var isUploadPresented: Bool = false
     private let storage = Storage.storage()
     private let db = Firestore.firestore()
     
     // Save document to firebase and firestore
-    func saveDocumentToFirebase(_ document: Document) {
+    func saveDocumentToFirebase(_ document: Document, isPublic: Bool) {
         // Create a reference to firebase
         let storageRef = storage.reference().child("documents/\(document.fileName)")
         
@@ -36,7 +37,8 @@ class UploadViewModel: ObservableObject {
                     "content": document.content,
                     "parsedContent": document.parsedContent ?? "",
                     "dateCreated": document.dateCreated,
-                    "storageURL": downloadURL.absoluteString
+                    "storageURL": downloadURL.absoluteString,
+                    "isPublic": isPublic
                 ]
                 
                 // Save to Firestore

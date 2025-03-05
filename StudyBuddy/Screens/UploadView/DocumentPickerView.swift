@@ -47,12 +47,12 @@ struct DocumentPickerView: UIViewControllerRepresentable {
                             self.parent.uploadViewModel.selectedDocumentNames.append(url.lastPathComponent)
                         }
                         
-                        // Save document to Firebase
-                        self.parent.uploadViewModel.saveDocumentToFirebase(updatedDocument)
+                        // Add the document to the view model's documents list
+                        self.parent.uploadViewModel.documents.append(updatedDocument)
                     }
                 }
             }
-            // Dismiss and present upload screen
+            // Dismiss the document picker and present the upload view
             self.parent.presentationMode.wrappedValue.dismiss()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.parent.uploadViewModel.isUploadPresented = true

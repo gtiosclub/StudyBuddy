@@ -46,6 +46,9 @@ struct UploadView: View {
 
             Button(action: {
                 // Handle upload action
+                for document in uploadViewModel.documents {
+                    uploadViewModel.saveDocumentToFirebase(document, isPublic: isPublic)
+                }
             }) {
                 HStack {
                     Image(systemName: "square.and.arrow.up")
