@@ -9,14 +9,14 @@ import Foundation
 import SwiftUI
 
 class FileViewerViewModel: ObservableObject {
-    @Published var files: [FileModel] = [] // file names
+    @Published var files: [Document] = [] // Array of DocumentsModel objects
 
     init() {
-        /// Load or initialize files here
+        // Load or initialize files here
         files = [
-            FileModel(name: "Document1.pdf", size: 1024, createdAt: Date()),
-            FileModel(name: "Image.png", size: 2048, createdAt: Date()),
-            FileModel(name: "Report.docx", size: 512, createdAt: Date())
+            Document(fileName: "Document1.pdf", content: "This is the content of Document 1"),
+            Document(fileName: "Image.png", content: "This is the content of Image"),
+            Document(fileName: "Report.docx", content: "This is the content of Report")
         ]
     }
 }
