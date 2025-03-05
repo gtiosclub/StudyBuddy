@@ -32,3 +32,7 @@ struct FileViewer: View {
         }
     }
 }
+
+#Preview {
+    FileViewer()
+}
