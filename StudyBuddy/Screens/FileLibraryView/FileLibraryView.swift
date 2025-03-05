@@ -75,3 +75,7 @@ struct AllView: View {
         }
     }
 }
+
+#Preview {
+    FileLibraryView()
+}
