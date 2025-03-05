@@ -1,10 +1,3 @@
-//
-//  UploadViewModel.swift
-//  StudyBuddy
-//
-//  Created by Tony Nguyen on 2/11/25.
-//
-
 import SwiftUI
 import FirebaseStorage
 import FirebaseFirestore
@@ -20,7 +13,10 @@ class UploadViewModel: ObservableObject {
         let storageRef = storage.reference().child("documents/\(document.fileName)")
         
         // Convert document content to data
-        guard let data = document.content.data(using: .utf8) else { return }
+        guard let data = document.content.data(using: .utf8) else {
+            print("Error: Document content is nil or cannot be converted to data")
+            return
+        }
         
         // Upload the file to Firebase Storage
         storageRef.putData(data, metadata: nil) { metadata, error in
@@ -43,7 +39,7 @@ class UploadViewModel: ObservableObject {
                 ]
                 
                 // Save to Firestore
-                self.db.collection("documents").document(document.id.uuidString).setData(docData) { error in
+                self.db.collection("Documents").document(document.id.uuidString).setData(docData) { error in
                     if let error = error {
                         print("Error saving to Firestore: \(error)")
                     }
