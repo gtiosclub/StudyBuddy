@@ -5,8 +5,6 @@
 //  Created by alina on 2025/3/3.
 //
 
-// TODO fix
-
 import SwiftUI
 
 enum FileName: String, CaseIterable, Identifiable {
@@ -19,9 +17,8 @@ enum FileName: String, CaseIterable, Identifiable {
 }
 
 struct FileViewer: View {
-    @StateObject private var viewModel = FileViewerViewModel()
     @StateObject private var uploadViewModel = UploadViewModel()
-    @StateObject private var fileLibraryViewModel = FileLibraryViewModel()
+    @StateObject private var fileViewerViewModel = FileViewerViewModel()
     @State private var selection: FileName = .allFile
     @State private var isPickerPresented: Bool = false
 
@@ -45,7 +42,7 @@ struct FileViewer: View {
                 // Content based on selected tab
                 switch selection {
                 case .allFile:
-                    AllView(fileLibraryViewModel: fileLibraryViewModel)
+                    AllView(fileViewerViewModel: FileViewerViewModel())
                 case .recent:
                     Text("Recents View")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -91,12 +88,12 @@ struct FileViewer: View {
 }
 
 struct AllView: View {
-    @ObservedObject var fileLibraryViewModel: FileLibraryViewModel
+    @ObservedObject var fileViewerViewModel = FileViewerViewModel()
 
     var body: some View {
         ScrollView {
             HStack {
-                ForEach(fileLibraryViewModel.fileLibrary, id: \.self) { document in
+                ForEach(fileViewerViewModel.fileLibrary, id: \.self) { document in
                     VStack {
                         Image(systemName: "doc")
                             .resizable()
