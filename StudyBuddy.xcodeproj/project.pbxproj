@@ -42,6 +42,8 @@
 		CABC81AC2D764E9D002D5657 /* MLXLMCommon in Frameworks */ = {isa = PBXBuildFile; productRef = CABC81AB2D764E9D002D5657 /* MLXLMCommon */; };
 		CABC81B02D77BBEF002D5657 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC81AF2D77BBEF002D5657 /* Models.swift */; };
 		CABC81B22D77BC1D002D5657 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC81B12D77BC1B002D5657 /* ModelData.swift */; };
+		EA25407E2D77CE8F00BDD841 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = EA25407D2D77CE8F00BDD841 /* FirebaseCore */; };
+		EA2540862D77D5A000BDD841 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA2540852D77D5A000BDD841 /* GoogleService-Info.plist */; };
 		EA89AA4E2D71142F0033CFDF /* FileLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA89AA4D2D71142F0033CFDF /* FileLibraryView.swift */; };
 		EAB1733C2D711BE2005A8CA0 /* FileLibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB1733B2D711BE2005A8CA0 /* FileLibraryViewModel.swift */; };
 		EAFA58462D5D417600ADC214 /* UploadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA58452D5D417600ADC214 /* UploadModel.swift */; };
@@ -82,6 +84,7 @@
 		CAAA3AC32D5B116300D9A631 /* IntelligenceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceModel.swift; sourceTree = "<group>"; };
 		CABC81AF2D77BBEF002D5657 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		CABC81B12D77BC1B002D5657 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
+		EA2540852D77D5A000BDD841 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EA89AA4D2D71142F0033CFDF /* FileLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLibraryView.swift; sourceTree = "<group>"; };
 		EAB1733B2D711BE2005A8CA0 /* FileLibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLibraryViewModel.swift; sourceTree = "<group>"; };
 		EAFA58452D5D417600ADC214 /* UploadModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadModel.swift; sourceTree = "<group>"; };
@@ -95,6 +98,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CABC81AC2D764E9D002D5657 /* MLXLMCommon in Frameworks */,
+				EA25407E2D77CE8F00BDD841 /* FirebaseCore in Frameworks */,
 				CABC81AA2D764E9D002D5657 /* MLXLLM in Frameworks */,
 				963B88922D77A1FF001DAE15 /* FirebaseFirestore in Frameworks */,
 				963B88942D77A1FF001DAE15 /* FirebaseStorage in Frameworks */,
@@ -218,6 +222,7 @@
 		CAAA3AB12D5B102D00D9A631 /* StudyBuddy */ = {
 			isa = PBXGroup;
 			children = (
+				EA2540852D77D5A000BDD841 /* GoogleService-Info.plist */,
 				CA0CE2D72D5C404E00DD8FD2 /* swiftlint.yml */,
 				CAAA3AA82D5B102D00D9A631 /* Models */,
 				CAAA3AAA2D5B102D00D9A631 /* Preview Content */,
@@ -314,6 +319,7 @@
 				CABC81AB2D764E9D002D5657 /* MLXLMCommon */,
 				963B88912D77A1FF001DAE15 /* FirebaseFirestore */,
 				963B88932D77A1FF001DAE15 /* FirebaseStorage */,
+				EA25407D2D77CE8F00BDD841 /* FirebaseCore */,
 			);
 			productName = StudyBuddy;
 			productReference = 9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */;
@@ -364,6 +370,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAAA3AB72D5B102D00D9A631 /* Preview Assets.xcassets in Resources */,
+				EA2540862D77D5A000BDD841 /* GoogleService-Info.plist in Resources */,
 				CA0CE2D82D5C405700DD8FD2 /* swiftlint.yml in Resources */,
 				CAAA3AB82D5B102D00D9A631 /* Assets.xcassets in Resources */,
 			);
@@ -696,6 +703,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CABC81A82D764E9D002D5657 /* XCRemoteSwiftPackageReference "mlx-swift-examples" */;
 			productName = MLXLMCommon;
+		};
+		EA25407D2D77CE8F00BDD841 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 963B88902D77A1FF001DAE15 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
