@@ -4,11 +4,13 @@
 //
 //  Created by Jihoon Kim on 3/4/25.
 //
-
 import SwiftUI
 
 struct ContentView: View {
     @State var selectedView: TabSelection = .home
+    @State private var isPickerPresented: Bool = false
+    @StateObject private var uploadViewModel = UploadViewModel()
+
     var body: some View {
         TabView(selection: $selectedView) {
             HomeView().tabItem {
@@ -26,6 +28,21 @@ struct ContentView: View {
             HomeView().tabItem {
                 Label("Chat", systemImage: "bubble.left.and.text.bubble.right.fill")
             }.tag(TabSelection.chat)
+        }
+        .onChange(of: selectedView) { newValue in
+            if newValue == .upload {
+                isPickerPresented = true
+            }
+        }
+        .sheet(isPresented: $isPickerPresented, onDismiss: {
+            selectedView = .files
+        }) {
+            DocumentPickerView(uploadViewModel: uploadViewModel)
+        }
+        .sheet(isPresented: $uploadViewModel.isUploadPresented) {
+            UploadView(uploadViewModel: uploadViewModel)
+                .presentationDetents([.medium, .fraction(0.5)])
+                .cornerRadius(30)
         }
     }
 }
