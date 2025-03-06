@@ -39,10 +39,13 @@ struct ContentView: View {
         }) {
             DocumentPickerView(uploadViewModel: uploadViewModel)
         }
-        .sheet(isPresented: $uploadViewModel.isUploadPresented) {
+        .sheet(isPresented: $uploadViewModel.isUploadPresented, onDismiss: {
+            selectedView = .files
+        }) {
             UploadView(uploadViewModel: uploadViewModel)
                 .presentationDetents([.medium, .fraction(0.5)])
                 .cornerRadius(30)
+                .background(EmptyView())
         }
     }
 }
