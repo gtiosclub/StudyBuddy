@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    // Mapping class ID to its description
+
+struct HomeView: View {
     @State var widgets: [String: String] = [
         "2200": "A broad exposure to computer system structure and networking including software abstractions in operating systems for orchestrating the usage of the computing resources.",
         "1332": "Computer data structures and algorithms in the context of object-oriented programming. Focus on software development towards applications.",

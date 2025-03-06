@@ -7,26 +7,102 @@
 
 import SwiftUI
 
+enum FileName: String, CaseIterable, Identifiable {
+    case allFile = "All Files"
+    case recent = "Recents"
+    case favorites = "Favorites"
+    case folders = "Folders"
+
+    var id: String { self.rawValue }
+}
+
 struct FileViewer: View {
-    @StateObject private var viewModel = FileViewerViewModel()
+    @StateObject private var uploadViewModel = UploadViewModel()
+    @StateObject private var fileViewerViewModel = FileViewerViewModel()
+    @State private var selection: FileName = .allFile
+    @State private var isPickerPresented: Bool = false
 
     var body: some View {
         NavigationView {
-            List(viewModel.files) { file in
-                VStack(alignment: .leading) {
-                    Text(file.fileName) // Display file name
-                    Text("Content: \(file.content)") // Display file content
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                    Text("Created: \(file.dateCreated, style: .date)") // Display creation date
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
+            VStack(alignment: .leading) {
+                // File Library Section
+                Text("File Library")
+                    .font(.title)
+                    .bold()
+                    .padding(.horizontal)
+
+                Picker("Select a tab", selection: $selection) {
+                    ForEach(FileName.allCases) { file in
+                        Text(file.rawValue).tag(file)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
+
+                // Content based on selected tab
+                switch selection {
+                case .allFile:
+                    AllView(fileViewerViewModel: FileViewerViewModel())
+                case .recent:
+                    Text("Recents View")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                case .favorites:
+                    Text("Favorites View")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                case .folders:
+                    Text("Folders View")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
-            .navigationTitle("File Viewer")
-            .toolbar {
-                NavigationLink(destination: UploadView()) {
-                    Image(systemName: "plus")
+            .overlay(
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            withAnimation {
+                                isPickerPresented = true
+                            }
+                        }) {
+                            Image(systemName: "plus")
+                                .foregroundColor(.white)
+                                .frame(width: 72, height: 72) // Increased size by 3 times
+                                .background(Circle().fill(Color.gray))
+                                .padding()
+                        }
+                    }
+                }
+                .padding()
+            )
+            .sheet(isPresented: $isPickerPresented) {
+                DocumentPickerView(uploadViewModel: uploadViewModel)
+            }
+            .sheet(isPresented: $uploadViewModel.isUploadPresented) {
+                UploadView(uploadViewModel: uploadViewModel)
+                    .presentationDetents([.medium, .fraction(0.5)])
+                    .cornerRadius(30)
+            }
+        }
+    }
+}
+
+struct AllView: View {
+    @ObservedObject var fileViewerViewModel = FileViewerViewModel()
+
+    var body: some View {
+        ScrollView {
+            HStack {
+                ForEach(fileViewerViewModel.fileLibrary, id: \.self) { document in
+                    VStack {
+                        Image(systemName: "doc")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 50, height: 50)
+                            .padding(4)
+                        Text(document)
+                            .scaledToFit()
+                    }
+                    .padding(.horizontal)
                 }
             }
         }
