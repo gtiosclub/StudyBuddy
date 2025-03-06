@@ -17,10 +17,8 @@ enum FileName: String, CaseIterable, Identifiable {
 }
 
 struct FileViewer: View {
-    @StateObject private var uploadViewModel = UploadViewModel()
     @StateObject private var fileViewerViewModel = FileViewerViewModel()
     @State private var selection: FileName = .allFile
-    @State private var isPickerPresented: Bool = false
 
     var body: some View {
         NavigationView {
@@ -53,34 +51,6 @@ struct FileViewer: View {
                     Text("Folders View")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
-            }
-            .overlay(
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        Button(action: {
-                            withAnimation {
-                                isPickerPresented = true
-                            }
-                        }) {
-                            Image(systemName: "plus")
-                                .foregroundColor(.white)
-                                .frame(width: 72, height: 72) // Increased size by 3 times
-                                .background(Circle().fill(Color.gray))
-                                .padding()
-                        }
-                    }
-                }
-                .padding()
-            )
-            .sheet(isPresented: $isPickerPresented) {
-                DocumentPickerView(uploadViewModel: uploadViewModel)
-            }
-            .sheet(isPresented: $uploadViewModel.isUploadPresented) {
-                UploadView(uploadViewModel: uploadViewModel)
-                    .presentationDetents([.medium, .fraction(0.5)])
-                    .cornerRadius(30)
             }
         }
     }
