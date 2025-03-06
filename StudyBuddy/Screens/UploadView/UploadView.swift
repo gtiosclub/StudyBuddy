@@ -4,76 +4,79 @@
 //
 //  Created by Tony Nguyen on 2/11/25.
 //
-
 import SwiftUI
 
 struct UploadView: View {
     // ViewModel to manage uploaded documents
-    @StateObject var uploadViewModel = UploadViewModel()
-    // State variable to control document picker presentation
-    @State private var isPickerPresented = false
+    @ObservedObject var uploadViewModel: UploadViewModel
     // State variable to control the upload file visibility
     @State private var isPublic = false
+    @Environment(\.presentationMode) var presentationMode
+
     var body: some View {
-        VStack {
-            // Button to open document picker
-            Button(action: {
-                isPickerPresented = true
-            }, label: {
-                Text("Select Document")
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-            })
-            // Display selected document names if any
+        VStack(spacing: 30) {
             if !uploadViewModel.selectedDocumentNames.isEmpty {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 10) {
                     Text("Selected Documents:")
-                        .font(.headline)
-                    // List each selected document name
+                        .font(.title2)
+                        .bold()
                     ForEach(uploadViewModel.selectedDocumentNames, id: \.self) { document in
                         Text(document)
                             .padding(5)
+                            .font(.body)
                     }
                 }
                 .padding()
             }
-        }
-        .padding()
-        // Present the document picker when triggered
-        .sheet(isPresented: $isPickerPresented) {
-            DocumentPickerView(uploadViewModel: uploadViewModel)
-        }
-        VStack(spacing: 20) {
-            Spacer()
+
+            Text("Select Privacy")
+                .font(.title2)
+                .bold()
+                .padding(.top)
 
             HStack {
                 Text("Private")
                     .foregroundColor(.blue)
                     .bold()
+                    .font(.title3)
                 Toggle("", isOn: $isPublic)
                     .toggleStyle(SwitchToggleStyle(tint: .green))
                     .labelsHidden()
                 Text("Public")
                     .foregroundColor(.green)
                     .bold()
+                    .font(.title3)
             }
-            Button { // display upload files button
-            } label: {
-                Image(systemName:
-                        "square.and.arrow.up")
-                Text("Upload Files")
+            .padding()
+
+            Button(action: {
+                // Handle upload action
+                for document in uploadViewModel.documents {
+                    uploadViewModel.saveDocumentToFirebase(document, isPublic: isPublic)
+                }
+                // Close the view and reset flags
+                presentationMode.wrappedValue.dismiss()
+                uploadViewModel.isUploadPresented = false
+            }) {
+                HStack {
+                    Image(systemName: "square.and.arrow.up")
+                    Text("Upload Files")
+                }
+                .font(.title3)
+                .padding(.horizontal)
+                .padding(.vertical, 10)
             }
             .buttonStyle(.borderedProminent)
             .tint(isPublic ? .green : .blue)
             .bold()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(.systemBackground))
+        .cornerRadius(40)
     }
 }
 
 #Preview {
-    UploadView()
+    UploadView(uploadViewModel: UploadViewModel())
 }
