@@ -10,15 +10,18 @@ struct ContentView: View {
     @State var selectedView: TabSelection = .home
     @State private var isPickerPresented: Bool = false
     @StateObject private var uploadViewModel = UploadViewModel()
+    @EnvironmentObject var authViewModel: AuthViewModel
 
     var body: some View {
         TabView(selection: $selectedView) {
             HomeView().tabItem {
                 Label("Home", systemImage: "house.fill")
             }.tag(TabSelection.home)
+                .environmentObject(authViewModel)
             HomeView().tabItem {
                 Label("Upload", systemImage: "arrow.up.circle.fill")
             }.tag(TabSelection.upload)
+                .environmentObject(authViewModel)
             FileViewer().tabItem {
                 Label("Files", systemImage: "folder.fill")
             }.tag(TabSelection.files)
@@ -28,6 +31,7 @@ struct ContentView: View {
             HomeView().tabItem {
                 Label("Chat", systemImage: "bubble.left.and.text.bubble.right.fill")
             }.tag(TabSelection.chat)
+                .environmentObject(authViewModel)
         }
         .onChange(of: selectedView) { newValue in
             if newValue == .upload {
