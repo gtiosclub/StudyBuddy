@@ -18,25 +18,30 @@ struct UserModel: Codable, Identifiable {
 }
 
 func createTestUser(_ email: String, _ userName: String, _ date1: Date, _ date2: Date, _ date3: Date, _ flashcardText1: String, _ flashcardText2: String, _ flashcardText3: String) -> UserModel {
-    let user: UserModel = UserModel(email: email, userName: userName)
-    let flashcard1 = FlashcardModel(text: "test123", createdBy: user.userName)
-    let flashcard2 = FlashcardModel(text: "test455", createdBy: user.userName)
-    let flashcard3 = FlashcardModel(text: "testagain", createdBy: user.userName)
-    user1.studySets = [
-        StudySetModel(list: [flashcard1], dateCreated: date1, createdBy: user.userName),
-        StudySetModel(list: [flashcard2], dateCreated: date2, createdBy: user.userName),
-        StudySetModel(list: [flashcard3], dateCreated: date3, createdBy: user.userName),
+    var user: UserModel = UserModel(email: email, userName: userName)
+    
+    let flashcard1 = FlashcardModel(text: flashcardText1, createdBy: user.userName)
+    let flashcard2 = FlashcardModel(text: flashcardText2, createdBy: user.userName)
+    let flashcard3 = FlashcardModel(text: flashcardText3, createdBy: user.userName)
+    
+    
+    user.studySets = [
+        StudySetModel(flashcards: [flashcard1], dateCreated: date1, createdBy: user.userName),
+        StudySetModel(flashcards: [flashcard2], dateCreated: date2, createdBy: user.userName),
+        StudySetModel(flashcards: [flashcard3], dateCreated: date3, createdBy: user.userName),
     ]
+    
     return user
 }
 
 func createDate(date: String) -> Date {
     let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd"
     if let date = formatter.date(from: date) {
         return date
     }
     //default date if the string is invalid
-    return formatter.date(from:"0000-00-00")!
+    return Date()
 }
 
 
@@ -60,14 +65,12 @@ var user2 = createTestUser("jim456@gmail.com", "jim456", date4, date5, date6, fl
 
 //user 3
 let date7 = createDate(date: "2005-12-25")
-let date8 = createDate(date: "2014-14-23")
+let date8 = createDate(date: "2014-09-23")
 let date9 = createDate(date: "2023-06-05")
 let flashcardText7 = "falfa324"
 let flashcardText8 = "1+1=2"
 let flashcardText9 = "2^2=4"
 var user3 = createTestUser("billy789@gmail.com", "billy789", date7, date8, date9, flashcardText7, flashcardText8, flashcardText9)
-
-
 
 
 
