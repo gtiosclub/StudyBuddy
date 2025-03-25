@@ -26,4 +26,10 @@ class StudySetModel: Identifiable {
         var newFlashcard = Flashcard(front: front, back: back)
         list.append(newFlashcard)
     }
+    
+    func remove_flashcard(id: UUID) {
+        if let index = list.firstIndex(where: { $0.id == id }) {
+            list.remove(at: index)
+        }
+    }
 }
