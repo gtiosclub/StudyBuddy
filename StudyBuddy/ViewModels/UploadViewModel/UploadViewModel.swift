@@ -6,7 +6,7 @@ class UploadViewModel: ObservableObject {
     @Published var selectedDocumentNames: [String] = []
     @Published var documents: [Document] = []
     @Published var isUploadPresented: Bool = false
-    private let storage = Storage.storage(url: "gs://studybuddy-7df38.appspot.com")
+    private let storage = Storage.storage(url: "gs://studybuddy-7df38.firebasestorage.app")
     private let db = Firestore.firestore()
 
     // Save document to firebase and firestore
