@@ -19,6 +19,7 @@ struct LoginView: View {
 
     var body: some View {
         VStack {
+            Text("Study Buddy").bold().font(.largeTitle)
             Picker(selection: $isLoginMode, label: Text("Authentication")) {
                 Text("Login").tag(true)
                 Text("Create Account").tag(false)

@@ -32,6 +32,7 @@
 		9B883B362D713DA400AE3DEF /* LLMEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B883B352D713DA400AE3DEF /* LLMEvaluator.swift */; };
 		AA0AB33A2D77D5AC001EFC78 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0AB3392D77D5AC001EFC78 /* ContentView.swift */; };
 		AADE96032D6E983B008DD19B /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADE96022D6E983B008DD19B /* AddView.swift */; };
+		AAEA31A92D93752300108BA1 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEA31A82D93752300108BA1 /* EditView.swift */; };
 		C7BCD2BC2D5DAA8A00F89A0C /* DocumentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BCD2BB2D5DAA8100F89A0C /* DocumentPickerView.swift */; };
 		CA0CE2CC2D5C2AE600DD8FD2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */; };
 		CA0CE2D02D5C2AF500DD8FD2 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2CD2D5C2AF500DD8FD2 /* SetView.swift */; };
@@ -77,6 +78,7 @@
 		9B883B352D713DA400AE3DEF /* LLMEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMEvaluator.swift; sourceTree = "<group>"; };
 		AA0AB3392D77D5AC001EFC78 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AADE96022D6E983B008DD19B /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
+		AAEA31A82D93752300108BA1 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		C7BCD2BB2D5DAA8100F89A0C /* DocumentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerView.swift; sourceTree = "<group>"; };
 		CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CA0CE2CD2D5C2AF500DD8FD2 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				CA0CE2CD2D5C2AF500DD8FD2 /* SetView.swift */,
 				CA0CE2CE2D5C2AF500DD8FD2 /* StudyView.swift */,
 				AADE96022D6E983B008DD19B /* AddView.swift */,
+				AAEA31A82D93752300108BA1 /* EditView.swift */,
 			);
 			path = Flashcards;
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 				CAAA3ABE2D5B10C200D9A631 /* IntelligenceRequest.swift in Sources */,
 				CA0CE2D42D5C2B1700DD8FD2 /* FlashcardStudySetModel.swift in Sources */,
 				946D8DA62D7A545100E4B384 /* LoginView.swift in Sources */,
+				AAEA31A92D93752300108BA1 /* EditView.swift in Sources */,
 				94B653E32D6562F7001D3727 /* Flashcard.swift in Sources */,
 				9688CEE82D5EC24B009C719A /* TextParsingPDFs.swift in Sources */,
 				9190917E2D78DCCF00988421 /* FileViewerViewModel.swift in Sources */,
@@ -582,7 +586,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyBuddy/Preview Content\"";
-				DEVELOPMENT_TEAM = 6JXR4QA97N;
+				DEVELOPMENT_TEAM = N7JQF9LRA3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = StudyBuddy;
@@ -596,7 +600,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = iosclub.StudyBuddy;
+				PRODUCT_BUNDLE_IDENTIFIER = ethan.StudyBuddy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -612,7 +616,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyBuddy/Preview Content\"";
-				DEVELOPMENT_TEAM = 6JXR4QA97N;
+				DEVELOPMENT_TEAM = N7JQF9LRA3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = StudyBuddy;
@@ -626,7 +630,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = iosclub.StudyBuddy;
+				PRODUCT_BUNDLE_IDENTIFIER = ethan.StudyBuddy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
