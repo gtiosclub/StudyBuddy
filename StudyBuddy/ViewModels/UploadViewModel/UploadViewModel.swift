@@ -11,15 +11,13 @@ class UploadViewModel: ObservableObject {
 
     // Save document to firebase and firestore
     func saveDocumentToFirebase(_ document: Document, isPublic: Bool) {
+        let data = Data()
         // Create a reference to firebase
         let storageRef = storage.reference().child("documents/\(document.fileName)")
         print("Uploading to path: documents/\(document.fileName)")
         
         // Convert document content to data
-        guard let data = document.content.data(using: .utf8) else {
-            print("Error: Document content is nil or cannot be converted to data")
-            return
-        }
+        
         print("Document data size: \(data.count) bytes")
         
         // Upload the file to Firebase Storage
