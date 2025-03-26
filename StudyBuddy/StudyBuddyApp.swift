@@ -7,10 +7,15 @@
 
 import SwiftUI
 import FirebaseCore
+import FirebaseStorage
+
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
     FirebaseApp.configure()
+
+    // Initialize Storage Bucket
+    let storage = Storage.storage(url: "gs://studybuddy-7df38.appspot.com")
 
     return true
   }
