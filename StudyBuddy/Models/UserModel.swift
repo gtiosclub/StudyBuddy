@@ -20,9 +20,9 @@ struct UserModel: Codable, Identifiable {
 func createTestUser(_ email: String, _ userName: String, _ date1: Date, _ date2: Date, _ date3: Date, _ flashcardText1: String, _ flashcardText2: String, _ flashcardText3: String) -> UserModel {
     var user: UserModel = UserModel(email: email, userName: userName)
     
-    let flashcard1 = FlashcardModel(text: flashcardText1, createdBy: user.userName)
-    let flashcard2 = FlashcardModel(text: flashcardText2, createdBy: user.userName)
-    let flashcard3 = FlashcardModel(text: flashcardText3, createdBy: user.userName)
+    let flashcard1 = FlashcardModel(text: flashcardText1, createdBy: user.userName, mastered: false)
+    let flashcard2 = FlashcardModel(text: flashcardText2, createdBy: user.userName, mastered: false)
+    let flashcard3 = FlashcardModel(text: flashcardText3, createdBy: user.userName, mastered: false)
     
     
     user.studySets = [
