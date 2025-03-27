@@ -11,7 +11,7 @@ import FirebaseFirestore
 class FlashcardViewModel {
     static let shared = FlashcardViewModel()
     @Published var flashcards: [FlashcardModel] = []
-    @Published var currentlyChosenFlashcard = FlashcardModel(text: "", createdBy: "")
+    @Published var currentlyChosenFlashcard = FlashcardModel(text: "", createdBy: "", mastered: false)
     private let db = Firestore.firestore()
     private var user = UserViewModel.shared.user
     private var currentlyChosenStudySet = StudySetViewModel.shared.currentlyChosenStudySet
@@ -44,6 +44,7 @@ class FlashcardViewModel {
                 }
             }
         }
+        
         //        guard let userDocumentID = user.id, let studySetDocumentID = currentlyChosenStudySet.id else {
         //            print("Error: either user.documentID or currentlyChosenStudyset.documentID is nil")
         //            return
