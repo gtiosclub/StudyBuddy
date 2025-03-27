@@ -7,23 +7,32 @@
 
 import Foundation
 
+
 class StudySet: ObservableObject {
     @Published var set: [String: (String, String)]
-
+    
     init(set: [String: (String, String)]) {
         self.set = set
-
+        
     }
-
-    func add_flashcard(front: String, back: String) {
-
-        self.set["\(set.count + 1)"] = (front, back)
+    
+    
+    
+    
+    func add_flashcard(front:String, back:String) {
+        
+        self.set["\(set.count)"] = (front, back)
     }
-
-    func edit_flashcard(key: String, front: String, back: String) {
-
-        self.set[key] = (front, back)
+    
+    func edit_flashcard(key:String, front:String, back:String) {
+        
+        self.set[key] = (front,back)
     }
-
+    
+   
 }
 
+
+
+    
+   

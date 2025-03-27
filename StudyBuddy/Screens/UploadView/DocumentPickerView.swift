@@ -11,7 +11,6 @@ import UIKit
 
 struct DocumentPickerView: UIViewControllerRepresentable {
     @ObservedObject var uploadViewModel: UploadViewModel
-    @Environment(\.presentationMode) var presentationMode
 
     func makeCoordinator() -> Coordinator {
         return Coordinator(self)
@@ -35,27 +34,11 @@ struct DocumentPickerView: UIViewControllerRepresentable {
         }
 
         func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-            for url in urls {
-                // Create initial document with just the filename - content will be added after parsing
-                let document = Document(fileName: url.lastPathComponent, content: "")
-                
-                // Process the PDF and extract text
-                extractTextFromPDF(pdfURL: url, document: document) { extractedText, updatedDocument in
-                    DispatchQueue.main.async {
-                        // Update view model with the document names
-                        if !self.parent.uploadViewModel.selectedDocumentNames.contains(url.lastPathComponent) {
-                            self.parent.uploadViewModel.selectedDocumentNames.append(url.lastPathComponent)
-                        }
-                        
-                        // Add the document to the view model's documents list
-                        self.parent.uploadViewModel.documents.append(updatedDocument)
-                    }
-                }
-            }
-            // Dismiss the document picker and present the upload view
-            self.parent.presentationMode.wrappedValue.dismiss()
-            DispatchQueue.main.asyncAfter(deadline: .now()) {
-                self.parent.uploadViewModel.isUploadPresented = true
+            // Extract the names of the selected documents
+            let selectedDocuments = urls.map { $0.lastPathComponent }
+            DispatchQueue.main.async {
+                // Update the view model with the selected document names
+                self.parent.uploadViewModel.selectedDocumentNames = selectedDocuments
             }
         }
     }
