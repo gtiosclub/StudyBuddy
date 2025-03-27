@@ -14,6 +14,7 @@ struct ContentView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
 
     var body: some View {
+<<<<<<< HEAD
         NavigationView {
             VStack {
                 TabView(selection: $selectedView) {
@@ -58,6 +59,31 @@ struct ContentView: View {
                     .presentationDetents([.medium, .fraction(0.5)])
                     .cornerRadius(30)
                     .background(EmptyView())
+=======
+        TabView(selection: $selectedView) {
+            HomeView().tabItem {
+                Label("Home", systemImage: "house.fill")
+            }.tag(TabSelection.home)
+                .environmentObject(authViewModel)
+            HomeView().tabItem {
+                Label("Upload", systemImage: "arrow.up.circle.fill")
+            }.tag(TabSelection.upload)
+                .environmentObject(authViewModel)
+            FileViewer().tabItem {
+                Label("Files", systemImage: "folder.fill")
+            }.tag(TabSelection.files)
+            SetView().tabItem {
+                Label("Study", systemImage: "book.pages")
+            }.tag(TabSelection.profile)
+            HomeView().tabItem {
+                Label("Chat", systemImage: "bubble.left.and.text.bubble.right.fill")
+            }.tag(TabSelection.chat)
+                .environmentObject(authViewModel)
+        }
+        .onChange(of: selectedView) { newValue in
+            if newValue == .upload {
+                isPickerPresented = true
+>>>>>>> refs/remotes/origin/109-create-a-viewedit-profile-page
             }
         }
     }
