@@ -19,15 +19,20 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 struct StudyBuddyApp: App {
     @StateObject private var authViewModel = AuthViewModel()
-    
+    @StateObject var userViewModel = UserViewModel()
+
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
-        WindowGroup {
-            if authViewModel.isLoggedIn {
-                ContentView().environmentObject(authViewModel)
-            } else {
-                LoginView().environmentObject(authViewModel)
-            }
+            WindowGroup {
+                if authViewModel.isLoggedIn {
+                    ContentView()
+                        .environmentObject(authViewModel)
+                        .environmentObject(userViewModel) // Inject userViewModel here
+                } else {
+                    LoginView()
+                        .environmentObject(authViewModel)
+                        .environmentObject(userViewModel) // Inject userViewModel here
+                }
         }
     }
 }

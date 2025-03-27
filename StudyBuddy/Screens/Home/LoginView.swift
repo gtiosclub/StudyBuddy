@@ -11,10 +11,12 @@ import FirebaseAuth
 struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
+    @State private var firstName: String = ""  // Added for first name
+    @State private var lastName: String = ""   // Added for last name
     @State private var errorMessage: String?
     @State private var isLoginMode: Bool = true
     @State private var resetSuccessMessage: String?
-    
+
     @EnvironmentObject var authViewModel: AuthViewModel
 
     var body: some View {
@@ -35,6 +37,17 @@ struct LoginView: View {
             SecureField("Enter password", text: $password)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
+
+            // Add fields for first name and last name when creating an account
+            if !isLoginMode {
+                TextField("Enter first name", text: $firstName)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+
+                TextField("Enter last name", text: $lastName)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+            }
 
             if let errorMessage = errorMessage {
                 Text(errorMessage)
@@ -60,8 +73,8 @@ struct LoginView: View {
 
             if isLoginMode {
                 Button("Forgot Password?") {
-                    authViewModel.resetPassword(email: email) {
-                        message in resetSuccessMessage = message
+                    authViewModel.resetPassword(email: email) { message in
+                        resetSuccessMessage = message
                     }
                 }
                 .foregroundColor(.blue)
@@ -77,7 +90,8 @@ struct LoginView: View {
                 errorMessage = error
             }
         } else {
-            authViewModel.registerUser(email: email, password: password) { error in
+            // Pass firstName and lastName to registerUser
+            authViewModel.registerUser(email: email, password: password, firstName: firstName, lastName: lastName) { error in
                 if let error = error {
                     errorMessage = error
                 } else {

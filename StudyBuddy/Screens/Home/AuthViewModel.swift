@@ -88,20 +88,28 @@ class AuthViewModel: ObservableObject {
                     DispatchQueue.main.async {
                         self.isLoggedIn = true
                     }
+                    let userViewModel = UserViewModel()
+                    userViewModel.fetchUser()
                     completion(nil)
                 }
             }
         }
+
     }
 
-    func registerUser(email: String, password: String, completion: @escaping (String?) -> Void) {
+    func registerUser(email: String, password: String, firstName: String, lastName: String, completion: @escaping (String?) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
                 completion("Registration failed: \(error.localizedDescription)")
             } else {
                 self.sendVerificationEmail()
+                if let uid = result?.user.uid {
+                    let userViewModel = UserViewModel()
+                    userViewModel.storeUserData(uid: uid, firstName: firstName, lastName: lastName, email: email)
+                }
                 completion(nil)
             }
         }
     }
+
 }

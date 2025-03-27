@@ -41,6 +41,12 @@ struct ChangePasswordView: View {
                         .cornerRadius(10)
                 }
                 .padding()
+
+                Button("Cancel") {
+                    showPasswordChange = false
+                }
+                .foregroundColor(.red)
+                .padding()
             }
             .navigationTitle("Change Password")
         }

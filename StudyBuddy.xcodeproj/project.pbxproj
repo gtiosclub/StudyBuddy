@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		213871AD2D5CEED900B83A04 /* OpenAIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213871AC2D5CEED600B83A04 /* OpenAIRequest.swift */; };
 		213871B22D5CF2B500B83A04 /* OpenAIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213871B12D5CF2B400B83A04 /* OpenAIResponse.swift */; };
+		4094F0822D9EF7FF00C10C53 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4094F0812D9EF7FA00C10C53 /* UserViewModel.swift */; };
+		4094F0862D9EFC8900C10C53 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4094F0852D9EFC8700C10C53 /* User.swift */; };
 		40D9FE152D81790700BBB664 /* ViewEditProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D9FE142D8178DE00BBB664 /* ViewEditProfile.swift */; };
 		40D9FE172D81793A00BBB664 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D9FE162D81792F00BBB664 /* ImagePicker.swift */; };
 		912404212D77A0EF00A0C7AC /* FileViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9124041F2D77A0EF00A0C7AC /* FileViewer.swift */; };
@@ -42,7 +44,6 @@
 		CA0CE2D82D5C405700DD8FD2 /* swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = CA0CE2D72D5C404E00DD8FD2 /* swiftlint.yml */; };
 		CA349F302D6801440024356A /* LlamaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA349F2F2D6801440024356A /* LlamaManager.swift */; };
 		CAAA3AB32D5B102D00D9A631 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3AA72D5B102D00D9A631 /* UserModel.swift */; };
-		CAAA3AB52D5B102D00D9A631 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3AAD2D5B102D00D9A631 /* UserViewModel.swift */; };
 		CAAA3AB62D5B102D00D9A631 /* StudyBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAA3AB02D5B102D00D9A631 /* StudyBuddyApp.swift */; };
 		CAAA3AB72D5B102D00D9A631 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAAA3AA92D5B102D00D9A631 /* Preview Assets.xcassets */; };
 		CAAA3AB82D5B102D00D9A631 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAAA3AAF2D5B102D00D9A631 /* Assets.xcassets */; };
@@ -63,6 +64,8 @@
 /* Begin PBXFileReference section */
 		213871AC2D5CEED600B83A04 /* OpenAIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIRequest.swift; sourceTree = "<group>"; };
 		213871B12D5CF2B400B83A04 /* OpenAIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIResponse.swift; sourceTree = "<group>"; };
+		4094F0812D9EF7FA00C10C53 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		4094F0852D9EFC8700C10C53 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		40D9FE142D8178DE00BBB664 /* ViewEditProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEditProfile.swift; sourceTree = "<group>"; };
 		40D9FE162D81792F00BBB664 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		9124041F2D77A0EF00A0C7AC /* FileViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewer.swift; sourceTree = "<group>"; };
@@ -90,7 +93,6 @@
 		CA349F2F2D6801440024356A /* LlamaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LlamaManager.swift; sourceTree = "<group>"; };
 		CAAA3AA72D5B102D00D9A631 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		CAAA3AA92D5B102D00D9A631 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		CAAA3AAD2D5B102D00D9A631 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		CAAA3AAF2D5B102D00D9A631 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CAAA3AB02D5B102D00D9A631 /* StudyBuddyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyBuddyApp.swift; sourceTree = "<group>"; };
 		CAAA3ABD2D5B10C200D9A631 /* IntelligenceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceRequest.swift; sourceTree = "<group>"; };
@@ -163,6 +165,8 @@
 		CA0CE2CB2D5C2AE600DD8FD2 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				4094F0852D9EFC8700C10C53 /* User.swift */,
+				4094F0812D9EF7FA00C10C53 /* UserViewModel.swift */,
 				40D9FE162D81792F00BBB664 /* ImagePicker.swift */,
 				40D9FE142D8178DE00BBB664 /* ViewEditProfile.swift */,
 				CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */,
@@ -235,7 +239,6 @@
 			children = (
 				9190917C2D78DCC400988421 /* FileViewerViewModel */,
 				EAFA58412D5D413E00ADC214 /* UploadViewModel */,
-				CAAA3AAD2D5B102D00D9A631 /* UserViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -431,7 +434,7 @@
 				946D8D962D7A536200E4B384 /* AuthViewModel.swift in Sources */,
 				966B69C42D67F9DA00BB11DE /* DocumentsModel.swift in Sources */,
 				CA0CE2CC2D5C2AE600DD8FD2 /* HomeView.swift in Sources */,
-				CAAA3AB52D5B102D00D9A631 /* UserViewModel.swift in Sources */,
+				4094F0862D9EFC8900C10C53 /* User.swift in Sources */,
 				912404212D77A0EF00A0C7AC /* FileViewer.swift in Sources */,
 				213871B22D5CF2B500B83A04 /* OpenAIResponse.swift in Sources */,
 				CAAA3AB62D5B102D00D9A631 /* StudyBuddyApp.swift in Sources */,
@@ -442,6 +445,7 @@
 				CA0CE2D02D5C2AF500DD8FD2 /* SetView.swift in Sources */,
 				C7BCD2BC2D5DAA8A00F89A0C /* DocumentPickerView.swift in Sources */,
 				AA0AB33A2D77D5AC001EFC78 /* ContentView.swift in Sources */,
+				4094F0822D9EF7FF00C10C53 /* UserViewModel.swift in Sources */,
 				CA0CE2D12D5C2AF500DD8FD2 /* StudyView.swift in Sources */,
 				EAFA584A2D5D418700ADC214 /* UploadView.swift in Sources */,
 				AADE96032D6E983B008DD19B /* AddView.swift in Sources */,

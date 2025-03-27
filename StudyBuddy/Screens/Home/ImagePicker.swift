@@ -13,7 +13,8 @@ struct ImagePicker: UIViewControllerRepresentable {
     @Binding var image: UIImage?
     @Environment(\.presentationMode) var presentationMode
     var allowsEditing: Bool = true
-    
+    var selectionLimit: Int = 1
+
     class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate, PHPickerViewControllerDelegate {
         var parent: ImagePicker
 
@@ -23,7 +24,7 @@ struct ImagePicker: UIViewControllerRepresentable {
 
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
             if let editedImage = info[.editedImage] as? UIImage {
-                parent.image = editedImage  // Use edited image
+                parent.image = editedImage
             } else if let originalImage = info[.originalImage] as? UIImage {
                 parent.image = originalImage
             }
@@ -35,11 +36,15 @@ struct ImagePicker: UIViewControllerRepresentable {
                 parent.presentationMode.wrappedValue.dismiss()
                 return
             }
-            
+
             if provider.canLoadObject(ofClass: UIImage.self) {
-                provider.loadObject(ofClass: UIImage.self) { image, _ in
+                provider.loadObject(ofClass: UIImage.self) { image, error in
                     DispatchQueue.main.async {
-                        self.parent.image = image as? UIImage
+                        if let image = image as? UIImage {
+                            self.parent.image = image
+                        } else {
+                            print("Error loading image: \(error?.localizedDescription ?? "Unknown error")")
+                        }
                         self.parent.presentationMode.wrappedValue.dismiss()
                     }
                 }
@@ -55,8 +60,8 @@ struct ImagePicker: UIViewControllerRepresentable {
         if #available(iOS 14, *) {
             var config = PHPickerConfiguration()
             config.filter = .images
-            config.selectionLimit = 1
-            
+            config.selectionLimit = selectionLimit
+
             let picker = PHPickerViewController(configuration: config)
             picker.delegate = context.coordinator
             return picker

@@ -1,10 +1,3 @@
-//
-//  ViewEditProfile.swift
-//  StudyBuddy
-//
-//  Created by Madhumita Subbiah on 09/12/2025
-//
-
 import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
@@ -19,12 +12,12 @@ struct ViewEditProfile: View {
     @State private var errorMessage: String?
     @State private var showPasswordChange: Bool = false
     @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         NavigationView {
             VStack {
-            
                 VStack {
                     if let image = profileImage {
                         Image(uiImage: image)
@@ -40,7 +33,6 @@ struct ViewEditProfile: View {
                             .frame(width: 100, height: 100)
                             .foregroundColor(.gray)
                     }
-                    
                     Button(action: {
                         showImagePicker.toggle()
                     }) {
@@ -56,8 +48,8 @@ struct ViewEditProfile: View {
                     Section(header: Text("Personal Information")) {
                         TextField("First Name", text: $firstName)
                         TextField("Last Name", text: $lastName)
-                        TextField("Email", text: $email)
-                            .disabled(true)
+                        
+                        Text(email)
                             .foregroundColor(.gray)
 
                         NavigationLink(destination: ChangePasswordView(showPasswordChange: $showPasswordChange)) {
@@ -104,23 +96,17 @@ struct ViewEditProfile: View {
             }
             .navigationTitle("View/Edit Profile")
             .onAppear {
-                loadUserProfile()
+                userViewModel.fetchUser()
+                email = Auth.auth().currentUser?.email ?? ""
+                loadProfileImageFromFirestore()
             }
+            .onReceive(userViewModel.$user.compactMap { $0 }) { user in
+                firstName = user.firstName
+                lastName = user.lastName
+            }
+
             .sheet(isPresented: $showImagePicker) {
                 ImagePicker(image: $profileImage, allowsEditing: true)
-            }
-        }
-    }
-
-    private func loadUserProfile() {
-        guard let user = Auth.auth().currentUser else { return }
-        email = user.email ?? ""
-
-        let db = Firestore.firestore()
-        db.collection("users").document(user.uid).getDocument { (document, error) in
-            if let document = document, document.exists {
-                firstName = document.get("firstName") as? String ?? ""
-                lastName = document.get("lastName") as? String ?? ""
             }
         }
     }
@@ -128,15 +114,17 @@ struct ViewEditProfile: View {
     private func updateProfile() {
         guard let user = Auth.auth().currentUser else { return }
 
-        let db = Firestore.firestore()
-        db.collection("users").document(user.uid).setData([
-            "firstName": firstName,
-            "lastName": lastName
+        let database = Firestore.firestore()
+        database.collection("users").document(user.uid).setData([
+            "firstName" : firstName,
+            "lastName" : lastName,
+            "email": user.email ?? ""
         ], merge: true) { error in
             if let error = error {
                 self.errorMessage = "Error updating profile: \(error.localizedDescription)"
             }
             else {
+                print("Profile updated successfully")
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -147,14 +135,21 @@ struct ViewEditProfile: View {
     }
 
     private func uploadProfileImage(_ image: UIImage) {
-        guard let user = Auth.auth().currentUser else { return }
-        let storageRef = Storage.storage().reference().child("profile_images/\(user.uid).jpg")
+        guard let user = Auth.auth().currentUser else {
+            self.errorMessage = "User is not authenticated."
+            return
+        }
 
-        guard let imageData = image.jpegData(compressionQuality: 0.5)
-        else {
+        let storageRef = Storage.storage().reference()
+            .child("profile_images")
+            .child("\(user.uid).jpg")
+
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
             self.errorMessage = "Error: Unable to process image data."
             return
         }
+
+        print("Uploading image...")
 
         storageRef.putData(imageData, metadata: nil) { metadata, error in
             if let error = error {
@@ -162,27 +157,62 @@ struct ViewEditProfile: View {
                 return
             }
 
-            storageRef.downloadURL { (url, error) in
+            print("Upload successful. Getting download URL...")
+
+            storageRef.downloadURL { url, error in
                 if let error = error {
                     self.errorMessage = "Error getting download URL: \(error.localizedDescription)"
                     return
                 }
-                print("Upload successful, download URL: \(url?.absoluteString ?? "")")
+
+                if let downloadURL = url {
+                    print("Got download URL: \(downloadURL)")
+                    saveProfileImageURL(downloadURL.absoluteString)
+                }
+            }
+        }
+    }
+
+    
+    private func saveProfileImageURL(_ url: String) {
+        guard let user = Auth.auth().currentUser else { return }
+        let db = Firestore.firestore()
+        db.collection("users").document(user.uid).setData([
+            "profileImageURL": url
+        ], merge: true) { error in
+            if let error = error {
+                self.errorMessage = "Error saving profile image URL: \(error.localizedDescription)"
+            } else {
+                print("Profile image URL saved to Firestore.")
             }
         }
     }
     
-    private func saveProfileImageURL(_ url: String) {
-            guard let user = Auth.auth().currentUser else { return }
+    private func loadProfileImageFromFirestore() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
 
-            let db = Firestore.firestore()
-
-            db.collection("users").document(user.uid).setData([
-                "profileImageURL": url
-            ], merge: true) { error in
-                if let error = error {
-                    self.errorMessage = "Error saving profile image URL: \(error.localizedDescription)"
-                }
+        let docRef = Firestore.firestore().collection("users").document(uid)
+        docRef.getDocument { snapshot, error in
+            if let error = error {
+                print("Error fetching image URL: \(error.localizedDescription)")
+                return
             }
+
+            guard let data = snapshot?.data(),
+                  let urlString = data["profileImageURL"] as? String,
+                  let url = URL(string: urlString) else {
+                return
+            }
+
+            URLSession.shared.dataTask(with: url) { data, _, error in
+                if let data = data, let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self.profileImage = image
+                    }
+                }
+            }.resume()
         }
+    }
+
+
 }

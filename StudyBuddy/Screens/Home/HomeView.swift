@@ -5,16 +5,17 @@
 //  Created by Eric Son on 2/6/25.
 //
 
-import SwiftUI 
+import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @State private var isCompactView: Bool = true
     @State private var isProfilePresented: Bool = false  // Track if profile sheet is presented
+    
     private var sampleTextList: [String] = [
         "A broad exposure to computer system structure and networking including software abstractions in operating systems for orchestrating the usage of the computing resources.",
         "Computer data structures and algorithms in the context of object-oriented programming. Focus on software development towards applications.",
-        "Linear algebra, eigenvalues, eigenvectors, applications to linear systems, least squares, diagnolization, quadratic forms.",
+        "Linear algebra, eigenvalues, eigenvectors, applications to linear systems, least squares, diagonalization, quadratic forms.",
         "Introduction to the principles of programming languages including syntax, semantics, and the run-time environments.",
         "Concepts of database systems and management; exploring relational databases, SQL, transaction mechanisms, database design, and normalization.",
         "Theory and practical approaches to artificial intelligence, including machine learning algorithms, neural networks, and deep learning frameworks."
@@ -55,12 +56,11 @@ struct HomeView: View {
                                 .frame(width: 25, height: 25)
                                 .foregroundColor(.gray)
                         }
-                        .padding(.trailing)
                     }
                     .padding(.top, 16)
                     
                     HStack(spacing: 8) {
-                        ForEach(0..<3) { index in
+                        ForEach(0..<3, id: \.self) { _ in
                             RoundedRectangle(cornerRadius: 8)
                                 .fill(Color.gray.opacity(0.3))
                                 .frame(height: 30)
@@ -112,4 +112,3 @@ struct HomeView: View {
         }
     }
 }
-
