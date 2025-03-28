@@ -15,18 +15,21 @@ struct Document: Identifiable {
     let content: String  // Raw content of the document
     let dateCreated: Date  // Timestamp when the document was created
     var parsedContent: String?  // Stores extracted text after parsing (optional)
+    var fileData: Data? // Data of the Document for file storage needs
 
     /// Initializes a new document with a given file name and content.
     /// - Parameters:
     ///   - fileName: Name of the document file.
     ///   - content: Raw text content of the document.
     ///   - parsedContent: Extracted text content after processing (default: nil).
-    init(fileName: String, content: String, parsedContent: String? = nil) {
+    ///   - fileData: Data of the document (default: nil).
+    init(fileName: String, content: String, parsedContent: String? = nil, fileData: Data? = nil) {
         self.id = UUID()  // Generate a unique ID
         self.fileName = fileName
         self.content = content
         self.dateCreated = Date()  // Set creation timestamp
         self.parsedContent = parsedContent
+        self.fileData = fileData
     }
     
     /// Updates the parsed content of the document after text extraction.
