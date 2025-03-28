@@ -39,7 +39,7 @@ struct DocumentPickerView: UIViewControllerRepresentable {
                 do {
                     // read file data
                     let fileData = try Data(contentsOf: url)
-                    
+
                     // Extract text content from the PDF
                     let document = Document(fileName: url.lastPathComponent, content: "", fileData: fileData)
                     extractTextFromPDF(pdfURL: url, document: document) { extractedText, updatedDocument in
@@ -47,13 +47,13 @@ struct DocumentPickerView: UIViewControllerRepresentable {
                             // Update the document content
                             var finalDocument = updatedDocument
                             finalDocument.updateParsedContent(extractedText)
-                            
+
                             // Add the document to the view model's documents list
                             if !self.parent.uploadViewModel.selectedDocumentNames.contains(url.lastPathComponent) {
                                 self.parent.uploadViewModel.selectedDocumentNames.append(url.lastPathComponent)
                             }
                             self.parent.uploadViewModel.documents.append(finalDocument)
-                            
+
                             // Call the upload function with the file data
                             self.parent.uploadViewModel.uploadFileToFirebase(
                                 fileName: url.lastPathComponent,

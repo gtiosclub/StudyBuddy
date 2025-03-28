@@ -31,7 +31,7 @@ struct Document: Identifiable {
         self.parsedContent = parsedContent
         self.fileData = fileData
     }
-    
+
     /// Updates the parsed content of the document after text extraction.
     /// - Parameter parsed: The extracted text from the document.
     mutating func updateParsedContent(_ parsed: String) {
