@@ -2,7 +2,8 @@
 //  LLMEvaluator.swift
 //  StudyBuddy
 //
-//  Created by Jordan Singer on 10/4/24. Obtained from https://github.com/Gusi1804/fullmoon-ios-xcode15/blob/main/fullmoon/Models/LLMEvaluator.swift
+//  Created by Jordan Singer on 10/4/24. 
+// Obtained from https://github.com/Gusi1804/fullmoon-ios-xcode15/blob/main/fullmoon/Models/LLMEvaluator.swift
 //
 
 import Foundation
@@ -111,7 +112,10 @@ class LLMEvaluator {
             let modelContainer = try await load(modelName: modelName)
 
             // augment the prompt as needed
-            let promptHistory = modelContainer.configuration.getPromptHistory(thread: thread, systemPrompt: systemPrompt)
+            let promptHistory = modelContainer.configuration.getPromptHistory(
+                thread: thread,
+                systemPrompt: systemPrompt
+            )
 
             if modelContainer.configuration.modelType == .reasoning {
                 isThinking = true
@@ -162,7 +166,7 @@ class LLMEvaluator {
     }
 }
 
-//class LLMEvaluator {
+// class LLMEvaluator {
 //    private let modelName1B = "Llama-3.2-1B.mlx"
 //    private let modelName3B = "Llama-3.2-3B.mlx"
 //    
@@ -245,9 +249,4 @@ class LLMEvaluator {
 //            return "Error generating completion: \(error.localizedDescription)"
 //        }
 //    }
-//}
-
-
-
-
-
+// }

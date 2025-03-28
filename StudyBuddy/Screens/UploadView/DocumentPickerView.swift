@@ -36,20 +36,35 @@ struct DocumentPickerView: UIViewControllerRepresentable {
 
         func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
             for url in urls {
-                // Create initial document with just the filename - content will be added after parsing
-                let document = Document(fileName: url.lastPathComponent, content: "")
-                
-                // Process the PDF and extract text
-                extractTextFromPDF(pdfURL: url, document: document) { extractedText, updatedDocument in
-                    DispatchQueue.main.async {
-                        // Update view model with the document names
-                        if !self.parent.uploadViewModel.selectedDocumentNames.contains(url.lastPathComponent) {
-                            self.parent.uploadViewModel.selectedDocumentNames.append(url.lastPathComponent)
+                do {
+                    // read file data
+                    let fileData = try Data(contentsOf: url)
+
+                    // Extract text content from the PDF
+                    let document = Document(fileName: url.lastPathComponent, content: "", fileData: fileData)
+                    extractTextFromPDF(pdfURL: url, document: document) { extractedText, updatedDocument in
+                        DispatchQueue.main.async {
+                            // Update the document content
+                            var finalDocument = updatedDocument
+                            finalDocument.updateParsedContent(extractedText)
+
+                            // Add the document to the view model's documents list
+                            if !self.parent.uploadViewModel.selectedDocumentNames.contains(url.lastPathComponent) {
+                                self.parent.uploadViewModel.selectedDocumentNames.append(url.lastPathComponent)
+                            }
+                            self.parent.uploadViewModel.documents.append(finalDocument)
+
+                            // Call the upload function with the file data
+                            self.parent.uploadViewModel.uploadFileToFirebase(
+                                fileName: url.lastPathComponent,
+                                fileData: fileData,
+                                document: finalDocument,
+                                isPublic: false
+                            )
                         }
-                        
-                        // Add the document to the view model's documents list
-                        self.parent.uploadViewModel.documents.append(updatedDocument)
                     }
+                } catch {
+                    print("Error reading file data: \(error)")
                 }
             }
             // Dismiss the document picker and present the upload view
