@@ -5,12 +5,15 @@
 //  Created by Eric Son on 2/6/25.
 //
 
-import SwiftUI
-
+import SwiftUI 
 
 struct HomeView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @State private var isCompactView: Bool = true
+<<<<<<< HEAD
+    @State private var isProfilePresented: Bool = false  // Track if profile sheet is presented
+=======
+>>>>>>> refs/remotes/origin/109-create-a-viewedit-profile-page
     private var sampleTextList: [String] = [
         "A broad exposure to computer system structure and networking including software abstractions in operating systems for orchestrating the usage of the computing resources.",
         "Computer data structures and algorithms in the context of object-oriented programming. Focus on software development towards applications.",
@@ -29,7 +32,11 @@ struct HomeView: View {
         "CS7641 Machine Learning Quiz"
     ]
 
+<<<<<<< HEAD
+    var body: some View {
+=======
      var body: some View {
+>>>>>>> refs/remotes/origin/109-create-a-viewedit-profile-page
         NavigationView {
             VStack(spacing: 12) {
                 VStack(spacing: 8) {
@@ -47,6 +54,12 @@ struct HomeView: View {
                                 .frame(width: 25, height: 25)
                                 .foregroundColor(.gray)
                         }
+<<<<<<< HEAD
+                        Button(action: {
+                            isProfilePresented = true  // Navigate to the profile section
+                        }) {
+                            Image(systemName: "person.fill")
+=======
                         HStack(spacing: 8) {
                             Circle()
                                 .fill(Color.gray.opacity(0.3))
@@ -59,6 +72,7 @@ struct HomeView: View {
                             authViewModel.logoutUser()
                         }) {
                             Image(systemName: "person.fill.badge.minus")
+>>>>>>> refs/remotes/origin/109-create-a-viewedit-profile-page
                                 .resizable()
                                 .frame(width: 25, height: 25)
                                 .foregroundColor(.gray)
@@ -112,11 +126,21 @@ struct HomeView: View {
                 }
                 .gesture(DragGesture())
                 .padding(.bottom, 20)
+<<<<<<< HEAD
+            }
+            .sheet(isPresented: $isProfilePresented) {
+                ViewEditProfile()
+                    .environmentObject(authViewModel)
+=======
                 
+>>>>>>> refs/remotes/origin/109-create-a-viewedit-profile-page
             }
         }
     }
 }
+<<<<<<< HEAD
+
+=======
 //    @State var widgets: [String: String] = [
 //        "2200": "A broad exposure to computer system structure and networking including software abstractions in operating systems for orchestrating the usage of the computing resources.",
 //        "1332": "Computer data structures and algorithms in the context of object-oriented programming. Focus on software development towards applications.",
@@ -177,3 +201,4 @@ struct HomeView: View {
 //        .padding()
 //    }
 //}
+>>>>>>> refs/remotes/origin/109-create-a-viewedit-profile-page
