@@ -17,7 +17,7 @@ struct ChatInterfaceView: View {
     @State private var inputText: String = ""
     @State private var selectedModel: String = "OpenAI"
     let models = ["OpenAI", "LLaMA (On-Device)"]
-    
+
     var body: some View {
         VStack(spacing: 0) {
             // Model Picker
@@ -31,7 +31,7 @@ struct ChatInterfaceView: View {
             .background(Color(UIColor.systemGray6))
             .cornerRadius(12)
             .padding(.horizontal)
-            
+
             // Chat History
             ScrollViewReader { scrollView in
                 ScrollView {
@@ -48,7 +48,7 @@ struct ChatInterfaceView: View {
                 .padding(.horizontal)
             }
             .frame(maxHeight: .infinity)
-            
+
             // Improved Input Field
             HStack(spacing: 10) {
                 TextField("Type a message...", text: $inputText)
@@ -59,7 +59,7 @@ struct ChatInterfaceView: View {
                             .stroke(Color.gray.opacity(0.3), lineWidth: 1)
                     )
                     .padding(.leading, 10)
-                
+
                 Button(action: sendMessage) {
                     Image(systemName: "paperplane.fill")
                         .foregroundColor(.white)
@@ -74,7 +74,7 @@ struct ChatInterfaceView: View {
         }
         .edgesIgnoringSafeArea(.bottom)
     }
-    
+
     func sendMessage() {
         guard !inputText.isEmpty else { return }
         let userMessage = ChatMessage(text: inputText, isUser: true)
@@ -121,4 +121,3 @@ struct ChatInterfaceView_Previews: PreviewProvider {
         ChatInterfaceView()
     }
 }
-
