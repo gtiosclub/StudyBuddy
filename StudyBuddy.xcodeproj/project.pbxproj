@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		213871AD2D5CEED900B83A04 /* OpenAIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213871AC2D5CEED600B83A04 /* OpenAIRequest.swift */; };
 		213871B22D5CF2B500B83A04 /* OpenAIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213871B12D5CF2B400B83A04 /* OpenAIResponse.swift */; };
+		427916902D9A2BC10033B56A /* ProgessBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4279168F2D9A2BC10033B56A /* ProgessBarView.swift */; };
 		912404212D77A0EF00A0C7AC /* FileViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9124041F2D77A0EF00A0C7AC /* FileViewer.swift */; };
 		918BED4A2D93757000E8C3CF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 918BED492D93757000E8C3CF /* GoogleService-Info.plist */; };
 		9190917E2D78DCCF00988421 /* FileViewerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9190917D2D78DCCF00988421 /* FileViewerViewModel.swift */; };
@@ -63,6 +64,7 @@
 /* Begin PBXFileReference section */
 		213871AC2D5CEED600B83A04 /* OpenAIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIRequest.swift; sourceTree = "<group>"; };
 		213871B12D5CF2B400B83A04 /* OpenAIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIResponse.swift; sourceTree = "<group>"; };
+		4279168F2D9A2BC10033B56A /* ProgessBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgessBarView.swift; sourceTree = "<group>"; };
 		9124041F2D77A0EF00A0C7AC /* FileViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewer.swift; sourceTree = "<group>"; };
 		918BED492D93757000E8C3CF /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9190917D2D78DCCF00988421 /* FileViewerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewerViewModel.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				CA0CE2CD2D5C2AF500DD8FD2 /* SetView.swift */,
 				CA0CE2CE2D5C2AF500DD8FD2 /* StudyView.swift */,
 				AADE96022D6E983B008DD19B /* AddView.swift */,
+				4279168F2D9A2BC10033B56A /* ProgessBarView.swift */,
 			);
 			path = Flashcards;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				EAFA58462D5D417600ADC214 /* UploadModel.swift in Sources */,
 				9B883B362D713DA400AE3DEF /* LLMEvaluator.swift in Sources */,
 				CAAA3ABE2D5B10C200D9A631 /* IntelligenceRequest.swift in Sources */,
+				427916902D9A2BC10033B56A /* ProgessBarView.swift in Sources */,
 				CA0CE2D42D5C2B1700DD8FD2 /* FlashcardStudySetModel.swift in Sources */,
 				946D8DA62D7A545100E4B384 /* LoginView.swift in Sources */,
 				94B653E32D6562F7001D3727 /* Flashcard.swift in Sources */,
