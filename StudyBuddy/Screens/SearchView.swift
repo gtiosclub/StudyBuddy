@@ -103,24 +103,72 @@ struct SearchView: View {
                     ScrollView {
                         VStack(spacing: 12) {
                             ForEach(trendingSets, id: \.self) { set in
-                                RoundedRectangle(cornerRadius: 12)
-                                    .fill(Color.gray.opacity(0.2))
-                                    .frame(height: 100)
-                                    .overlay(
-                                        HStack {
+                                VStack(spacing: 0) {
+                                    // Card content
+                                    VStack(alignment: .leading, spacing: 6) {
+                                        Text(set)
+                                            .font(.headline)
+
+                                        HStack(spacing: 8) {
                                             Circle()
-                                                .fill(Color.gray)
-                                                .frame(width: 30, height: 30)
-                                            Text(set)
-                                                .font(.headline)
-                                                .foregroundColor(.gray)
-                                            Spacer()
+                                                .fill(Color.white.opacity(0.3))
+                                                .frame(width: 20, height: 20)
+                                            Text("john_doe18")
+                                                .foregroundColor(.black)
+                                                .font(.subheadline)
                                         }
-                                        .padding()
-                                    )
-                                    .padding(.horizontal)
+
+                                        Text("48 terms")
+                                            .font(.subheadline)
+                                            .foregroundColor(.black)
+
+                                        Text("23 terms mastered")
+                                            .font(.subheadline)
+                                            .foregroundColor(.black)
+
+                                        Spacer().frame(height: 6)
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding()
+
+                                    Divider()
+
+                                    HStack(spacing: 0) {
+                                        Button(action: {
+                                            // Chatbot functionality
+                                        }) {
+                                            Text("Chatbot")
+                                                .font(.subheadline)
+                                                .bold()
+                                                .frame(maxWidth: .infinity)
+                                                .padding()
+                                                .foregroundColor(.black)
+                                        }
+
+                                        Rectangle()
+                                            .frame(width: 1, height: 33)
+                                            .foregroundColor(.gray.opacity(0.6))
+
+                                        Button(action: {
+                                            // Flashcards functionality
+                                        }) {
+                                            Text("Flashcards")
+                                                .font(.subheadline)
+                                                .bold()
+                                                .frame(maxWidth: .infinity)
+                                                .padding()
+                                                .foregroundColor(.black)
+                                        }
+                                    }
+                                    .background(Color.white.opacity(0.5))
+                                }
+                                .background(Color.gray.opacity(0.8))
+                                .cornerRadius(12)
+                                .padding(.horizontal)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             }
                         }
+                        .padding(.top)
                     }
                 }
             }
