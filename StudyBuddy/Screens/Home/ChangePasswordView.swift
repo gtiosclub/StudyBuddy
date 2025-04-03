@@ -41,12 +41,15 @@ struct ChangePasswordView: View {
                         .cornerRadius(10)
                 }
                 .padding()
+<<<<<<< HEAD
+=======
 
                 Button("Cancel") {
                     showPasswordChange = false
                 }
                 .foregroundColor(.red)
                 .padding()
+>>>>>>> refs/remotes/origin/109-create-a-viewedit-profile-page
             }
             .navigationTitle("Change Password")
         }
