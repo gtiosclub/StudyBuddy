@@ -7,7 +7,8 @@
 import Foundation
 import FirebaseStorage
 import QuickLook
-
+import FirebaseAuth
+import FirebaseFirestore
 class FileViewerViewModel: ObservableObject {
     @Published var documents: [Document] = []
     @Published var isLoading: Bool = false
@@ -15,7 +16,8 @@ class FileViewerViewModel: ObservableObject {
     @Published var selectedFileURL: URL?
     @Published var isPresentingFilePreview: Bool = false
     @Published var localFileURL: URL?
-
+    private let db = Firestore.firestore()
+    private var documentsListener: ListenerRegistration?
     private let storage = Storage.storage()
     private let storagePath = "documents/"
 
@@ -132,4 +134,19 @@ class FileViewerViewModel: ObservableObject {
     var favoriteDocuments: [Document] {
         return documents.filter { $0.isFavorite }
     }
+
+
+    //created simple method to get documents from database
+    func getDocument(documentID: String) async -> Document? {
+        let docRef = db.collection("Documents").document(documentID)
+        do {
+            let document = try await docRef.getDocument(as: Document.self)
+            return document
+        } catch {
+            print("Error in FileViewModel while doing getDocument \(error)")
+            return nil
+        }
+    }
+    
+
 }

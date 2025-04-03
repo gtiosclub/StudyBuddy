@@ -34,25 +34,21 @@ class UploadViewModel: ObservableObject {
                     return
                 }
                 print("File uploaded successfully. Download URL: \(downloadURL.absoluteString)")
-
-                // Create Firestore document
-                let docData: [String: Any] = [
-                    "fileName": document.fileName,
-                    "content": document.content,
-                    "parsedContent": document.parsedContent ?? "",
-                    "dateCreated": document.dateCreated,
-                    "storageURL": downloadURL.absoluteString,
-                    "isPublic": isPublic
-                ]
-                // Save to Firestore
-                self.database.collection("Documents").document(document.id.uuidString).setData(docData) { error in
-                    if let error = error {
-                        print("Error saving to Firestore: \(error)")
-                    } else {
-                        print("Document saved to Firestore successfully.")
-                    }
-                }
+                
+                //this stores the correct updated document values
+                self.uploadDocument(document: document)
             }
+        }
+    }
+    func uploadDocument(document: Document) {
+        let collectionRef = Firestore.firestore().collection("Documents")
+        do {
+            var newDocument = document
+            let docRef = try collectionRef.addDocument(from: newDocument)
+            newDocument.firestoreDocumentId = docRef.documentID
+            print("Document stored in FileViewModel\(docRef.documentID)")
+        } catch {
+            print("Error in FileViewModel while doing uploadDocument \(error)")
         }
     }
 }
