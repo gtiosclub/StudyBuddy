@@ -1,23 +1,10 @@
-//
-//  StudyView.swift
-//  StudyBuddy
-//
-//  Created by Jihoon Kim on 2/11/25.
-//
-
 import SwiftUI
 
 struct StudyView: View {
-    let hardcodedSet: [(String, String)] = [("Hello", "World"), ("Swift", "UI"), ("SwiftUI", "Is")]
-    @ObservedObject var studySet: StudySet
+    @ObservedObject var studySet: StudySetModel
     @State private var flashCardIndex = 0
     @State private var showBack = false
-    @State private var currentText: String = ""
-    
-    init(studySet: StudySet) {
-        self.studySet = studySet
-    }
-    
+
     var body: some View {
         VStack {
             Spacer()
@@ -27,25 +14,34 @@ struct StudyView: View {
             navBar()
             Spacer()
         }
-
     }
     private func cardView() -> some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color.blue)
-                .frame(width: 300, height: 200)
-                .shadow(radius: 5)
-            Text((showBack ? studySet.set["\(flashCardIndex)"]?.1 ?? "back" : studySet.set["\(flashCardIndex)"]?.0) ?? "front")
-                    .font(.title)
+        // Ensure index is within bounds
+        if studySet.flashcards.indices.contains(flashCardIndex) {
+            return AnyView(
+                ZStack {
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.blue)
+                        .frame(width: 300, height: 200)
+                        .shadow(radius: 5)
+                    Text(showBack ?
+                            studySet.flashcards[flashCardIndex].back :
+                            studySet.flashcards[flashCardIndex].front)
+                        .font(.title)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                }
+                .onTapGesture {
+                    showBack.toggle()
+                }
+            )
+        } else {
+            return AnyView(Text("No flashcard available"))
         }
-        .onTapGesture {
-            showBack.toggle()
-        }
-
     }
+
     private func navBar() -> some View {
         HStack {
-
             Button(action: {
                 if flashCardIndex > 0 {
                     flashCardIndex -= 1
@@ -58,8 +54,7 @@ struct StudyView: View {
                 }
             }
             Button(action: {
-                if flashCardIndex < studySet.set.count {
-
+                if flashCardIndex < studySet.flashcards.count - 1 {
                     flashCardIndex += 1
                     showBack = false
                 }
@@ -71,9 +66,15 @@ struct StudyView: View {
             }
         }
     }
-
 }
 
 #Preview {
-    StudyView(studySet: StudySet(set: ["1":("Hello","World"), "2":("Swift","UI"), "3":("SwiftUI","booo"), "4":("Card","definition"), "5":("Onemore","card")]))
+    let sampleFlashcards = [
+        FlashcardModel(front: "Hello", back: "World", createdBy: "Calvin", mastered: false),
+        FlashcardModel(front: "Swift", back: "UI", createdBy: "Calvin", mastered: false),
+        FlashcardModel(front: "SwiftUI", back: "Is awesome", createdBy: "Calvin", mastered: false)
+    ]
+    // Assuming StudySetModel is now a class conforming to ObservableObject.
+    let sampleStudySet = StudySetModel(flashcards: sampleFlashcards, dateCreated: Date(), createdBy: "Calvin")
+    StudyView(studySet: sampleStudySet)
 }

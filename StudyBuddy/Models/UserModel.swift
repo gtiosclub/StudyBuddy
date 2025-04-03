@@ -4,7 +4,6 @@
 //
 //  Created by Tejeshwar Natarajan on 2/6/25.
 //
-
 import Foundation
 import SwiftUI
 
@@ -16,15 +15,13 @@ struct UserModel: Codable, Identifiable {
     var userName: String = ""
     var studySets: [StudySetModel] = []
 }
-
-func createTestUser(_ email: String, _ userName: String, _ date1: Date, _ date2: Date, _ date3: Date, _ flashcardText1: String, _ flashcardText2: String, _ flashcardText3: String) -> UserModel {
+func createTestUser(_ email: String, _ userName: String, _ date1: Date, _ date2: Date, _ date3: Date, _ text1: [String], _ text2: [String], _ text3: [String]) -> UserModel {
     var user: UserModel = UserModel(email: email, userName: userName)
-    
-    let flashcard1 = FlashcardModel(text: flashcardText1, createdBy: user.userName, mastered: false)
-    let flashcard2 = FlashcardModel(text: flashcardText2, createdBy: user.userName, mastered: false)
-    let flashcard3 = FlashcardModel(text: flashcardText3, createdBy: user.userName, mastered: false)
-    
-    
+
+    let flashcard1 = FlashcardModel(front: text1[0], back: text1[1], createdBy: user.userName, mastered: false)
+    let flashcard2 = FlashcardModel(front: text2[0], back: text2[1], createdBy: user.userName, mastered: false)
+    let flashcard3 = FlashcardModel(front: text3[0], back: text3[1], createdBy: user.userName, mastered: false)
+
     user.studySets = [
         StudySetModel(flashcards: [flashcard1], dateCreated: date1, createdBy: user.userName),
         StudySetModel(flashcards: [flashcard2], dateCreated: date2, createdBy: user.userName),
@@ -52,7 +49,10 @@ let date3 = createDate(date: "2024-02-28")
 let flashcardText1 = "test123"
 let flashcardText2 = "test455"
 let flashcardText3 = "testagain"
-var user1 = createTestUser("bob123@gmail.com", "bob123", date1, date2, date3, flashcardText1, flashcardText2, flashcardText3)
+let fback1 = "back1"
+let fback2 = "back2"
+let fback3 = "back3"
+var user1 = createTestUser("bob123@gmail.com", "bob123", date1, date2, date3, [flashcardText1, fback1], [flashcardText2, fback2], [flashcardText3, fback3])
 
 //user 2
 let date4 = createDate(date: "2021-07-13")
@@ -61,7 +61,10 @@ let date6 = createDate(date: "2010-11-28")
 let flashcardText4 = "abcd123"
 let flashcardText5 = "efjh456"
 let flashcardText6 = "ijkl789"
-var user2 = createTestUser("jim456@gmail.com", "jim456", date4, date5, date6, flashcardText1, flashcardText2, flashcardText3)
+let fback4 = "back1"
+let fback5 = "back2"
+let fback6 = "back3"
+var user2 = createTestUser("jim456@gmail.com", "jim456", date4, date5, date6, [flashcardText4, fback4], [flashcardText5, fback5], [flashcardText6, fback6])
 
 //user 3
 let date7 = createDate(date: "2005-12-25")
@@ -70,4 +73,7 @@ let date9 = createDate(date: "2023-06-05")
 let flashcardText7 = "falfa324"
 let flashcardText8 = "1+1=2"
 let flashcardText9 = "2^2=4"
-var user3 = createTestUser("billy789@gmail.com", "billy789", date7, date8, date9, flashcardText7, flashcardText8, flashcardText9)
+let fback7 = "back7"
+let fback8 = "back8"
+let fback9 = "back9"
+var user3 = createTestUser("billy789@gmail.com", "billy789", date7, date8, date9, [flashcardText7, fback7], [flashcardText8, fback8], [flashcardText9, fback9])

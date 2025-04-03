@@ -1,37 +1,28 @@
-//
-//  AddView.swift
-//  StudyBuddy
-//
-//  Created by Jihoon Kim on 2/25/25.
-//
-
 import SwiftUI
 
 struct AddView: View {
+    // Now using an ObservableObject of type StudySetModel
+    @ObservedObject var studySet: StudySetModel
     @State private var frontText: String = ""
     @State private var backText: String = ""
-    var set: [String: (String, String)]
-    var studySet: StudySet
-    init(studySet: StudySet) {
-        self.studySet = studySet
-        self.set = studySet.set
-    }
+
     var body: some View {
         NavigationView {
             VStack {
-                // Flashcard form
                 VStack {
-                    TextField("Enter front of flashcard", text: $frontText)
+                    TextField("Term", text: $frontText)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
 
-                    TextField("Enter back of flashcard", text: $backText)
+                    TextField("Definition", text: $backText)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
 
                     Button(action: {
                         if !frontText.isEmpty && !backText.isEmpty {
-                            studySet.add_flashcard(front: frontText, back: backText)
+                            // Create a new flashcard and add it to the study set
+                            let newFlashcard = FlashcardModel(front: frontText, back: backText, createdBy: "USERIDNEEDTOINPUT", mastered: false)
+                            studySet.flashcards.append(newFlashcard)
                             frontText = ""
                             backText = ""
                         }
@@ -51,9 +42,13 @@ struct AddView: View {
     }
 }
 
-struct FlashCardApp_Previews: PreviewProvider {
+struct AddView_Previews: PreviewProvider {
     static var previews: some View {
-        let hardSet = StudySet(set : ["String" : ("String","String")])
-        AddView(studySet: hardSet)
+        // Sample flashcard and study set for preview
+        let sampleFlashcards = [
+            FlashcardModel(front: "Example Front", back: "Example Back", createdBy: "Example User", mastered: false)
+        ]
+        let sampleStudySet = StudySetModel(flashcards: sampleFlashcards, dateCreated: Date(), createdBy: "User")
+        AddView(studySet: sampleStudySet)
     }
 }

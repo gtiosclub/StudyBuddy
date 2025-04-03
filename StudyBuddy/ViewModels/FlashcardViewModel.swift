@@ -11,7 +11,7 @@ import FirebaseFirestore
 class FlashcardViewModel {
     static let shared = FlashcardViewModel()
     @Published var flashcards: [FlashcardModel] = []
-    @Published var currentlyChosenFlashcard = FlashcardModel(text: "", createdBy: "", mastered: false)
+    @Published var currentlyChosenFlashcard = FlashcardModel(front: "", back: "", createdBy: "", mastered: false)
     private let db = Firestore.firestore()
     private var user = UserViewModel.shared.user
     private var currentlyChosenStudySet = StudySetViewModel.shared.currentlyChosenStudySet
@@ -25,26 +25,29 @@ class FlashcardViewModel {
         }
     }
     func fetchFlashcards() {
-        for flashcard in currentlyChosenStudySet.flashcards {
-            guard let flashcardDocumentID = flashcard.id else {
-                print("flashcardDocumentID is nil")
-                return
-            }
-            //            let flashcardDocumentID = "nTukpvPyc6ca2492rcR1"
-            let ref = db.collection("Flashcards").document(flashcardDocumentID)
-            do {
-                ref.getDocument(as: FlashcardModel.self) { result in
-                    switch result {
-                    case .success(let flashcard):
-                        print("Successfully fetched data")
-                        self.flashcards.append(flashcard)
-                    case .failure(let error):
-                        print("Error decoding document: \(error.localizedDescription)")
+        if (currentlyChosenStudySet != nil) {
+
+            for flashcard in currentlyChosenStudySet.flashcards {
+                guard let flashcardDocumentID = flashcard.id else {
+                    print("flashcardDocumentID is nil")
+                    return
+                }
+                //            let flashcardDocumentID = "nTukpvPyc6ca2492rcR1"
+                let ref = db.collection("Flashcards").document(flashcardDocumentID)
+                do {
+                    ref.getDocument(as: FlashcardModel.self) { result in
+                        switch result {
+                        case .success(let flashcard):
+                            print("Successfully fetched data")
+                            self.flashcards.append(flashcard)
+                        case .failure(let error):
+                            print("Error decoding document: \(error.localizedDescription)")
+                        }
                     }
                 }
             }
         }
-        
+
         //        guard let userDocumentID = user.id, let studySetDocumentID = currentlyChosenStudySet.id else {
         //            print("Error: either user.documentID or currentlyChosenStudyset.documentID is nil")
         //            return
