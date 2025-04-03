@@ -40,6 +40,7 @@ class UploadViewModel: ObservableObject {
             }
         }
     }
+    //use this in future to reference a document in our database
     func uploadDocument(document: Document) {
         let collectionRef = Firestore.firestore().collection("Documents")
         do {
@@ -48,7 +49,7 @@ class UploadViewModel: ObservableObject {
             newDocument.firestoreDocumentId = docRef.documentID
             print("Document stored in FileViewModel\(docRef.documentID)")
         } catch {
-            print("Error in FileViewModel while doing uploadDocument \(error)")
+            print("Error in UploadViewModel while doing uploadDocument \(error)")
         }
     }
 }
