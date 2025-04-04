@@ -123,9 +123,11 @@ struct HomeView: View {
                             .padding(.horizontal)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         }
+                        .frame(maxWidth: .infinity)
                     }
                     .padding(.top)
                 }
+
 
                 Divider()
 
