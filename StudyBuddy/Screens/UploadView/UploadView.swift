@@ -52,15 +52,18 @@ struct UploadView: View {
             Button(action: {
                 // Handle upload action
                 for document in uploadViewModel.documents {
+                    var doc: Document = document
+                    doc.isPrivate = !isPublic
                     // update call to upload the file to Firebase
                     uploadViewModel.uploadFileToFirebase(
                         fileName: document.fileName,
                         fileData: document.fileData!,
-                        document: document,
+                        document: doc,
                         isPublic: isPublic
                     )
                 }
                 // Close the view and reset flags
+                print("Uploaded")
                 presentationMode.wrappedValue.dismiss()
                 uploadViewModel.isUploadPresented = false
             }) {
