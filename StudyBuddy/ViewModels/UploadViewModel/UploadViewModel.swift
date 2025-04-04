@@ -37,6 +37,8 @@ class UploadViewModel: ObservableObject {
                 
                 //this stores the correct updated document values
                 self.uploadDocument(document: document)
+                print("DocumentUploaded sucessfully")
+
             }
         }
     }
