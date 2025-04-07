@@ -22,13 +22,17 @@ struct Document: Identifiable, Codable {
     var type: DocumentType = .file // .file or .folder, default to file
     var isFavorite: Bool = false // For the favorites feature
     var firestoreDocumentId: String? // To store the Firestore document ID
+    var userID: String // firebase's UID
+    var isPrivate: Bool
     /// Initializes a new document with a given file name and content.
     /// - Parameters:
     ///   - fileName: Name of the document file.
     ///   - content: Raw text content of the document.
     ///   - parsedContent: Extracted text content after processing (default: nil).
     ///   - fileData: Data of the document (default: nil).
-    init(fileName: String, content: String, parsedContent: String? = nil, fileData: Data? = nil, fileURL: String? = nil, type: DocumentType = .file, isFavorite: Bool = false) {
+    init(fileName: String, content: String, parsedContent: String? = nil,
+         fileData: Data? = nil, fileURL: String? = nil,
+         type: DocumentType = .file, isFavorite: Bool = false, userID: String, isPrivate: Bool) {
         self.id = UUID()  // Generate a unique ID
         self.fileName = fileName
         self.content = content
@@ -39,6 +43,9 @@ struct Document: Identifiable, Codable {
         self.type = type
         self.isFavorite = isFavorite
         self.firestoreDocumentId = nil // Initialize as nil
+        self.userID = userID
+        self.isPrivate = isPrivate
+        
     }
     /// Updates the parsed content of the document after text extraction.
     /// - Parameter parsed: The extracted text from the document.

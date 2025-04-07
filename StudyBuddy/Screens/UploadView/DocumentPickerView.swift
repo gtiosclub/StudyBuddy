@@ -8,11 +8,12 @@
 import SwiftUI
 import UniformTypeIdentifiers
 import UIKit
+import FirebaseAuth
 
 struct DocumentPickerView: UIViewControllerRepresentable {
     @ObservedObject var uploadViewModel: UploadViewModel
     @Environment(\.presentationMode) var presentationMode
-
+    
     func makeCoordinator() -> Coordinator {
         return Coordinator(self)
     }
@@ -39,9 +40,12 @@ struct DocumentPickerView: UIViewControllerRepresentable {
                 do {
                     // read file data
                     let fileData = try Data(contentsOf: url)
-
+                    guard let userID = Auth.auth().getUserID() else {
+                        print("Error found in DocumentPickerView getting userID")
+                        return
+                    }
                     // Extract text content from the PDF
-                    let document = Document(fileName: url.lastPathComponent, content: "", fileData: fileData)
+                    var document = Document(fileName: url.lastPathComponent, content: "", fileData: fileData, userID: userID, isPrivate: false)
                     extractTextFromPDF(pdfURL: url, document: document) { extractedText, updatedDocument in
                         DispatchQueue.main.async {
                             // Update the document content
@@ -67,6 +71,7 @@ struct DocumentPickerView: UIViewControllerRepresentable {
                     print("Error reading file data: \(error)")
                 }
             }
+            print("DocumentUploaded sucessfully")
             // Dismiss the document picker and present the upload view
             self.parent.presentationMode.wrappedValue.dismiss()
             DispatchQueue.main.asyncAfter(deadline: .now()) {

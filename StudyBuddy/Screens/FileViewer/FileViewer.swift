@@ -60,6 +60,13 @@ struct FileViewer: View {
                     Text("Error: \(error)")
                 }
             }
+            .onAppear {
+                fileViewerViewModel.listenToUserDocuments()
+            }
+            .onDisappear() {
+                print("Snap Listener has closed.")
+                fileViewerViewModel.closeSnapshotListener()
+            }
         }
     }
 }
