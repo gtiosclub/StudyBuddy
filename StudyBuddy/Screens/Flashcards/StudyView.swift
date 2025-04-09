@@ -6,22 +6,48 @@
 //
 
 import SwiftUI
+// test flashcards
+var flashcard1: FlashcardModel = FlashcardModel(
+    front: "What is Swift?",
+    back: "A high-level, interpreted programming language",
+    createdBy: "Jihoon Kim",
+    mastered: false
+)
+var flashcard2: FlashcardModel = FlashcardModel(
+    front: "Why use swift?",
+    back: "because it is interpreted programming language",
+    createdBy: "Sean Yan",
+    mastered: false
+)
+
+var flashcard3: FlashcardModel = FlashcardModel(
+    front: "How to use swift?",
+    back: "use the interpreted programming language",
+    createdBy: "Sean Yan",
+    mastered: false
+)
+
+extension Array {
+    subscript(safe index: Int) -> Element? {
+        indices.contains(index) ? self[index] : nil
+    }
+}
 
 struct StudyView: View {
-    let hardcodedSet: [(String, String)] = [("Hello", "World"), ("Swift", "UI"), ("SwiftUI", "Is")]
-    @ObservedObject var studySet: StudySet
+    @State var studySet: [FlashcardModel] = [flashcard1, flashcard2, flashcard3]
     @State private var flashCardIndex = 0
-    @State private var showBack = false
-    @State private var currentText: String = ""
-    @State private var progress: Double = 0.4 // controls status bar
+    @State private var showBack = true
     @State private var master: Int = 0
     @State private var unmaster: Int = 0
     @State private var dragOffset = CGSize.zero // for rectangle dragging
 
-    init(studySet: StudySet) {
-        self.studySet = studySet
+    
+    
+    init(studySet: [FlashcardModel] = [flashcard1, flashcard2, flashcard3]) {
+        _studySet = State(initialValue: studySet)
     }
-
+    
+    
     var body: some View {
         VStack {
             topNavView()
@@ -32,20 +58,21 @@ struct StudyView: View {
             navBar()
             Spacer()
         }
+        .onAppear {
+            updateMaster()
+        }
     }
 
     private func topNavView() -> some View {
         HStack {
             Button(action: {
-                print("return") // go back not implemented yet
+                // needs to be completed
+                print("return")
             }) {
-                HStack {
-                    Image(systemName: "xmark")
-                }
+                Image(systemName: "xmark")
             }
-            
             Spacer()
-            Text("14/48") // actual progress not implemented yet
+            Text("\(flashCardIndex)/\(studySet.count)")
                 .font(.headline)
             Spacer()
         }
@@ -55,111 +82,150 @@ struct StudyView: View {
 
     private func topStatusView() -> some View {
         HStack {
-            VStack {
-                ZStack(alignment: .leading) {
-                    RoundedRectangle(cornerRadius: 0)
-                        .fill(Color.gray)
-                        .fill(Color.gray.opacity(0.3))
-                        .frame(height: 5)
-                    RoundedRectangle(cornerRadius: 5)
-                        .fill(Color.blue)
-                        .frame(width: (progress * 400), height: 6)
-                }
+            ZStack(alignment: .leading) {
+                RoundedRectangle(cornerRadius: 0)
+                    .fill(Color.gray.opacity(0.3))
+                    .frame(height: 5)
+                RoundedRectangle(cornerRadius: 5)
+                    .fill(Color.blue)
+                    .frame(width: getProgress() * 400, height: 6)
             }
         }
     }
 
     private func cardView() -> some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color.green)
-                .frame(width: 175, height: 600)
-                .shadow(radius: 5)
-                .overlay(
-                    Text("Mastered")
-                )
-                .offset(x: dragOffset.width - 350, y: 0) // makes the rectangle outside the user view
-            
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color.red)
-                .frame(width: 175, height: 600)
-                .shadow(radius: 5)
-                .overlay(
-                    Text("Not Mastered")
-                )
-                .offset(x: dragOffset.width + 350, y: 0) // makes the rectangle outside the user view
-            
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color.blue)
-                .frame(width: 375, height: 600)
-                .shadow(radius: 5)
-                .overlay(
-                    Text((showBack ? studySet.set["\(flashCardIndex)"]?.1 ?? "back" : studySet.set["\(flashCardIndex)"]?.0) ?? "front")
-                        .font(.title)
-                        .foregroundColor(.black)
-                )
-                .offset(x: dragOffset.width)
-                .gesture(
-                    DragGesture()
-                        .onChanged { value in
-                            dragOffset = value.translation
-                        }
-                        .onEnded { value in
-                            withAnimation(.spring()) {
-                                // makes sure drag is not too out of bounds
-                                dragOffset.width = min(max(dragOffset.width, -260), 260)
+            // if theres a next card, have a next card
+            if let nextCard = studySet[safe: flashCardIndex + 1] {
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color.blue)
+                    .frame(width: 375, height: 600)
+                    .shadow(radius: 5)
+                    .overlay(
+                        Text(showBack ? nextCard.front : nextCard.back)
+                            .font(.title)
+                            .foregroundColor(.black)
+                    )
 
-                                if dragOffset.width > 250 {
-                                    // implementation for mastering term
-                                    print("right")
-                                    master += 1 // call model
-                                    flashCardIndex += 1
-                                } else if dragOffset.width < -250 {
-                                    // implementation for struggling term
-                                    print("left")
-                                    unmaster += 1 // call model
-                                    flashCardIndex += 1
-                                }
-                                
+            }
 
-                                // Smoothly reset the drag offset with animation
-                                dragOffset = .zero
+            // draggable top card
+            if let currentCard = studySet[safe: flashCardIndex] {
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color.blue)
+                    .frame(width: 375, height: 600)
+                    .shadow(radius: 5)
+                    .overlay(
+                        Text(showBack ? currentCard.front : currentCard.back)
+                            .font(.title)
+                            .foregroundColor(.black)
+                    )
+                    .offset(x: dragOffset.width)
+                    // no idea what this code is for, helps with animation glitches when u swipe the card off the screen
+                    .id(flashCardIndex)
+                    .transition(.asymmetric(
+                        insertion: .identity,
+                        removal: .move(edge: dragOffset.width > 0 ? .trailing : .leading)))
+                    
+                    .gesture(
+                        DragGesture()
+                            .onChanged { value in
+                                dragOffset = value.translation
                             }
-                        }
-                )
-                .onTapGesture {
-                    showBack.toggle()
-                }
+                            .onEnded { _ in
+                                if abs(dragOffset.width) > 225 {
+                                    // push card off of screen if threshold reached
+                                    withAnimation(.spring()) {
+                                        dragOffset.width = dragOffset.width > 0 ? 1000 : -1000
+                                    }
+                                    //  update counters for mastered/struggled
+                                    if dragOffset.width > 0 {
+                                        studySet[flashCardIndex].mastered = true
+                                        
+                                        
+                                    } else {
+                                        studySet[flashCardIndex].mastered = false
+                                    }
+                                
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                                        flashCardIndex += 1
+                                        dragOffset = .zero
+                                        showBack = true
+                                        updateMaster()
+                                        
+                                                                            }
+                                    
+                                } else {
+                                    // bring back to center
+                                    withAnimation(.spring()) {
+                                        dragOffset = .zero
+                                    }
+                                }
+                            }
+                    )
+                    .onTapGesture {
+                        showBack.toggle()
+                    }
+            }
         }
     }
 
     private func navBar() -> some View {
         HStack {
-            HStack {
-                Image(systemName: "checkmark.seal")
-                Text("\(master)")
-            }
-
-            HStack {
-                Image(systemName: "xmark.seal")
+            
+            ZStack {
+                HStack {
+                    UnevenRoundedRectangle(topLeadingRadius: 0, bottomLeadingRadius: 0, bottomTrailingRadius: 20, topTrailingRadius: 20)
+                        .fill(Color.red)
+                        .frame(width: 100, height: 60)
+                        .shadow(radius: 5)
+                }
+//                Image(systemName: "xmark.seal")
                 Text("\(unmaster)")
             }
-
+            
             Spacer()
-
-            Button(action: {
-                showBack.toggle()
-            }) {
-                HStack {
-                    Image(systemName: "return")
-                    Text("Undo")
+            HStack {
+                Button(action: {
+                    // go back one card, and flip to front
+                    if (flashCardIndex > 0) {
+                        flashCardIndex -= 1
+                    }
+                    showBack = true
+                }) {
+                    HStack {
+                        Image(systemName: "return")
+                    }
                 }
             }
+            
+            Spacer()
+            ZStack {
+                HStack {
+                    UnevenRoundedRectangle(topLeadingRadius: 20, bottomLeadingRadius: 20, bottomTrailingRadius: 0, topTrailingRadius: 0)
+                        .fill(Color.green)
+                        .frame(width: 100, height: 60)
+                        .shadow(radius: 5)
+                }
+                
+//                Image(systemName: "checkmark.seal")
+                Text("\(master)")
+            }
+            
+            
+            
         }
-        .padding(20)
+    }
+    private func getProgress() -> Double {
+        return Double(flashCardIndex) / Double(studySet.count)
+    }
+    private func updateMaster() -> Void {
+        let mastered = studySet.filter { $0.mastered }.count
+        self.master = mastered
+        self.unmaster = studySet.count - mastered
     }
 }
 
 #Preview {
-    StudyView(studySet: StudySet(set: ["1":("Hello","World"), "2":("Swift","UI"), "3":("SwiftUI","booo"), "4":("Card","definition"), "5":("Onemore","card")]))
+    StudyView()
 }
