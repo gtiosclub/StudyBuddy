@@ -8,13 +8,14 @@
 import Foundation
 import FirebaseCore
 import FirebaseFirestore
+import SwiftUICore
 class FlashcardViewModel {
     static let shared = FlashcardViewModel()
     @Published var flashcards: [FlashcardModel] = []
     @Published var currentlyChosenFlashcard = FlashcardModel(text: "", createdBy: "", mastered: false)
     private let db = Firestore.firestore()
     private var user = UserViewModel.shared.user
-    private var currentlyChosenStudySet = StudySetViewModel.shared.currentlyChosenStudySet
+    @EnvironmentObject private var studySetViewModel: StudySetViewModel
     func createFlashcardDocument() {
         let ref = db.collection("Flashcards")
         do {
@@ -25,7 +26,7 @@ class FlashcardViewModel {
         }
     }
     func fetchFlashcards() {
-        for flashcard in currentlyChosenStudySet.flashcards {
+        for flashcard in studySetViewModel.currentlyChosenStudySet.flashcards {
             guard let flashcardDocumentID = flashcard.id else {
                 print("flashcardDocumentID is nil")
                 return

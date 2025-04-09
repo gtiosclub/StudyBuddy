@@ -14,5 +14,7 @@ struct StudySetModel: Identifiable, Codable {
     var flashcards: [FlashcardModel]
     var dateCreated: Date //date format
     var createdBy: String
+    var name: String
+    var documentIDs: [String]
     //create multiple study sets and initialize it with values
 }
