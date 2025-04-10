@@ -54,6 +54,9 @@
 		CABC81AC2D764E9D002D5657 /* MLXLMCommon in Frameworks */ = {isa = PBXBuildFile; productRef = CABC81AB2D764E9D002D5657 /* MLXLMCommon */; };
 		CABC81B02D77BBEF002D5657 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC81AF2D77BBEF002D5657 /* Models.swift */; };
 		CABC81B22D77BC1D002D5657 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC81B12D77BC1B002D5657 /* ModelData.swift */; };
+		CABC81B52D77C17A002D5657 /* ModelUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC81B42D77C17A002D5657 /* ModelUI.swift */; };
+		EA89AA4E2D71142F0033CFDF /* FileLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA89AA4D2D71142F0033CFDF /* FileLibraryView.swift */; };
+		EAB1733C2D711BE2005A8CA0 /* FileLibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB1733B2D711BE2005A8CA0 /* FileLibraryViewModel.swift */; };
 		EA25407E2D77CE8F00BDD841 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = EA25407D2D77CE8F00BDD841 /* FirebaseCore */; };
 		EAFA58462D5D417600ADC214 /* UploadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA58452D5D417600ADC214 /* UploadModel.swift */; };
 		EAFA58482D5D417D00ADC214 /* UploadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA58472D5D417D00ADC214 /* UploadViewModel.swift */; };
@@ -99,6 +102,9 @@
 		CAAA3AC32D5B116300D9A631 /* IntelligenceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceModel.swift; sourceTree = "<group>"; };
 		CABC81AF2D77BBEF002D5657 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		CABC81B12D77BC1B002D5657 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
+		CABC81B42D77C17A002D5657 /* ModelUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelUI.swift; sourceTree = "<group>"; };
+		EA89AA4D2D71142F0033CFDF /* FileLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLibraryView.swift; sourceTree = "<group>"; };
+		EAB1733B2D711BE2005A8CA0 /* FileLibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLibraryViewModel.swift; sourceTree = "<group>"; };
 		EAFA58452D5D417600ADC214 /* UploadModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadModel.swift; sourceTree = "<group>"; };
 		EAFA58472D5D417D00ADC214 /* UploadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewModel.swift; sourceTree = "<group>"; };
 		EAFA58492D5D418700ADC214 /* UploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadView.swift; sourceTree = "<group>"; };
@@ -219,6 +225,7 @@
 		CAAA3AAC2D5B102D00D9A631 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				CABC81B32D77C16E002D5657 /* AI */,
 				912404202D77A0EF00A0C7AC /* FileViewer */,
 				EAFA58432D5D416200ADC214 /* UploadView */,
 				CA0CE2CF2D5C2AF500DD8FD2 /* Flashcards */,
@@ -258,6 +265,7 @@
 		CAAA3ABC2D5B10B600D9A631 /* AI */ = {
 			isa = PBXGroup;
 			children = (
+				CABC81B42D77C17A002D5657 /* ModelUI.swift */,
 				CABC81B12D77BC1B002D5657 /* ModelData.swift */,
 				9234242C2D67FEDC004FC038 /* OpenAIManager.swift */,
 				213871B12D5CF2B400B83A04 /* OpenAIResponse.swift */,
@@ -272,6 +280,29 @@
 				CABC81AF2D77BBEF002D5657 /* Models.swift */,
 			);
 			path = AI;
+			sourceTree = "<group>";
+		};
+		CABC81B32D77C16E002D5657 /* AI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AI;
+			sourceTree = "<group>";
+		};
+		EA89AA4B2D7113B70033CFDF /* FileLibraryView */ = {
+			isa = PBXGroup;
+			children = (
+				EA89AA4D2D71142F0033CFDF /* FileLibraryView.swift */,
+			);
+			path = FileLibraryView;
+			sourceTree = "<group>";
+		};
+		EA89AA4C2D7113C70033CFDF /* FileLibraryViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EAB1733B2D711BE2005A8CA0 /* FileLibraryViewModel.swift */,
+			);
+			path = FileLibraryViewModel;
 			sourceTree = "<group>";
 		};
 		EAFA58412D5D413E00ADC214 /* UploadViewModel */ = {
@@ -435,6 +466,7 @@
 				CA0CE2CC2D5C2AE600DD8FD2 /* HomeView.swift in Sources */,
 				CAAA3AB52D5B102D00D9A631 /* UserViewModel.swift in Sources */,
 				912404212D77A0EF00A0C7AC /* FileViewer.swift in Sources */,
+				CABC81B52D77C17A002D5657 /* ModelUI.swift in Sources */,
 				213871B22D5CF2B500B83A04 /* OpenAIResponse.swift in Sources */,
 				CAAA3AB62D5B102D00D9A631 /* StudyBuddyApp.swift in Sources */,
 				CA349F302D6801440024356A /* LlamaManager.swift in Sources */,
@@ -590,7 +622,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyBuddy/Preview Content\"";
-				DEVELOPMENT_TEAM = 6JXR4QA97N;
+				DEVELOPMENT_TEAM = 46A969A6K2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = StudyBuddy;
@@ -620,7 +652,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyBuddy/Preview Content\"";
-				DEVELOPMENT_TEAM = 6JXR4QA97N;
+				DEVELOPMENT_TEAM = 46A969A6K2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = StudyBuddy;

@@ -6,29 +6,38 @@ final class OpenAIManager: IntelligenceManager {
 
     private init() {}
 
-    private let apiKey = "your-openai-api-key"
-    private let baseURL = URL(string: "https://api.openai.com/v1/completions")!
+    private let baseURL = URL(string: "https://api.openai.com/v1/chat/completions")!
 
     func makeRequest(_ req: IntelligenceRequest) async throws -> IntelligenceResponse {
+        var requestData: OpenAIRequest
 
-        let requestData = OpenAIRequest(
-            model: "gpt-4o-mini",
-            messages: [
-                .init(role: "user", content: req.input)
-            ],
-            maxCompletionTokens: 150,
-            temperature: 0.7
-        )
-
+        if let openAIRequest = req as? OpenAIRequest {
+            requestData = openAIRequest
+        } else {
+            requestData = OpenAIRequest(
+                input: req.input,
+                model: .openai_4o_mini,
+                messages: [
+                    .init(role: "system", content: "You are a helpful assistant."),
+                    .init(role: "user", content: req.input)
+                ],
+                maxCompletionTokens: 150,
+                temperature: 0.7
+            )
+        }
+        
         let jsonData = try JSONEncoder().encode(requestData)
 
         var request = URLRequest(url: baseURL)
         request.httpMethod = "POST"
-        request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("""
+        KEY
+        """, forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonData
 
         let (data, response) = try await URLSession.shared.data(for: request)
+
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
             throw NSError(domain: "Invalid server response", code: -1, userInfo: nil)
         }

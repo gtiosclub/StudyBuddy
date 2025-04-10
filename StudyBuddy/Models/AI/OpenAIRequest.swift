@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct OpenAIRequest: Codable {
-    let model: String
+struct OpenAIRequest: Encodable, IntelligenceRequest {
+    var input: String
+    var model: IntelligenceModel
     let messages: [Message]
     let maxCompletionTokens: Int?
     let temperature: Double?
