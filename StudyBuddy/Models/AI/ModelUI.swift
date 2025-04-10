@@ -113,7 +113,7 @@ struct ChatInterfaceView: View {
                 temperature: 0.8
             )
 
-            makeOpenAIRequest(text: inputText)
+//            makeOpenAIRequest(text: inputText)
 
             let response = try await openAIManager.makeRequest(req)
 
