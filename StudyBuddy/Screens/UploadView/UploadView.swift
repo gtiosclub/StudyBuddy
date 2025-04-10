@@ -51,7 +51,7 @@ struct UploadView: View {
 
             Button(action: {
                 // Handle upload action
-                for document in uploadViewModel.documents {
+                for document in uploadViewModel.selectedDocuments {
                     var doc: Document = document
                     doc.isPrivate = !isPublic
                     // update call to upload the file to Firebase
