@@ -8,13 +8,18 @@
 import SwiftUI
 import FirebaseAuth
 
+extension Color {
+    static let darkPurple = Color(red: 50 / 255, green: 28 / 255, blue: 88 / 255)
+    static let lightPurple = Color(red: 113 / 255, green: 86 / 255, blue: 158 / 255)
+}
+
 struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var errorMessage: String?
     @State private var isLoginMode: Bool = true
     @State private var resetSuccessMessage: String?
-    
+
     @EnvironmentObject var authViewModel: AuthViewModel
 
     var body: some View {
@@ -25,6 +30,8 @@ struct LoginView: View {
             }
             .pickerStyle(SegmentedPickerStyle())
             .padding()
+            .background(Color.lightPurple.opacity(0.2))
+            .cornerRadius(8)
 
             TextField("Enter email", text: $email)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -53,21 +60,24 @@ struct LoginView: View {
                     .foregroundColor(.white)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color.blue)
+                    .background(Color.darkPurple)
                     .cornerRadius(10)
             }
             .padding()
 
             if isLoginMode {
                 Button("Forgot Password?") {
-                    authViewModel.resetPassword(email: email) {
-                        message in resetSuccessMessage = message
+                    authViewModel.resetPassword(email: email) { message in
+                        resetSuccessMessage = message
                     }
                 }
-                .foregroundColor(.blue)
+                .foregroundColor(.lightPurple)
                 .padding(.top, 5)
             }
         }
+        .padding()
+        .background(Color.darkPurple.opacity(0.05))
+        .cornerRadius(20)
         .padding()
     }
 
