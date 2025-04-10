@@ -108,12 +108,12 @@ struct ChatInterfaceView: View {
             let req = OpenAIRequest(
                 input: userMessage.text,
                 model: .openai_4o_mini,
-                messages: [],
+                messages: messages.map { msg in
+                        .init(role: msg.isUser ? "user" : "assistant", content: msg.text)
+                },
                 maxCompletionTokens: nil,
                 temperature: 0.8
             )
-
-//            makeOpenAIRequest(text: inputText)
 
             let response = try await openAIManager.makeRequest(req)
 
@@ -142,47 +142,6 @@ struct ChatInterfaceView: View {
 //            let aiMessage = ChatMessage(text: "Response from \(selectedModel)", isUser: false)
 //            messages.append(aiMessage)
 //        }
-    }
-    
-    func makeOpenAIRequest(text: String) {
-        // API endpoint
-        let url = URL(string: "https://api.openai.com/v1/chat/completions")!
-        
-        // Create the request
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("Bearer \(OpenAIManager.apiKey)", forHTTPHeaderField: "Authorization")
-        
-        // Request body
-        let requestBody: [String: Any] = [
-            "model": "gpt-4o-mini",
-            "messages": [
-                ["role": "user", "content": text]
-            ],
-            "temperature": 0.7
-        ]
-        
-        // Serialize to JSON
-        let jsonData = try? JSONSerialization.data(withJSONObject: requestBody)
-        guard let jsonData = jsonData else { return }
-            request.httpBody = jsonData
-            
-            // Make the API call
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    print("Error: \(error)")
-                    return
-                }
-                
-                if let data = data {
-                    if let responseString = String(data: data, encoding: .utf8) {
-                        print("Response: \(responseString)")
-                    }
-                }
-            }
-            
-            task.resume()
     }
     
     private func generate(prompt: String) async {
