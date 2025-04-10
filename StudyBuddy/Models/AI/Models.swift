@@ -38,11 +38,10 @@ extension ModelConfiguration: @retroactive Equatable {
     public static let deepseek_r1_distill_qwen_1_5b_4bit = ModelConfiguration(
         id: "mlx-community/DeepSeek-R1-Distill-Qwen-1.5B-4bit"
     )
-    
+
     public static let deepseek_r1_distill_qwen_1_5b_8bit = ModelConfiguration(
         id: "mlx-community/DeepSeek-R1-Distill-Qwen-1.5B-8bit"
     )
-    
 
     public static var availableModels: [ModelConfiguration] = [
         llama_3_2_1b_4bit,
@@ -69,7 +68,7 @@ extension ModelConfiguration: @retroactive Equatable {
         // system prompt
         history.append([
             "role": "system",
-            "content": systemPrompt,
+            "content": systemPrompt
         ])
 
         // messages
@@ -77,7 +76,8 @@ extension ModelConfiguration: @retroactive Equatable {
             let role = message.role.rawValue
             history.append([
                 "role": role,
-                "content": formatForTokenizer(message.content), // Remove think tags and add a space before each message to fix the Jinja chat template issue.
+                "content": formatForTokenizer(message.content)
+                // Remove think tags and add a space before each message to fix the Jinja chat template issue.
             ])
         }
 
@@ -91,7 +91,7 @@ extension ModelConfiguration: @retroactive Equatable {
                 .replacingOccurrences(of: "<think>", with: "")
                 .replacingOccurrences(of: "</think>", with: "")
         }
-        
+
         return message
     }
 

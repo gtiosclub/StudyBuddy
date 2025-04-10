@@ -17,7 +17,7 @@ class StudySet: ObservableObject {
 
     func add_flashcard(front: String, back: String) {
 
-        self.set["\(set.count)"] = (front, back)
+        self.set["\(set.count + 1)"] = (front, back)
     }
 
     func edit_flashcard(key: String, front: String, back: String) {
@@ -26,4 +26,3 @@ class StudySet: ObservableObject {
     }
 
 }
-

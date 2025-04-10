@@ -46,7 +46,7 @@ struct ChatInterfaceView: View {
             .background(Color(UIColor.systemGray6))
             .cornerRadius(12)
             .padding(.horizontal)
-            
+
             // Chat History
             ScrollViewReader { scrollView in
                 ScrollView {
@@ -63,7 +63,7 @@ struct ChatInterfaceView: View {
                 .padding(.horizontal)
             }
             .frame(maxHeight: .infinity)
-            
+
             // Improved Input Field
             HStack(spacing: 10) {
                 TextField("Type a message...", text: $inputText)
@@ -251,4 +251,3 @@ struct ChatInterfaceView_Previews: PreviewProvider {
         ChatInterfaceView()
     }
 }
-

@@ -6,27 +6,34 @@
 //
 
 import SwiftUI
+import FirebaseCore
+import FirebaseStorage
 
+class AppDelegate: NSObject, UIApplicationDelegate {
+  func application(_ application: UIApplication,
+                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    FirebaseApp.configure()
+
+    // Initialize Storage Bucket
+    let storage = Storage.storage(url: "gs://studybuddy-7df38.appspot.com")
+
+    return true
+  }
+}
 @main
+
 struct StudyBuddyApp: App {
+    @StateObject private var authViewModel = AuthViewModel()
     
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
         WindowGroup {
-            TabView {
-                
-                ContentView()
-                    .tabItem {
-                        Image(systemName: "1.circle")
-                        Text("First")
-                    }
-                
-                ChatInterfaceView()
-                    .tabItem {
-                        Image(systemName: "2.circle")
-                        Text("Chat")
-                    }
+            if authViewModel.isLoggedIn {
+                ContentView().environmentObject(authViewModel)
+            } else {
+                LoginView().environmentObject(authViewModel)
             }
-            .modelContainer(for: [Thread.self, Message.self])
         }
     }
 }
+

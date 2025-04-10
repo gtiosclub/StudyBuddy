@@ -1,54 +1,57 @@
-//
-//  UploadViewModel.swift
-//  StudyBuddy
-//
-//  Created by Tony Nguyen on 2/11/25.
-//
-
 import SwiftUI
 import FirebaseStorage
 import FirebaseFirestore
 
 class UploadViewModel: ObservableObject {
     @Published var selectedDocumentNames: [String] = []
-    private let storage = Storage.storage()
-    private let db = Firestore.firestore()
-    
-    // Save document to firebase and firestore
-    func saveDocumentToFirebase(_ document: Document) {
-        // Create a reference to firebase
-        let storageRef = storage.reference().child("documents/\(document.fileName)")
-        
-        // Convert document content to data
-        guard let data = document.content.data(using: .utf8) else { return }
-        
+    @Published var documents: [Document] = []
+    @Published var isUploadPresented: Bool = false
+    private let storage = Storage.storage(url: "gs://studybuddy-7df38.firebasestorage.app")
+    private let database = Firestore.firestore()
+
+    // Stores object in Cloud Storage and saves information to Documents Collection in Firestore
+    func uploadFileToFirebase(fileName: String, fileData: Data, document: Document, isPublic: Bool) {
+        // Creates a reference in Firebase Storage
+        let storageRef = storage.reference().child("documents/\(fileName)")
+
+        // Error logging
+        print("Uploading to path: documents/\(fileName)")
+        print("File data size: \(fileData.count) bytes")
+
         // Upload the file to Firebase Storage
-        storageRef.putData(data, metadata: nil) { metadata, error in
+        storageRef.putData(fileData, metadata: nil) { _, error in
             if let error = error {
                 print("Error uploading to Storage: \(error)")
                 return
             }
-            
-            // Get the download URL
             storageRef.downloadURL { url, error in
-                guard let downloadURL = url else { return }
-                
-                // Create Firestore document
-                let docData: [String: Any] = [
-                    "fileName": document.fileName,
-                    "content": document.content,
-                    "parsedContent": document.parsedContent ?? "",
-                    "dateCreated": document.dateCreated,
-                    "storageURL": downloadURL.absoluteString
-                ]
-                
-                // Save to Firestore
-                self.db.collection("documents").document(document.id.uuidString).setData(docData) { error in
-                    if let error = error {
-                        print("Error saving to Firestore: \(error)")
-                    }
+                if let error = error {
+                    print("Error getting download URL: \(error)")
+                    return
                 }
+                guard let downloadURL = url else {
+                    print("Error: Download URL is nil")
+                    return
+                }
+                print("File uploaded successfully. Download URL: \(downloadURL.absoluteString)")
+                
+                //this stores the correct updated document values
+                self.uploadDocument(document: document)
+                print("DocumentUploaded sucessfully")
+
             }
+        }
+    }
+    //use this in future to reference a document in our database
+    func uploadDocument(document: Document) {
+        let collectionRef = Firestore.firestore().collection("Documents")
+        do {
+            var newDocument = document
+            let docRef = try collectionRef.addDocument(from: newDocument)
+            newDocument.firestoreDocumentId = docRef.documentID
+            print("Document stored in FileViewModel\(docRef.documentID)")
+        } catch {
+            print("Error in UploadViewModel while doing uploadDocument \(error)")
         }
     }
 }

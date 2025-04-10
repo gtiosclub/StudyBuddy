@@ -8,10 +8,12 @@
 import SwiftUI
 import UniformTypeIdentifiers
 import UIKit
+import FirebaseAuth
 
 struct DocumentPickerView: UIViewControllerRepresentable {
     @ObservedObject var uploadViewModel: UploadViewModel
-
+    @Environment(\.presentationMode) var presentationMode
+    
     func makeCoordinator() -> Coordinator {
         return Coordinator(self)
     }
@@ -35,21 +37,45 @@ struct DocumentPickerView: UIViewControllerRepresentable {
 
         func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
             for url in urls {
-                // Create initial document with just the filename - content will be added after parsing
-                let document = Document(fileName: url.lastPathComponent, content: "")
-                
-                // Process the PDF and extract text
-                extractTextFromPDF(pdfURL: url, document: document) { extractedText, updatedDocument in
-                    DispatchQueue.main.async {
-                        // Update view model with the document names
-                        if !self.parent.uploadViewModel.selectedDocumentNames.contains(url.lastPathComponent) {
-                            self.parent.uploadViewModel.selectedDocumentNames.append(url.lastPathComponent)
-                        }
-                        
-                        // Save document to Firebase
-                        self.parent.uploadViewModel.saveDocumentToFirebase(updatedDocument)
+                do {
+                    // read file data
+                    let fileData = try Data(contentsOf: url)
+                    guard let userID = Auth.auth().getUserID() else {
+                        print("Error found in DocumentPickerView getting userID")
+                        return
                     }
+                    // Extract text content from the PDF
+                    var document = Document(fileName: url.lastPathComponent, content: "", fileData: fileData, userID: userID, isPrivate: false)
+                    extractTextFromPDF(pdfURL: url, document: document) { extractedText, updatedDocument in
+                        DispatchQueue.main.async {
+                            // Update the document content
+                            var finalDocument = updatedDocument
+                            finalDocument.updateParsedContent(extractedText)
+
+                            // Add the document to the view model's documents list
+                            if !self.parent.uploadViewModel.selectedDocumentNames.contains(url.lastPathComponent) {
+                                self.parent.uploadViewModel.selectedDocumentNames.append(url.lastPathComponent)
+                            }
+                            self.parent.uploadViewModel.documents.append(finalDocument)
+
+                            // Call the upload function with the file data
+                            self.parent.uploadViewModel.uploadFileToFirebase(
+                                fileName: url.lastPathComponent,
+                                fileData: fileData,
+                                document: finalDocument,
+                                isPublic: false
+                            )
+                        }
+                    }
+                } catch {
+                    print("Error reading file data: \(error)")
                 }
+            }
+            print("DocumentUploaded sucessfully")
+            // Dismiss the document picker and present the upload view
+            self.parent.presentationMode.wrappedValue.dismiss()
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                self.parent.uploadViewModel.isUploadPresented = true
             }
         }
     }
