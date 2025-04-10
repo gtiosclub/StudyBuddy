@@ -37,9 +37,9 @@ struct FileViewer: View {
                         }) {
                             Text("Add Set")
                         }
-                    } else {
-                        Spacer()
                     }
+                        Spacer()
+                    
                     Button(action: {
                         add.toggle()
                     }) {
