@@ -1,13 +1,14 @@
 import SwiftUI
 
 struct StudyView: View {
-    @ObservedObject var studySet: StudySetModel
+    // Using the view model for study sets instead of the model directly
+    @ObservedObject var studySetVM: StudySetViewModel
     @State private var flashCardIndex = 0
     @State private var showBack = false
+    
 
     var body: some View {
         VStack {
-            Spacer()
             Spacer()
             cardView()
             Spacer()
@@ -15,18 +16,17 @@ struct StudyView: View {
             Spacer()
         }
     }
+
     private func cardView() -> some View {
-        // Ensure index is within bounds
-        if studySet.flashcards.indices.contains(flashCardIndex) {
+        let flashcards = studySetVM.currentlyChosenStudySet.flashcards
+        if flashcards.indices.contains(flashCardIndex) {
             return AnyView(
                 ZStack {
                     RoundedRectangle(cornerRadius: 20)
                         .fill(Color.blue)
                         .frame(width: 300, height: 200)
                         .shadow(radius: 5)
-                    Text(showBack ?
-                            studySet.flashcards[flashCardIndex].back :
-                            studySet.flashcards[flashCardIndex].front)
+                    Text(showBack ? flashcards[flashCardIndex].back : flashcards[flashCardIndex].front)
                         .font(.title)
                         .multilineTextAlignment(.center)
                         .padding()
@@ -40,6 +40,7 @@ struct StudyView: View {
         }
     }
 
+    // nav bar to switch carfs
     private func navBar() -> some View {
         HStack {
             Button(action: {
@@ -54,7 +55,7 @@ struct StudyView: View {
                 }
             }
             Button(action: {
-                if flashCardIndex < studySet.flashcards.count - 1 {
+                if flashCardIndex < studySetVM.currentlyChosenStudySet.flashcards.count - 1 {
                     flashCardIndex += 1
                     showBack = false
                 }
@@ -68,13 +69,17 @@ struct StudyView: View {
     }
 }
 
-#Preview {
-    let sampleFlashcards = [
-        FlashcardModel(front: "Hello", back: "World", createdBy: "Calvin", mastered: false),
-        FlashcardModel(front: "Swift", back: "UI", createdBy: "Calvin", mastered: false),
-        FlashcardModel(front: "SwiftUI", back: "Is awesome", createdBy: "Calvin", mastered: false)
-    ]
-    // Assuming StudySetModel is now a class conforming to ObservableObject.
-    let sampleStudySet = StudySetModel(flashcards: sampleFlashcards, dateCreated: Date(), createdBy: "Calvin")
-    StudyView(studySet: sampleStudySet)
+struct StudyView_Previews: PreviewProvider {
+    static var previews: some View {
+        let sampleFlashcards = [
+            FlashcardModel(front: "Hello", back: "World", createdBy: "Calvin", mastered: false),
+            FlashcardModel(front: "Swift", back: "UI", createdBy: "Calvin", mastered: false),
+            FlashcardModel(front: "SwiftUI", back: "Is awesome", createdBy: "Calvin", mastered: false)
+        ]
+        let sampleStudySet = StudySetModel(flashcards: sampleFlashcards, dateCreated: Date(), createdBy: "Calvin")
+
+        let sampleVM = StudySetViewModel.shared
+        sampleVM.currentlyChosenStudySet = sampleStudySet
+        return StudyView(studySetVM: sampleVM)
+    }
 }

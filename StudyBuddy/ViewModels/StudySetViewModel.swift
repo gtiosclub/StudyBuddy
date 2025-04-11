@@ -1,20 +1,22 @@
 //
-//  StudySetViewModel.swift
+//  FlashcardViewModel.swift
 //  StudyBuddy
 //
 //  Created by John Mermigkas on 2/20/25.
-//
 
 import Foundation
 import FirebaseCore
 import FirebaseFirestore
+import SwiftUICore
 
-class StudySetViewModel {
+class StudySetViewModel: ObservableObject {
     // singleton var
     static let shared = StudySetViewModel()
+    // list of all studysets
     @Published var studySets: [StudySetModel] = []
     //initially empty instead of having to make it optional and deal with nil everywhere
     @Published var currentlyChosenStudySet: StudySetModel = StudySetModel(flashcards: [], dateCreated: Date(), createdBy: "")
+
     private let db = Firestore.firestore()
     private var user: UserModel = UserViewModel.shared.user
     func createStudySetDocument() {
@@ -23,15 +25,10 @@ class StudySetViewModel {
             let newDocReference = try ref.addDocument(from: self.currentlyChosenStudySet)
             print("StudySet stored with new document reference: \(newDocReference)")
         } catch {
-            print(error.localizedDescription)
+            print("Error creating document: \(error.localizedDescription)")
         }
-//
-//        db.document("Users/\(userDocumentID)/StudySets/\(studySetDocumentID)").setData([
-//            "list" : currentlyChosenStudySet.list,
-//            "dateCreated" : currentlyChosenStudySet.dateCreated,
-//            "createdBy" : currentlyChosenStudySet.createdBy,
-//        ])
     }
+
     func fetchStudySets() {
         for studySet in user.studySets {
             guard let studySetDocumentID = studySet.id else {
@@ -40,94 +37,87 @@ class StudySetViewModel {
             }
 //            let studySetDocumentID = "VnLPYjY9q4nCBj8BR7qk"
             let ref = db.collection("StudySets").document(studySetDocumentID)
-            do {
-                ref.getDocument(as: StudySetModel.self) { result in
-                    switch result {
-                    case .success(let studySet):
-                        print("Successfully fetched data")
+            ref.getDocument(as: StudySetModel.self) { result in
+                switch result {
+                case .success(let studySet):
+                    print("Successfully fetched data for study set with id: \(studySetDocumentID)")
+                    DispatchQueue.main.async {
                         self.studySets.append(studySet)
-                    case .failure(let error):
-                        print("Error decoding document: \(error.localizedDescription)")
                     }
+                case .failure(let error):
+                    print("Error decoding document: \(error.localizedDescription)")
                 }
             }
         }
-//        guard let studySetDocumentID = currentlyChosenStudySet.id else {
-//            print("Error: Document ID is nil")
-//            return
-//        }
-//        let ref = db.collection("StudySets").document(studySetDocumentID)
-//        ref.getDocuments { querySnapshot, error in
-//            if let error {
-//                print("Error getting document: \(error.localizedDescription)")
-//                return
-//            }
-//
-//            //the ?. operator is used in optional chaining it means "if querySnapshot is not nil, access.documents
-//            //if its nil the whole expression evaluates to nil and the guard runs the else block
-//            guard let documents = querySnapshot?.documents else {
-//                print("No study sets found")
-//                return
-//            }
-//
-//            do {
-//                //map is a higher order functiont hat transforms each element in a collection
-//                //and returns a new array
-//                self.studySets = try documents.map { document in
-//                    try document.data(as: StudySetModel.self)
-//                }
-//            } catch {
-//                print("Error decoding study sets: \(error.localizedDescription)")
-//            }
-
     }
+
     //function that updates a spefici stored study set with the new values saved in currently chosen studyset
     func updateStudySetData() {
         guard let studySetDocumentID = currentlyChosenStudySet.id else {
-            print("Error: currentlyChosenStudyset.id is nil")
+            print("Error: currentlyChosenStudySet.id is nil")
             return
         }
-//        let studySetDocumentID = "VnLPYjY9q4nCBj8BR7qk"
-        let ref = db.collection("StudySets").document("\(studySetDocumentID)")
+        let ref = db.collection("StudySets").document(studySetDocumentID)
         do {
-            //merge important so it doesn't overwrite
+        //  merge important so it doesn't overwrite
             try ref.setData(from: self.currentlyChosenStudySet, merge: true)
-            print("Successfully updated data")
+            print("Successfully updated study set data")
         } catch {
-            print("Error updating study set data \(error.localizedDescription)")
+            print("Error updating study set data: \(error.localizedDescription)")
         }
-//        ref.updateData([
-//            "list" : currentlyChosenStudySet.list,
-//            "dateCreated" : currentlyChosenStudySet.dateCreated,
-//            "createdBy" : currentlyChosenStudySet.createdBy,
-//        ])
     }
+
     //cleares the data stored in this instance
     func deleteStudySetData() {
         guard let studySetDocumentID = currentlyChosenStudySet.id else {
-            print("Error: currentlyChosenStudyset.documentID is nil")
+            print("Error: currentlyChosenStudySet.documentID is nil")
             return
         }
-//        let studySetDocumentID = "VnLPYjY9q4nCBj8BR7qk"
-        let ref = db.collection("StudySets").document("\(studySetDocumentID)")
+        let ref = db.collection("StudySets").document(studySetDocumentID)
         ref.delete { error in
-            //swift infers that this is if let error = error
-            if let error {
+            if let error = error {
                 print("Error deleting document: \(error.localizedDescription)")
             } else {
                 print("Document successfully deleted")
             }
         }
     }
-    func testFunctions() {
-//        user.studySets.append(StudySetModel(flashcards: [], dateCreated: Date(), createdBy: "tester"))
-//        currentlyChosenStudySet = StudySetModel(flashcards: [], dateCreated: Date(), createdBy: "eileen")
-//        studySets.append(currentlyChosenStudySet)
-////        updateStudySetData()
-//        deleteStudySetData()
-//        createStudySetDocument()
-
-//        fetchStudySets()
-        //        updateUserData()
+    func addFlashcard(front: String, back: String, createdBy: String = "USERIDNEEDTOINPUT") {
+        let newFlashcard = FlashcardModel(front: front, back: back, createdBy: createdBy, mastered: false)
+        currentlyChosenStudySet.flashcards.append(newFlashcard)
+        // reassign to trigger published (idk if this is the best way)?
+        currentlyChosenStudySet = currentlyChosenStudySet
+        updateStudySetData()
     }
+    func deleteFlashcard(_ flashcard: FlashcardModel) {
+        guard let index = currentlyChosenStudySet.flashcards.firstIndex(where: { card in
+            return card.id == flashcard.id
+        }) else {
+            return
+        }
+
+        currentlyChosenStudySet.flashcards.remove(at: index)
+        currentlyChosenStudySet = currentlyChosenStudySet
+        updateStudySetData()
+    }
+    
+    func editFlashcard(flashcard: FlashcardModel, newFront: String, newBack: String) {
+        // Find the index of the flashcard in the flashcards array
+        guard let index = currentlyChosenStudySet.flashcards.firstIndex(where: { $0.id == flashcard.id }) else {
+            print("Flashcard not found!")
+            return
+        }
+
+        // Update the flashcard's content
+        currentlyChosenStudySet.flashcards[index].front = newFront
+        currentlyChosenStudySet.flashcards[index].back = newBack
+
+        // Reassigning currentlyChosenStudySet triggers the @Published property to update the UI
+        currentlyChosenStudySet = currentlyChosenStudySet
+
+        // Update the study set document in Firestore so the changes are persisted
+        updateStudySetData()
+    }
+
+
 }

@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseCore
 import FirebaseFirestore
-class FlashcardViewModel {
+class FlashcardViewModel: ObservableObject {
     static let shared = FlashcardViewModel()
     @Published var flashcards: [FlashcardModel] = []
     @Published var currentlyChosenFlashcard = FlashcardModel(front: "", back: "", createdBy: "", mastered: false)
@@ -25,7 +25,6 @@ class FlashcardViewModel {
         }
     }
     func fetchFlashcards() {
-        if (currentlyChosenStudySet != nil) {
 
             for flashcard in currentlyChosenStudySet.flashcards {
                 guard let flashcardDocumentID = flashcard.id else {
@@ -46,40 +45,6 @@ class FlashcardViewModel {
                     }
                 }
             }
-        }
-
-        //        guard let userDocumentID = user.id, let studySetDocumentID = currentlyChosenStudySet.id else {
-        //            print("Error: either user.documentID or currentlyChosenStudyset.documentID is nil")
-        //            return
-        //        }
-        //
-        //        let ref = db.collection("Users").document("\(userDocumentID)").collection("StudySets").document("\(studySetDocumentID)").collection("Flashcards")
-        //
-        //        ref.getDocuments { querySnapshot, error in
-        //            if let error {
-        //                print("Error getting document: \(error.localizedDescription)")
-        //            }
-        //
-        //            guard let documents = querySnapshot?.documents else {
-        //                print("Error getting documents")
-        //                return
-        //            }
-        //
-        //            do {
-        //                self.flashcards = try documents.map { document in
-        //                    try document.data(as: FlashcardModel.self)
-        //                }
-        //            } catch {
-        //                print("Error decoding flashcards: \(error.localizedDescription)")
-        //            }
-        //
-        ////            for document in documents {
-        ////                let data = document.data()
-        ////                let text = data["text"] as? String ?? ""
-        ////                let createdBy = data["createdBy"] as? String ?? ""
-        ////                self.flashcards.append(FlashcardModel(text: text, createdBy: createdBy))
-        ////            }
-        //        }
     }
     func updateFlashcardData() {
         guard let flashcardDocumentID = currentlyChosenFlashcard.id else {
@@ -111,6 +76,10 @@ class FlashcardViewModel {
             }
         }
     }
+//
+//    func editFlashCardData(front: String, back: String) {
+//        
+//    }
     func testFunctions() {
         ////        createFlashcardDocument() <--- works
         //        currentlyChosenStudySet = StudySetModel(flashcards: [], dateCreated: Date(), createdBy: "eileen")
