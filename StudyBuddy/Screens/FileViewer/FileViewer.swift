@@ -22,11 +22,12 @@ struct FileViewer: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                // File Library Section
                 Text("File Library")
                     .font(.title)
                     .bold()
+                    .foregroundColor(.white)
                     .padding(.horizontal)
+
                 Picker("Select a tab", selection: $selection) {
                     ForEach(FileName.allCases) { file in
                         Text(file.rawValue).tag(file)
@@ -34,20 +35,25 @@ struct FileViewer: View {
                 }
                 .pickerStyle(.segmented)
                 .padding(.horizontal)
-                // Content based on selected tab
+                .background(Color(hex: "#71569E"))
+                .cornerRadius(8)
+
                 switch selection {
                 case .allFile:
                     AllView(fileViewerViewModel: fileViewerViewModel)
                 case .recent:
                     Text("Recents View")
+                        .foregroundColor(.white)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 case .favorites:
-                    AllView(fileViewerViewModel: fileViewerViewModel, isFavoritesView: true) // Use AllView for Favorites
+                    AllView(fileViewerViewModel: fileViewerViewModel, isFavoritesView: true)
                 case .folders:
                     Text("Folders View")
+                        .foregroundColor(.white)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
+            .background(Color(hex: "#321C58").edgesIgnoringSafeArea(.all))
             .sheet(isPresented: $fileViewerViewModel.isPresentingFilePreview, onDismiss: {
                 fileViewerViewModel.selectedFileURL = nil
                 fileViewerViewModel.localFileURL = nil
@@ -56,13 +62,15 @@ struct FileViewer: View {
                     QLPreviewView(url: url, isPresented: $fileViewerViewModel.isPresentingFilePreview)
                 } else if fileViewerViewModel.isLoading {
                     ProgressView("Downloading File...")
+                        .foregroundColor(.white)
                 } else if let error = fileViewerViewModel.errorMessage {
-                    Text("Error: \(error)")
+                    Text("Error: \(error)").foregroundColor(.red)
                 }
             }
             .onAppear {
                 fileViewerViewModel.listenToUserDocuments()
             }
+
             .onDisappear() {
                 print("Snap Listener has closed.")
                 fileViewerViewModel.closeSnapshotListener()
@@ -84,9 +92,7 @@ struct QLPreviewView: UIViewControllerRepresentable {
         return navigationController
     }
 
-    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
-        // No need to update here for this simple case
-    }
+    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {}
 
     func makeCoordinator() -> Coordinator {
         Coordinator(url: url, isPresented: $isPresented)
@@ -102,9 +108,7 @@ struct QLPreviewView: UIViewControllerRepresentable {
             super.init()
         }
 
-        func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
-            return 1
-        }
+        func numberOfPreviewItems(in controller: QLPreviewController) -> Int { 1 }
 
         func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
             return previewItemURL as NSURL as QLPreviewItem
@@ -119,19 +123,21 @@ struct QLPreviewView: UIViewControllerRepresentable {
 struct AllView: View {
     @ObservedObject var fileViewerViewModel: FileViewerViewModel
     let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
-    var isFavoritesView: Bool = false // New flag
+    var isFavoritesView: Bool = false
 
     var body: some View {
         ScrollView {
             if fileViewerViewModel.isLoading {
                 ProgressView("Fetching Documents...")
+                    .foregroundColor(.white)
             } else if let errorMessage = fileViewerViewModel.errorMessage {
-                Text("Error: \(errorMessage)")
+                Text("Error: \(errorMessage)").foregroundColor(.red)
             } else {
                 let displayedDocuments = isFavoritesView ? fileViewerViewModel.favoriteDocuments : fileViewerViewModel.documents
 
                 if displayedDocuments.isEmpty {
                     Text("No documents found.")
+                        .foregroundColor(.white)
                 } else {
                     LazyVGrid(columns: columns, spacing: 16) {
                         ForEach(displayedDocuments) { document in
@@ -150,52 +156,41 @@ struct DocumentItemView: View {
     @ObservedObject var viewModel: FileViewerViewModel
     @State private var isShowingFavoriteAlert = false
     @State private var favoriteAlertMessage = ""
+
     var body: some View {
         VStack {
-            if document.type == .folder {
-                Image(systemName: "folder.fill") // Folder icon
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 60, height: 60)
-                    .foregroundColor(.blue) // Customize folder color
-                    .padding(4)
-            } else {
-                Image(systemName: "doc.fill") // Default document icon
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 60, height: 60)
-                    .foregroundColor(.gray)
-                    .padding(4)
-            }
+            Image(systemName: document.type == .folder ? "folder.fill" : "doc.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 60, height: 60)
+                .foregroundColor(.white)
+                .padding(4)
+
             Text(document.fileName)
                 .font(.caption)
                 .lineLimit(1)
+                .foregroundColor(.white)
         }
         .frame(maxWidth: .infinity)
         .padding()
-        .background(Color(.systemGray6))
+        .background(Color(hex: "#71569E"))
         .cornerRadius(8)
         .onTapGesture {
             viewModel.openFile(document: document)
         }
         .onLongPressGesture {
             viewModel.toggleFavorite(document: document)
-            favoriteAlertMessage = document.isFavorite ? "\(document.fileName) removed from Favorites" : "\(document.fileName) added to Favorites"
+            favoriteAlertMessage = document.isFavorite
+                ? "\(document.fileName) removed from Favorites"
+                : "\(document.fileName) added to Favorites"
             isShowingFavoriteAlert = true
         }
         .alert(isPresented: $isShowingFavoriteAlert) {
-            Alert(title: Text("Favorites"), message: Text(favoriteAlertMessage), dismissButton: .default(Text("OK")))
+            Alert(
+                title: Text("Favorites"),
+                message: Text(favoriteAlertMessage),
+                dismissButton: .default(Text("OK"))
+            )
         }
     }
-    func presentFavoritesActionSheet() {
-        // Implement action sheet or context menu for favorites
-        print("Long pressed on \(document.fileName)")
-        // Example using an action sheet (requires a @State var to control presentation)
-        // You'll need to add a @State var in AllView to handle this.
-        // isPresentingFavoritesOptions = true
-    }
-}
-
-#Preview {
-    FileViewer()
 }

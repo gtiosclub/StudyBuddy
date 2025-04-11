@@ -6,81 +6,71 @@
 //
 
 import Foundation
-
 import FirebaseCore
 import FirebaseFirestore
+import FirebaseAuth
 
-class UserViewModel {
-    //singleton var so we have 1 global instance that we can access from anywhere
+class UserViewModel: ObservableObject {
+    // Shared singleton instance
     static let shared = UserViewModel()
-    @Published var user = UserModel()
+
+    // Optional published user object for SwiftUI reactivity
+    @Published var user: UserModel? = nil
+
     private let db = Firestore.firestore()
-    
-    //When adding a new document, Cloud Firestore will automatically take care of assigning a new document ID to the document. This even works when the app is currently offline.
-    //https://firebase.google.com/docs/firestore/solutions/swift-codable-data-mapping
-    //Firestore automatically assigns the Firestore document ID to id when fetching data.
+
+    // Create user document in Firestore
     func createUserDocument() {
+        guard let user = self.user else { return }
+
         let ref = db.collection("Users")
-        
         do {
-            let newDocReference = try ref.addDocument(from: self.user)
+            let newDocReference = try ref.addDocument(from: user)
             print("Added the user document: \(newDocReference)")
         } catch {
-            print(error.localizedDescription)
+            print("Error creating user document: \(error.localizedDescription)")
         }
     }
-    
-    
-    //When user logs in, this function should be called which fetches the data related to the currently logged-in user and stores it in this current user instance
-    func fetchUserData() {
-        guard let documentID = user.id else {
-            print("Error: Document ID is nil")
+
+    // Fetch user data for currently logged in Firebase user
+    func fetchUser() {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            print("Error: No authenticated user")
             return
         }
-        
-        let ref = db.collection("Users").document(documentID)
-        //UserModel.self refers to the struct
-        //this uses the codable protocol
+
+        let ref = db.collection("Users").document(uid)
         ref.getDocument(as: UserModel.self) { result in
             switch result {
-            case .success(let user):
-                print("Successfully fetched data")
-                print("The username we fetched is: \(user.userName)")
-                self.user = user
+            case .success(let fetchedUser):
+                DispatchQueue.main.async {
+                    self.user = fetchedUser
+                    print("Fetched user: \(fetchedUser.userName)")
+                }
             case .failure(let error):
-                print("Error decoding document: \(error.localizedDescription)")
+                print("Error fetching user data: \(error.localizedDescription)")
             }
         }
     }
-    //updates all the values stored in the database of the currently logged in user when called (updates values stored in the database from the currentuser instances)
+
+    // Update the current user’s Firestore document
     func updateUserData() {
-        //guard does not permit you to continue if userid is nil
-        //if it is not nil then we unwrap it and have access to it for
-        //the rest of the scope here
-        guard let documentID = user.id else {
+        guard let documentID = user?.id else {
             print("ERROR: User ID is nil")
             return
         }
+        guard let user = self.user else { return }
+
         let ref = db.collection("Users").document(documentID)
         do {
-            //merge important so doesn't overwrite the other data
-            try ref.setData(from: self.user, merge: true)
+            try ref.setData(from: user, merge: true)
         } catch {
-            print("Error updating user data \(error.localizedDescription)")
+            print("Error updating user data: \(error.localizedDescription)")
         }
     }
-    //cleares the data stored in this instance
+
+    // Clear the current user data
     func clearUserData() {
-        user.email = ""
-        user.userName = ""
-        user.studySets = []
-        user.id = nil
-    }
-    func testFunctions() {
-//        user = createTestUser("test@gmail.com", "no good", Date(), Date(), Date(), "", "", "")
-//        createUserDocument()
-//        fetchUserData()
-//        updateUserData()
-       
+        self.user = nil
     }
 }
