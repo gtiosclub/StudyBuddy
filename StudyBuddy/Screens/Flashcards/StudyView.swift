@@ -33,6 +33,12 @@ extension Array {
     }
 }
 
+extension Color {
+    static let background = Color(red: 50/255, green: 28/255, blue: 88/255)
+    static let purpleLight = Color(red: 103/255, green: 78/255, blue: 144/255)
+    static let purpleGrey = Color(red: 233/255, green: 221/255, blue: 255/255)
+}
+
 struct StudyView: View {
     @State var studySet: [FlashcardModel] = [flashcard1, flashcard2, flashcard3]
     @State private var flashCardIndex = 0
@@ -42,26 +48,34 @@ struct StudyView: View {
     @State private var dragOffset = CGSize.zero // for rectangle dragging
 
     
-    
     init(studySet: [FlashcardModel] = [flashcard1, flashcard2, flashcard3]) {
         _studySet = State(initialValue: studySet)
     }
     
-    
     var body: some View {
-        VStack {
-            topNavView()
-            topStatusView()
-            Spacer()
-            cardView()
-            Spacer()
-            navBar()
-            Spacer()
-        }
-        .onAppear {
-            updateMaster()
+        ZStack {
+            Color.background
+                .ignoresSafeArea()
+                .allowsHitTesting(false)
+            VStack {
+                topNavView()
+                topStatusView()
+                Spacer()
+                cardView()
+                Spacer()
+                navBar()
+                Spacer()
+            }
+            .foregroundColor(Color.purpleGrey)
+            .onAppear {
+                updateMaster()
+            }
+            
         }
     }
+        
+        
+        
 
     private func topNavView() -> some View {
         HStack {
@@ -74,6 +88,7 @@ struct StudyView: View {
             Spacer()
             Text("\(flashCardIndex)/\(studySet.count)")
                 .font(.headline)
+            
             Spacer()
         }
         .padding(.horizontal, 25)
@@ -84,10 +99,10 @@ struct StudyView: View {
         HStack {
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 0)
-                    .fill(Color.gray.opacity(0.3))
+                    .fill(Color.purpleLight)
                     .frame(height: 5)
                 RoundedRectangle(cornerRadius: 5)
-                    .fill(Color.blue)
+                    .fill(Color.purpleGrey)
                     .frame(width: getProgress() * 400, height: 6)
             }
         }
@@ -98,13 +113,12 @@ struct StudyView: View {
             // if theres a next card, have a next card
             if let nextCard = studySet[safe: flashCardIndex + 1] {
                 RoundedRectangle(cornerRadius: 20)
-                    .fill(Color.blue)
+                    .fill(Color.purpleLight)
                     .frame(width: 375, height: 600)
                     .shadow(radius: 5)
                     .overlay(
                         Text(showBack ? nextCard.front : nextCard.back)
                             .font(.title)
-                            .foregroundColor(.black)
                     )
 
             }
@@ -112,13 +126,12 @@ struct StudyView: View {
             // draggable top card
             if let currentCard = studySet[safe: flashCardIndex] {
                 RoundedRectangle(cornerRadius: 20)
-                    .fill(Color.blue)
+                    .fill(Color.purpleLight)
                     .frame(width: 375, height: 600)
                     .shadow(radius: 5)
                     .overlay(
                         Text(showBack ? currentCard.front : currentCard.back)
                             .font(.title)
-                            .foregroundColor(.black)
                     )
                     .offset(x: dragOffset.width)
                     // no idea what this code is for, helps with animation glitches when u swipe the card off the screen
@@ -175,7 +188,7 @@ struct StudyView: View {
             
             ZStack {
                 HStack {
-                    UnevenRoundedRectangle(topLeadingRadius: 0, bottomLeadingRadius: 0, bottomTrailingRadius: 20, topTrailingRadius: 20)
+                    UnevenRoundedRectangle(topLeadingRadius: 0, bottomLeadingRadius: 0, bottomTrailingRadius: 40, topTrailingRadius: 40)
                         .fill(Color.red)
                         .frame(width: 100, height: 60)
                         .shadow(radius: 5)
@@ -202,7 +215,7 @@ struct StudyView: View {
             Spacer()
             ZStack {
                 HStack {
-                    UnevenRoundedRectangle(topLeadingRadius: 20, bottomLeadingRadius: 20, bottomTrailingRadius: 0, topTrailingRadius: 0)
+                    UnevenRoundedRectangle(topLeadingRadius: 40, bottomLeadingRadius: 40, bottomTrailingRadius: 0, topTrailingRadius: 0)
                         .fill(Color.green)
                         .frame(width: 100, height: 60)
                         .shadow(radius: 5)
