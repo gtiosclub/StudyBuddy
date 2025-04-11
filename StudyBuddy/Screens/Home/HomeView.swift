@@ -37,6 +37,7 @@ struct HomeView: View {
                             Image(systemName: "plus")
                                 .font(.title2)
                         }
+
                     }
                     .padding([.horizontal, .top])
                     

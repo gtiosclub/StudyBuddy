@@ -15,6 +15,8 @@ struct CreateSetView: View {
     @State var isPresented: Bool = false
     @State private var studySet: StudySetModel?
     @Binding var showPopup: Bool
+    @State private var showFileViewer = false
+    @State private var addSet: StudySetModel?
     var body: some View {
         VStack {
             TextField("New Set", text: $name)
@@ -22,13 +24,27 @@ struct CreateSetView: View {
             Button(action: {
 //                isPresented = true
                 studySet = StudySetModel(flashcards: [], dateCreated: Date(), createdBy: Auth.auth().currentUser?.uid ?? "Unknown UserID", name: name, documentIDs: [])
-                studySetView.createStudySetDocument(studySet: studySet ?? StudySetModel(flashcards: [], dateCreated: Date(), createdBy: "", name: name, documentIDs: []))
-                showPopup = false
+                Task {
+                    do {
+                        addSet = try await studySetView.createStudySetDocumentAndReturn(studySet: studySet
+                                                                                        ?? StudySetModel(flashcards: [], dateCreated: Date(), createdBy: "", name: name, documentIDs: []))
+                        showFileViewer = true
+                    }
+                    catch {
+                        print("Failed to add and return document \(error.localizedDescription)")
+                    }
+                }
                 
             }) {
                 Text("Add Set")
                     .font(.subheadline)
                     .foregroundColor(.white)
+            }
+            NavigationLink(destination: FileToSetView(addSet: addSet
+                                                      ?? StudySetModel(flashcards: [], dateCreated: Date(), createdBy: Auth.auth().currentUser?.uid ??
+                                                                       "Unknown UserID", name: name, documentIDs: []), showPopup: $showPopup), isActive: $showFileViewer)
+            {
+                EmptyView()
             }
         }
         .padding()
@@ -39,6 +55,8 @@ struct CreateSetView: View {
         .sheet(isPresented: $isPresented) {
             DocumentPickerView(uploadViewModel: uploadViewModel)
         }
+        .toolbar(showPopup ? .hidden : .visible, for: .tabBar)
+
     }
 
 }

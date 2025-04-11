@@ -43,6 +43,7 @@ class StudySetViewModel: ObservableObject, Identifiable {
     
     func updateStudySetDocument(studySet: StudySetModel, documents: [Document]) {
         guard let studySetID = studySet.id else {
+            print(studySet)
             print("Document ID not found in updateStudySetDocument.")
             return
         }
@@ -67,6 +68,13 @@ class StudySetViewModel: ObservableObject, Identifiable {
             print(error.localizedDescription)
         }
     }
+    func createStudySetDocumentAndReturn(studySet: StudySetModel) async throws -> StudySetModel {
+        let ref = try db.collection("StudySets").addDocument(from: studySet)
+        var updatedStudySet = studySet
+        updatedStudySet.id = ref.documentID
+        return updatedStudySet
+    }
+
 
     func fetchStudySets() {
         for studySet in studySets {
