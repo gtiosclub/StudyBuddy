@@ -11,6 +11,8 @@ import FirebaseFirestore
 
 class StudySetViewModel: ObservableObject, Identifiable {
     @Published var studySets: [StudySetModel] = []
+    @Published var currentlyChosenStudySet: StudySetModel = StudySetModel(flashcards: [], dateCreated: Date(), createdBy: "")
+
     private let db = Firestore.firestore()
     @Published var currentlyChosenStudySet: StudySetModel = StudySetModel(flashcards: [], dateCreated: Date(), createdBy: "", name: "", documentIDs: [])
     private var documentsListener: ListenerRegistration?
@@ -65,7 +67,7 @@ class StudySetViewModel: ObservableObject, Identifiable {
             let newDocReference = try ref.addDocument(from: studySet)
             print("StudySet stored with new document reference: \(newDocReference)")
         } catch {
-            print(error.localizedDescription)
+            print("Error storing StudySet: \(error.localizedDescription)")
         }
     }
     func createStudySetDocumentAndReturn(studySet: StudySetModel) async throws -> StudySetModel {
@@ -79,19 +81,19 @@ class StudySetViewModel: ObservableObject, Identifiable {
     func fetchStudySets() {
         for studySet in studySets {
             guard let studySetDocumentID = studySet.id else {
-                print("Error: Document ID is nil")
-                return
+                print("Missing StudySet ID")
+                continue
             }
+
             let ref = db.collection("StudySets").document(studySetDocumentID)
-            do {
-                ref.getDocument(as: StudySetModel.self) { result in
-                    switch result {
-                    case .success(let studySet):
-                        print("Successfully fetched data")
-                        self.studySets.append(studySet)
-                    case .failure(let error):
-                        print("Error decoding document: \(error.localizedDescription)")
+            ref.getDocument(as: StudySetModel.self) { result in
+                switch result {
+                case .success(let fetchedSet):
+                    DispatchQueue.main.async {
+                        self.studySets.append(fetchedSet)
                     }
+                case .failure(let error):
+                    print("Error fetching set: \(error.localizedDescription)")
                 }
             }
         }

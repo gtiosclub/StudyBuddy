@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import SwiftUI
+import MLXLMCommon
 
 struct LLMRequest {
     var prompt: String
@@ -23,13 +25,22 @@ struct LlamaResponse: IntelligenceResponse {
     var output: String
 }
 
- class LlamaAIManager: IntelligenceManager {
+@MainActor
+class LlamaAIManager: IntelligenceManager {
      static let shared = LlamaAIManager()
+     
+     private let llama = LLMEvaluator()
+     private var thread = Thread()
 
      private init() {}
 
      func makeRequest(_ req: IntelligenceRequest) async throws -> IntelligenceResponse {
-         // TODO: Implement feature
-         throw NSError(domain: "missing method", code: 1)
+         thread.messages.append(.init(role: .user, content: req.input))
+         let response = await llama.generate(
+            modelName: ModelConfiguration.llama_3_2_1b_4bit.name,
+            thread: thread,
+            systemPrompt: "You are a helpful assistant. You need to provide a response to the user's question.")
+         
+         return LlamaResponse(output: response)
      }
  }

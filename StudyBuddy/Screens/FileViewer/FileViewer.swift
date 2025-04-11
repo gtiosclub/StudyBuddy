@@ -56,20 +56,25 @@ struct FileViewer: View {
                 }
                 .pickerStyle(.segmented)
                 .padding(.horizontal)
-                // Content based on selected tab
+                .background(Color(hex: "#71569E"))
+                .cornerRadius(8)
+
                 switch selection {
                 case .allFile:
                     AllView(fileViewerViewModel: fileViewerViewModel, isAddMode: $add, selectedDocuments: $selectedDocuments)
                 case .recent:
                     Text("Recents View")
+                        .foregroundColor(.white)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 case .favorites:
                     AllView(fileViewerViewModel: fileViewerViewModel, isFavoritesView: true, isAddMode: $add, selectedDocuments: $selectedDocuments) // Use AllView for Favorites
                 case .folders:
                     Text("Folders View")
+                        .foregroundColor(.white)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
+            .background(Color(hex: "#321C58").edgesIgnoringSafeArea(.all))
             .sheet(isPresented: $fileViewerViewModel.isPresentingFilePreview, onDismiss: {
                 fileViewerViewModel.selectedFileURL = nil
                 fileViewerViewModel.localFileURL = nil
@@ -78,8 +83,9 @@ struct FileViewer: View {
                     QLPreviewView(url: url, isPresented: $fileViewerViewModel.isPresentingFilePreview)
                 } else if fileViewerViewModel.isLoading {
                     ProgressView("Downloading File...")
+                        .foregroundColor(.white)
                 } else if let error = fileViewerViewModel.errorMessage {
-                    Text("Error: \(error)")
+                    Text("Error: \(error)").foregroundColor(.red)
                 }
             }
             .sheet(isPresented: $presentSets) {
@@ -89,6 +95,7 @@ struct FileViewer: View {
             .onAppear {
                 fileViewerViewModel.listenToUserDocuments()
             }
+
             .onDisappear() {
                 print("Snap Listener has closed.")
                 fileViewerViewModel.closeSnapshotListener()
@@ -110,9 +117,7 @@ struct QLPreviewView: UIViewControllerRepresentable {
         return navigationController
     }
 
-    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
-        // No need to update here for this simple case
-    }
+    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {}
 
     func makeCoordinator() -> Coordinator {
         Coordinator(url: url, isPresented: $isPresented)
@@ -128,9 +133,7 @@ struct QLPreviewView: UIViewControllerRepresentable {
             super.init()
         }
 
-        func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
-            return 1
-        }
+        func numberOfPreviewItems(in controller: QLPreviewController) -> Int { 1 }
 
         func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
             return previewItemURL as NSURL as QLPreviewItem
@@ -148,18 +151,21 @@ struct AllView: View {
     var isFavoritesView: Bool = false // New flag
     @Binding var isAddMode: Bool
     @Binding var selectedDocuments: [Document]
+    var isFavoritesView: Bool = false
 
     var body: some View {
         ScrollView {
             if fileViewerViewModel.isLoading {
                 ProgressView("Fetching Documents...")
+                    .foregroundColor(.white)
             } else if let errorMessage = fileViewerViewModel.errorMessage {
-                Text("Error: \(errorMessage)")
+                Text("Error: \(errorMessage)").foregroundColor(.red)
             } else {
                 let displayedDocuments = isFavoritesView ? fileViewerViewModel.favoriteDocuments : fileViewerViewModel.documents
 
                 if displayedDocuments.isEmpty {
                     Text("No documents found.")
+                        .foregroundColor(.white)
                 } else {
                     LazyVGrid(columns: columns, spacing: 16) {
                         ForEach(displayedDocuments) { document in
@@ -192,20 +198,21 @@ struct DocumentItemView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 60, height: 60)
-                        .foregroundColor(.blue)
+                        .foregroundColor(.white)
                         .padding(4)
                 } else {
                     Image(systemName: "doc.fill")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 60, height: 60)
-                        .foregroundColor(.gray)
+                        .foregroundColor(.white)
                         .padding(4)
 
                 }
                 Text(document.fileName)
                     .font(.caption)
                     .lineLimit(1)
+                    .foregroundColor(.white)
             }
             .frame(maxWidth: .infinity)
             .padding()
@@ -219,6 +226,10 @@ struct DocumentItemView: View {
             }
 
         }
+        .frame(maxWidth: .infinity)
+        .padding()
+        .background(Color(hex: "#71569E"))
+        .cornerRadius(8)
         .onTapGesture {
             if isAddMode {
                 if !selectedDocuments.contains(where: { $0.id == document.id }) {
@@ -235,11 +246,17 @@ struct DocumentItemView: View {
         }
         .onLongPressGesture {
             viewModel.toggleFavorite(document: document)
-            favoriteAlertMessage = document.isFavorite ? "\(document.fileName) removed from Favorites" : "\(document.fileName) added to Favorites"
+            favoriteAlertMessage = document.isFavorite
+                ? "\(document.fileName) removed from Favorites"
+                : "\(document.fileName) added to Favorites"
             isShowingFavoriteAlert = true
         }
         .alert(isPresented: $isShowingFavoriteAlert) {
-            Alert(title: Text("Favorites"), message: Text(favoriteAlertMessage), dismissButton: .default(Text("OK")))
+            Alert(
+                title: Text("Favorites"),
+                message: Text(favoriteAlertMessage),
+                dismissButton: .default(Text("OK"))
+            )
         }
     }
     func presentFavoritesActionSheet() {

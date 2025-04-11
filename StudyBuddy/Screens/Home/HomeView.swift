@@ -12,6 +12,8 @@ struct HomeView: View {
     @State private var selectedTab: Tab = .all
     @EnvironmentObject var studySetViewModel: StudySetViewModel
     @State private var showPopup = false
+    @State private var selectedBottomTab: Int = 0
+
     enum Tab: String, CaseIterable {
         case all = "All Sets"
         case recents = "Recents"
@@ -24,16 +26,16 @@ struct HomeView: View {
             ZStack {
                 VStack(spacing: 0) {
                     HStack {
-                        Circle()
-                            .fill(Color.gray.opacity(0.3))
-                            .frame(width: 32, height: 32)
+                        NavigationLink(destination: ViewEditProfile()
+                            .environmentObject(authViewModel)
+                            .environmentObject(UserViewModel())) {
+                                Circle()
+                                    .fill(Color.white.opacity(0.3))
+                            .bold()
+                        Spacer()
                         Text("StudyBuddy")
                             .font(.title2)
                             .bold()
-                        Spacer()
-                        Button(action: {
-                            showPopup = true
-                        }) {
                             Image(systemName: "plus")
                                 .font(.title2)
                         }
@@ -57,8 +59,7 @@ struct HomeView: View {
                     .padding(.horizontal)
                     .padding(.vertical, 8)
                     
-                    Divider()
-                    
+                    Divider().background(Color.white.opacity(0.3))
                     ScrollView {
                         VStack(spacing: 12) {
                             ForEach(studySetViewModel.studySets) { set in
@@ -67,13 +68,14 @@ struct HomeView: View {
                                     VStack(alignment: .leading, spacing: 6) {
                                         Text(set.name)
                                             .font(.headline)
+                                            .foregroundColor(.white)
                                         
                                         HStack(spacing: 8) {
                                             Circle()
                                                 .fill(Color.white.opacity(0.3))
                                                 .frame(width: 20, height: 20)
                                             Text("john_doe18")
-                                                .foregroundColor(.black)
+                                                .foregroundColor(.white)
                                                 .font(.subheadline)
                                         }
                                         
@@ -83,15 +85,15 @@ struct HomeView: View {
                                         
                                         Text("23 terms mastered")
                                             .font(.subheadline)
-                                            .foregroundColor(.black)
+                                            .foregroundColor(.white)
                                         
                                         Spacer().frame(height: 6)
                                     }
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .padding()
                                     
-                                    Divider()
-                                    
+                                    Divider().background(Color.white.opacity(0.3))
+
                                     HStack(spacing: 0) {
                                         Button(action: {
                                             // Chatbot functionality
@@ -120,29 +122,52 @@ struct HomeView: View {
                                         }
                                     }
                                     .background(Color.white.opacity(0.5))
+                                                .padding()
+                                                .foregroundColor(.black)
+                                        }
+                                    }
+                                    .background(Color.white.opacity(0.5))
+                                .padding()
+
+                                Divider().background(Color.white.opacity(0.3))
+
+                                HStack(spacing: 0) {
+                                    Button(action: {
+                                        // Chatbot functionality
+                                    }) {
+                                        Text("Chatbot")
+                                            .font(.subheadline)
+                                            .bold()
+                                            .frame(maxWidth: .infinity)
+                                            .padding()
+                                            .foregroundColor(.white)
+                                            .background(Color(hex: "#6213D0"))
+                                    }
+
+                                    Rectangle()
+                                        .frame(width: 1, height: 33)
+                                        .foregroundColor(.white.opacity(0.5))
+
+                                    Button(action: {
+                                        // Flashcards functionality
+                                    }) {
+                                        Text("Flashcards")
+                                            .font(.subheadline)
+                                            .bold()
+                                            .frame(maxWidth: .infinity)
+                                            .padding()
+                                            .foregroundColor(.white)
+                                            .background(Color(hex: "#6213D0"))
+                                    }
                                 }
-                                .background(Color.gray.opacity(0.8))
-                                .cornerRadius(12)
-                                .padding(.horizontal)
-                                .frame(maxWidth: .infinity, alignment: .leading)
                             }
+                            .background(Color(hex: "#71569E"))
+                            .cornerRadius(12)
+                            .padding(.horizontal)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         }
-                        .padding(.top)
                     }
-                    
-                    Divider()
-                    
-                    // Bottom Tab Bar
-                    HStack(spacing: 0) {
-                        ForEach(0..<4) { index in
-                            VStack {
-                                Image(systemName: index == 0 ? "star.fill" : "star")
-                                    .foregroundColor(index == 0 ? .blue : .gray)
-                                Text("Tab Name")
-                                    .font(.caption)
-                                    .foregroundColor(.gray)
-                            }
-                            .frame(maxWidth: .infinity)
+                    .padding(.top)
                         }
                     }
                     .padding(.top, 4)
@@ -155,16 +180,11 @@ struct HomeView: View {
                     Color.black.opacity(0.4)
                         .ignoresSafeArea()
                         .onTapGesture {
-                            withAnimation {
-                                showPopup = false
-                            }
-                        }
-
                     CreateSetView(showPopup: $showPopup)
                         .transition(.scale)
                         .zIndex(1)
                 }
-            }
+//                    ForEach(0..<5) { index in
         }
         .onAppear {
             studySetViewModel.listenToUserDocuments()
@@ -172,7 +192,26 @@ struct HomeView: View {
         .onDisappear() {
             print("Snap Listener has closed.")
             studySetViewModel.closeSnapshotListener()
+
         }
+        .background(Color(hex: "#321C58").edgesIgnoringSafeArea(.all))
+    }
+}
+
+extension Color {
+    init(hex: String) {
+        let scanner = Scanner(string: hex.trimmingCharacters(in: .whitespacesAndNewlines))
+        scanner.currentIndex = hex.startIndex
+
+        var rgb: UInt64 = 0
+        scanner.scanString("#", into: nil)
+        scanner.scanHexInt64(&rgb)
+
+        let red = Double((rgb >> 16) & 0xFF) / 255
+        let green = Double((rgb >> 8) & 0xFF) / 255
+        let blue = Double(rgb & 0xFF) / 255
+
+        self.init(red: red, green: green, blue: blue)
     }
 }
 

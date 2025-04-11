@@ -12,22 +12,27 @@ struct AddView: View {
     @State private var backText: String = ""
     var set: [String: (String, String)]
     var studySet: StudySet
+
     init(studySet: StudySet) {
         self.studySet = studySet
         self.set = studySet.set
     }
+
     var body: some View {
         NavigationView {
             VStack {
-                // Flashcard form
-                VStack {
+                VStack(spacing: 20) {
                     TextField("Enter front of flashcard", text: $frontText)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
+                        .background(Color.white)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
 
                     TextField("Enter back of flashcard", text: $backText)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
+                        .background(Color.white)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
 
                     Button(action: {
                         if !frontText.isEmpty && !backText.isEmpty {
@@ -39,21 +44,23 @@ struct AddView: View {
                         Text("Add Flashcard")
                             .fontWeight(.bold)
                             .padding()
-                            .background(Color.blue)
+                            .frame(maxWidth: .infinity)
+                            .background(Color(hex: "#6213D0"))
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                    .padding()
                 }
+                .padding()
             }
             .navigationTitle("Add Flashcard")
+            .background(Color(hex: "#321C58").edgesIgnoringSafeArea(.all))
         }
     }
 }
 
 struct FlashCardApp_Previews: PreviewProvider {
     static var previews: some View {
-        let hardSet = StudySet(set : ["String" : ("String","String")])
+        let hardSet = StudySet(set: ["String": ("String", "String")])
         AddView(studySet: hardSet)
     }
 }

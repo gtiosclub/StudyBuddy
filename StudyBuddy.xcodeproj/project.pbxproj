@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		213871AD2D5CEED900B83A04 /* OpenAIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213871AC2D5CEED600B83A04 /* OpenAIRequest.swift */; };
 		213871B22D5CF2B500B83A04 /* OpenAIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213871B12D5CF2B400B83A04 /* OpenAIResponse.swift */; };
+		4094F0882DA7535300C10C53 /* ViewEditProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4094F0872DA7534D00C10C53 /* ViewEditProfile.swift */; };
+		4094F08A2DA754F100C10C53 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4094F0892DA754ED00C10C53 /* ImagePicker.swift */; };
 		912404212D77A0EF00A0C7AC /* FileViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9124041F2D77A0EF00A0C7AC /* FileViewer.swift */; };
 		918BED4A2D93757000E8C3CF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 918BED492D93757000E8C3CF /* GoogleService-Info.plist */; };
 		9190917E2D78DCCF00988421 /* FileViewerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9190917D2D78DCCF00988421 /* FileViewerViewModel.swift */; };
@@ -55,6 +57,9 @@
 		CABC81B02D77BBEF002D5657 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC81AF2D77BBEF002D5657 /* Models.swift */; };
 		CABC81B22D77BC1D002D5657 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC81B12D77BC1B002D5657 /* ModelData.swift */; };
 		EA135DCA2DA6219C00E9DD9C /* CreateSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA135DC92DA6219C00E9DD9C /* CreateSetView.swift */; };
+		CABC81B52D77C17A002D5657 /* ModelUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC81B42D77C17A002D5657 /* ModelUI.swift */; };
+		EA89AA4E2D71142F0033CFDF /* FileLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA89AA4D2D71142F0033CFDF /* FileLibraryView.swift */; };
+		EAB1733C2D711BE2005A8CA0 /* FileLibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB1733B2D711BE2005A8CA0 /* FileLibraryViewModel.swift */; };
 		EA25407E2D77CE8F00BDD841 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = EA25407D2D77CE8F00BDD841 /* FirebaseCore */; };
 		EAACE10E2DA8889C0075C5F1 /* FileToSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAACE10D2DA8889C0075C5F1 /* FileToSetView.swift */; };
 		EAFA58462D5D417600ADC214 /* UploadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA58452D5D417600ADC214 /* UploadModel.swift */; };
@@ -65,6 +70,8 @@
 /* Begin PBXFileReference section */
 		213871AC2D5CEED600B83A04 /* OpenAIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIRequest.swift; sourceTree = "<group>"; };
 		213871B12D5CF2B400B83A04 /* OpenAIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIResponse.swift; sourceTree = "<group>"; };
+		4094F0872DA7534D00C10C53 /* ViewEditProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEditProfile.swift; sourceTree = "<group>"; };
+		4094F0892DA754ED00C10C53 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		9124041F2D77A0EF00A0C7AC /* FileViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewer.swift; sourceTree = "<group>"; };
 		918BED492D93757000E8C3CF /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9190917D2D78DCCF00988421 /* FileViewerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewerViewModel.swift; sourceTree = "<group>"; };
@@ -103,6 +110,9 @@
 		CABC81B12D77BC1B002D5657 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		EA135DC92DA6219C00E9DD9C /* CreateSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSetView.swift; sourceTree = "<group>"; };
 		EAACE10D2DA8889C0075C5F1 /* FileToSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileToSetView.swift; sourceTree = "<group>"; };
+		CABC81B42D77C17A002D5657 /* ModelUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelUI.swift; sourceTree = "<group>"; };
+		EA89AA4D2D71142F0033CFDF /* FileLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLibraryView.swift; sourceTree = "<group>"; };
+		EAB1733B2D711BE2005A8CA0 /* FileLibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLibraryViewModel.swift; sourceTree = "<group>"; };
 		EAFA58452D5D417600ADC214 /* UploadModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadModel.swift; sourceTree = "<group>"; };
 		EAFA58472D5D417D00ADC214 /* UploadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewModel.swift; sourceTree = "<group>"; };
 		EAFA58492D5D418700ADC214 /* UploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadView.swift; sourceTree = "<group>"; };
@@ -167,6 +177,8 @@
 		CA0CE2CB2D5C2AE600DD8FD2 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				4094F0892DA754ED00C10C53 /* ImagePicker.swift */,
+				4094F0872DA7534D00C10C53 /* ViewEditProfile.swift */,
 				CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */,
 				946D8D952D7A536200E4B384 /* AuthViewModel.swift */,
 				946D8D972D7A538800E4B384 /* ChangePasswordView.swift */,
@@ -225,6 +237,7 @@
 		CAAA3AAC2D5B102D00D9A631 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				CABC81B32D77C16E002D5657 /* AI */,
 				912404202D77A0EF00A0C7AC /* FileViewer */,
 				EAFA58432D5D416200ADC214 /* UploadView */,
 				CA0CE2CF2D5C2AF500DD8FD2 /* Flashcards */,
@@ -264,6 +277,7 @@
 		CAAA3ABC2D5B10B600D9A631 /* AI */ = {
 			isa = PBXGroup;
 			children = (
+				CABC81B42D77C17A002D5657 /* ModelUI.swift */,
 				CABC81B12D77BC1B002D5657 /* ModelData.swift */,
 				9234242C2D67FEDC004FC038 /* OpenAIManager.swift */,
 				213871B12D5CF2B400B83A04 /* OpenAIResponse.swift */,
@@ -278,6 +292,29 @@
 				CABC81AF2D77BBEF002D5657 /* Models.swift */,
 			);
 			path = AI;
+			sourceTree = "<group>";
+		};
+		CABC81B32D77C16E002D5657 /* AI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AI;
+			sourceTree = "<group>";
+		};
+		EA89AA4B2D7113B70033CFDF /* FileLibraryView */ = {
+			isa = PBXGroup;
+			children = (
+				EA89AA4D2D71142F0033CFDF /* FileLibraryView.swift */,
+			);
+			path = FileLibraryView;
+			sourceTree = "<group>";
+		};
+		EA89AA4C2D7113C70033CFDF /* FileLibraryViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EAB1733B2D711BE2005A8CA0 /* FileLibraryViewModel.swift */,
+			);
+			path = FileLibraryViewModel;
 			sourceTree = "<group>";
 		};
 		EAFA58412D5D413E00ADC214 /* UploadViewModel */ = {
@@ -429,6 +466,7 @@
 				CABC81B22D77BC1D002D5657 /* ModelData.swift in Sources */,
 				9B70DE112D5C2FA900F447CD /* LlamaAIManager.swift in Sources */,
 				EAFA58462D5D417600ADC214 /* UploadModel.swift in Sources */,
+				4094F08A2DA754F100C10C53 /* ImagePicker.swift in Sources */,
 				9B883B362D713DA400AE3DEF /* LLMEvaluator.swift in Sources */,
 				CAAA3ABE2D5B10C200D9A631 /* IntelligenceRequest.swift in Sources */,
 				CA0CE2D42D5C2B1700DD8FD2 /* FlashcardStudySetModel.swift in Sources */,
@@ -437,12 +475,14 @@
 				9688CEE82D5EC24B009C719A /* TextParsingPDFs.swift in Sources */,
 				9190917E2D78DCCF00988421 /* FileViewerViewModel.swift in Sources */,
 				946D8D962D7A536200E4B384 /* AuthViewModel.swift in Sources */,
+				4094F0882DA7535300C10C53 /* ViewEditProfile.swift in Sources */,
 				94FCD6442D960EBF00051CE8 /* FlashcardViewModel.swift in Sources */,
 				94FCD6422D960EA800051CE8 /* StudySetViewModel.swift in Sources */,
 				966B69C42D67F9DA00BB11DE /* DocumentsModel.swift in Sources */,
 				CA0CE2CC2D5C2AE600DD8FD2 /* HomeView.swift in Sources */,
 				CAAA3AB52D5B102D00D9A631 /* UserViewModel.swift in Sources */,
 				912404212D77A0EF00A0C7AC /* FileViewer.swift in Sources */,
+				CABC81B52D77C17A002D5657 /* ModelUI.swift in Sources */,
 				213871B22D5CF2B500B83A04 /* OpenAIResponse.swift in Sources */,
 				CAAA3AB62D5B102D00D9A631 /* StudyBuddyApp.swift in Sources */,
 				CA349F302D6801440024356A /* LlamaManager.swift in Sources */,
@@ -598,7 +638,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyBuddy/Preview Content\"";
-				DEVELOPMENT_TEAM = 6JXR4QA97N;
+				DEVELOPMENT_TEAM = 46A969A6K2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = StudyBuddy;
@@ -612,7 +652,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = iosclub.StudyBuddy;
+				PRODUCT_BUNDLE_IDENTIFIER = msubbiah3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -628,7 +668,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyBuddy/Preview Content\"";
-				DEVELOPMENT_TEAM = 6JXR4QA97N;
+				DEVELOPMENT_TEAM = 46A969A6K2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = StudyBuddy;
@@ -642,7 +682,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = iosclub.StudyBuddy;
+				PRODUCT_BUNDLE_IDENTIFIER = msubbiah3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
