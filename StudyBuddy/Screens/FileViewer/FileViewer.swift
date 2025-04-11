@@ -70,7 +70,9 @@ struct FileViewer: View {
             .onAppear {
                 fileViewerViewModel.listenToUserDocuments()
             }
-            .onDisappear {
+
+            .onDisappear() {
+                print("Snap Listener has closed.")
                 fileViewerViewModel.closeSnapshotListener()
             }
         }
