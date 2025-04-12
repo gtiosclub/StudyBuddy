@@ -11,7 +11,6 @@ import FirebaseFirestore
 
 class StudySetViewModel: ObservableObject, Identifiable {
     @Published var studySets: [StudySetModel] = []
-    @Published var currentlyChosenStudySet: StudySetModel = StudySetModel(flashcards: [], dateCreated: Date(), createdBy: "")
 
     private let db = Firestore.firestore()
     @Published var currentlyChosenStudySet: StudySetModel = StudySetModel(flashcards: [], dateCreated: Date(), createdBy: "", name: "", documentIDs: [])
