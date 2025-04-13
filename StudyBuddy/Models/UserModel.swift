@@ -30,9 +30,9 @@ func createTestUser(_ email: String, _ userName: String, _ date1: Date, _ date2:
 
 
     user.studySets = [
-        StudySetModel(flashcards: [flashcard1], dateCreated: date1, createdBy: user.userName, name: "", documentIDs: []),
-        StudySetModel(flashcards: [flashcard1], dateCreated: date1, createdBy: user.userName, name: "", documentIDs: []),
-        StudySetModel(flashcards: [flashcard1], dateCreated: date1, createdBy: user.userName, name: "", documentIDs: []),
+        StudySetModel(flashcards: [flashcard1], dateCreated: date1, createdBy: user.userName),
+        StudySetModel(flashcards: [flashcard2], dateCreated: date2, createdBy: user.userName),
+        StudySetModel(flashcards: [flashcard3], dateCreated: date3, createdBy: user.userName),
     ]
 
     return user

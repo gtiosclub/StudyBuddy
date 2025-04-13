@@ -57,8 +57,7 @@ struct UploadView: View {
             .padding()
 
             Button(action: {
-                // Handle upload action
-                for document in uploadViewModel.selectedDocuments {
+                for document in uploadViewModel.documents {
                     var doc: Document = document
                     doc.isPrivate = !isPublic
 
