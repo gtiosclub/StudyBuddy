@@ -143,22 +143,6 @@ struct HomeView: View {
 
                 Divider()
 
-                // Bottom Tab Bar
-                HStack(spacing: 0) {
-                    ForEach(0..<4) { index in
-                        VStack {
-                            Image(systemName: index == 0 ? "star.fill" : "star")
-                                .foregroundColor(index == 0 ? .blue : .gray)
-                            Text("Tab Name")
-                                .font(.caption)
-                                .foregroundColor(.gray)
-                        }
-                        .frame(maxWidth: .infinity)
-                    }
-                }
-                .padding(.top, 4)
-                .padding(.bottom, 10)
-                .background(Color.white.shadow(radius: 2))
 //                Divider().background(Color.white.opacity(0.3))
 //
 //                // Bottom Tab Bar
