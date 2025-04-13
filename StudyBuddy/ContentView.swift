@@ -16,13 +16,13 @@ struct ContentView: View {
                 Label("Home", systemImage: "house.fill")
             }.tag(TabSelection.home)
                 .environmentObject(authViewModel)
-            SearchView().tabItem {
-                Label("Search", systemImage: "magnifyingglass")
-            }.tag(TabSelection.search)
                 .environmentObject(authViewModel)
             FileViewer().tabItem {
                 Label("Files", systemImage: "folder.fill")
             }.tag(TabSelection.files)
+            SearchView().tabItem {
+                Label("Search", systemImage: "magnifyingglass")
+            }.tag(TabSelection.search)
             HomeView().tabItem {
                 Label("Chat", systemImage: "bubble.left.and.text.bubble.right.fill")
             }.tag(TabSelection.chat)
