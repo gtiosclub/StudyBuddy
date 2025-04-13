@@ -11,10 +11,13 @@ import SwiftUI
 struct SetView: View {
 
     @StateObject var studySetVM: StudySetViewModel = StudySetViewModel.shared
+    @State private var frontText: String = ""
+    @State private var backText: String = ""
     @State private var filteredText: String = ""
     @State private var frontEditText: String = ""
     @State private var backEditText: String = ""
     @State private var flashcardToEdit: FlashcardModel? = nil
+    @State private var showAddCard: Bool = false
     var body: some View {
         ZStack {
             // Main Content
@@ -73,13 +76,56 @@ struct SetView: View {
                 .shadow(radius: 8)
                 .transition(.scale)
             }
+            if showAddCard {
+                Color.black.opacity(0.3) // Dim background.
+                    .ignoresSafeArea()
+
+                VStack(spacing: 16) {
+                    Text("Add Flashcard")
+                        .font(.headline)
+                        .padding(.top, 12)
+
+                    TextField("Term", text: $frontText)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.horizontal)
+
+                    TextField("Definition", text: $backText)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.horizontal)
+
+                    Button(action: {
+                        if !frontText.isEmpty && !backText.isEmpty {
+                            studySetVM.addFlashcard(front: frontText, back: backText)
+                            withAnimation {
+                                showAddCard = false
+                            }
+                        }
+                    }) {
+                        Text("Add")
+                            .fontWeight(.bold)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                            .padding(.horizontal)
+                    }
+                }
+                .padding(.vertical, 20)
+                .background(Color("calvinColor"))
+                .cornerRadius(15)
+                .frame(maxWidth: 300) // Reduced width.
+                .shadow(radius: 8)
+                .transition(.scale)
+            }
         }
+        
     }
 
     private func topOfPage() -> some View {
         VStack {
             HStack {
-                Text("Math 1554 Cards")
+                Text(studySetVM.getUser())
                     .foregroundColor(Color("calvinColor"))
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .center)
@@ -88,7 +134,7 @@ struct SetView: View {
                 Circle()
                     .frame(width: 30, height: 30)
                     .foregroundColor(.gray)
-                Text("john_doe_18")
+                Text(studySetVM.getUser())
                     .foregroundColor(Color("calvinColor"))
                     .font(.headline)
             }
@@ -182,7 +228,11 @@ struct SetView: View {
                     .padding(.horizontal, 20)
                     .font(.title2)
                     .foregroundColor(Color("calvinColor"))
-                NavigationLink(destination: AddView(studySetVM: studySetVM)) {
+                Button(action: {
+                    frontText = ""
+                    backText = ""
+                    showAddCard = true
+                }) {
                     Text("+")
                         .foregroundColor(Color("calvinColor"))
                         .font(.title)

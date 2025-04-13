@@ -119,5 +119,7 @@ class StudySetViewModel: ObservableObject {
         updateStudySetData()
     }
 
-
+    func getUser() -> String {
+        return currentlyChosenStudySet.createdBy
+    }
 }
