@@ -14,6 +14,7 @@
 		912404212D77A0EF00A0C7AC /* FileViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9124041F2D77A0EF00A0C7AC /* FileViewer.swift */; };
 		918BED4A2D93757000E8C3CF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 918BED492D93757000E8C3CF /* GoogleService-Info.plist */; };
 		9190917E2D78DCCF00988421 /* FileViewerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9190917D2D78DCCF00988421 /* FileViewerViewModel.swift */; };
+		919386DD2D9F303C00C58066 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919386DC2D9F303700C58066 /* SearchView.swift */; };
 		9234242D2D67FEE5004FC038 /* OpenAIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234242C2D67FEDC004FC038 /* OpenAIManager.swift */; };
 		946D8D962D7A536200E4B384 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946D8D952D7A536200E4B384 /* AuthViewModel.swift */; };
 		946D8D982D7A538800E4B384 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946D8D972D7A538800E4B384 /* ChangePasswordView.swift */; };
@@ -73,6 +74,7 @@
 		9124041F2D77A0EF00A0C7AC /* FileViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewer.swift; sourceTree = "<group>"; };
 		918BED492D93757000E8C3CF /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9190917D2D78DCCF00988421 /* FileViewerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewerViewModel.swift; sourceTree = "<group>"; };
+		919386DC2D9F303700C58066 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		9234242C2D67FEDC004FC038 /* OpenAIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIManager.swift; sourceTree = "<group>"; };
 		9402BD1B2D558ABA00F2C00B /* StudyBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		946D8D952D7A536200E4B384 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 		CAAA3AAC2D5B102D00D9A631 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				919386DC2D9F303700C58066 /* SearchView.swift */,
 				CABC81B32D77C16E002D5657 /* AI */,
 				912404202D77A0EF00A0C7AC /* FileViewer */,
 				EAFA58432D5D416200ADC214 /* UploadView */,
@@ -477,6 +480,7 @@
 				CABC81B52D77C17A002D5657 /* ModelUI.swift in Sources */,
 				213871B22D5CF2B500B83A04 /* OpenAIResponse.swift in Sources */,
 				CAAA3AB62D5B102D00D9A631 /* StudyBuddyApp.swift in Sources */,
+				919386DD2D9F303C00C58066 /* SearchView.swift in Sources */,
 				CA349F302D6801440024356A /* LlamaManager.swift in Sources */,
 				EAFA58482D5D417D00ADC214 /* UploadViewModel.swift in Sources */,
 				94B653E12D6562EE001D3727 /* StudySetModel.swift in Sources */,

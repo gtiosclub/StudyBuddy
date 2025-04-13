@@ -18,15 +18,33 @@ enum FileName: String, CaseIterable, Identifiable {
 struct FileViewer: View {
     @StateObject private var fileViewerViewModel = FileViewerViewModel()
     @State private var selection: FileName = .allFile
+    @State private var isDocumentPickerPresented = false // State to control DocumentPickerView presentation
+    @State private var isUploadViewPresented = false
+    @StateObject private var uploadViewModel = UploadViewModel() // Added UploadViewModel instance
 
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                Text("File Library")
-                    .font(.title)
-                    .bold()
-                    .foregroundColor(.white)
-                    .padding(.horizontal)
+
+                HStack {
+                    Text("File Library")
+                        .font(.title)
+                        .bold()
+                    Spacer()
+                    Button(action: {
+                        isDocumentPickerPresented = true
+                    }) {
+                        HStack {
+                            Image(systemName: "plus")
+                            Text("Upload")
+                        }
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(20)
+                    }
+                }
+                .padding(.horizontal)
 
                 Picker("Select a tab", selection: $selection) {
                     ForEach(FileName.allCases) { file in
@@ -67,10 +85,16 @@ struct FileViewer: View {
                     Text("Error: \(error)").foregroundColor(.red)
                 }
             }
-            .onAppear {
-                fileViewerViewModel.listenToUserDocuments()
+            .sheet(isPresented: $isDocumentPickerPresented) {
+                DocumentPickerView(uploadViewModel: uploadViewModel) // Present DocumentPickerView
             }
-
+            .sheet(isPresented: $isUploadViewPresented) {
+                UploadView(uploadViewModel: uploadViewModel)
+            }
+            .onChange(of: uploadViewModel.isUploadPresented) { isPresented in
+                if isPresented {
+                    isUploadViewPresented = true
+                }
             .onDisappear() {
                 print("Snap Listener has closed.")
                 fileViewerViewModel.closeSnapshotListener()

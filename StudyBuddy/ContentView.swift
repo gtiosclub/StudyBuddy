@@ -8,8 +8,6 @@ import SwiftUI
 
 struct ContentView: View {
     @State var selectedView: TabSelection = .home
-    @State private var isPickerPresented: Bool = false
-    @StateObject private var uploadViewModel = UploadViewModel()
     @EnvironmentObject var authViewModel: AuthViewModel
 
     var body: some View {
@@ -18,9 +16,9 @@ struct ContentView: View {
                 Label("Home", systemImage: "house.fill")
             }.tag(TabSelection.home)
                 .environmentObject(authViewModel)
-            HomeView().tabItem {
-                Label("Upload", systemImage: "arrow.up.circle.fill")
-            }.tag(TabSelection.upload)
+            SearchView().tabItem {
+                Label("Search", systemImage: "magnifyingglass")
+            }.tag(TabSelection.search)
                 .environmentObject(authViewModel)
             FileViewer().tabItem {
                 Label("Files", systemImage: "folder.fill")
@@ -30,29 +28,11 @@ struct ContentView: View {
             }.tag(TabSelection.chat)
                 .environmentObject(authViewModel)
         }
-        .onChange(of: selectedView) { newValue in
-            if newValue == .upload {
-                isPickerPresented = true
-            }
-        }
-        .sheet(isPresented: $isPickerPresented, onDismiss: {
-            selectedView = .files
-        }) {
-            DocumentPickerView(uploadViewModel: uploadViewModel)
-        }
-        .sheet(isPresented: $uploadViewModel.isUploadPresented, onDismiss: {
-            selectedView = .files
-        }) {
-            UploadView(uploadViewModel: uploadViewModel)
-                .presentationDetents([.medium, .fraction(0.5)])
-                .cornerRadius(30)
-                .background(EmptyView())
-        }
     }
 }
 
 enum TabSelection {
-    case home, upload, chat, profile, files
+    case home, search, chat, profile, files
 }
 
 #Preview {
