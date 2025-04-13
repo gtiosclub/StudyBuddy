@@ -113,4 +113,12 @@ class StudySetViewModel: ObservableObject, Identifiable {
             print("Error updating study set data \(error.localizedDescription)")
         }
     }
+    
+    func getUsername() -> String {
+        return currentlyChosenStudySet.createdBy
+    }
+    
+    func getSetName() -> String {
+        return currentlyChosenStudySet.name
+    }
 }

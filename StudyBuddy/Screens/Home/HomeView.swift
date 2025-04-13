@@ -82,19 +82,19 @@ struct HomeView: View {
                                             Circle()
                                                 .fill(Color.white.opacity(0.3))
                                                 .frame(width: 20, height: 20)
-                                            Text("john_doe18")
+                                            Text(set.createdBy)
                                                 .foregroundColor(.white)
                                                 .font(.subheadline)
                                         }
                                         
-                                        Text("48 terms")
+                                        /*Text("48 terms")
                                             .font(.subheadline)
                                             .foregroundColor(.white)
                                         
-                                        Text("23 terms mastered")
+                                        Text("0 terms mastered")
                                             .font(.subheadline)
                                             .foregroundColor(.white)
-                                        Spacer().frame(height: 6)
+                                        Spacer().frame(height: 6)*/
 
                                     }
                                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -115,8 +115,7 @@ struct HomeView: View {
                                                 .background(Color(hex: "#6213D0"))
                                         }
 
-                                        Button(action: {
-                                        }) {
+                                        NavigationLink(destination: SetView()) {
                                             Text("Flashcards")
                                                 .font(.subheadline)
                                                 .bold()

@@ -63,7 +63,7 @@ struct FileViewer: View {
                 .padding(.horizontal)
                 .background(Color(hex: "#71569E"))
                 .cornerRadius(8)
-                
+
                 switch selection {
                 case .allFile:
                     AllView(fileViewerViewModel: fileViewerViewModel, isAddMode: $add, selectedDocuments: $selectedDocuments)
@@ -100,55 +100,52 @@ struct FileViewer: View {
             .onAppear {
                 fileViewerViewModel.listenToUserDocuments()
             }
-            .sheet(isPresented: $isUploadViewPresented) {
-                UploadView(uploadViewModel: uploadViewModel)
-            }
-            .onChange(of: uploadViewModel.isUploadPresented) { isPresented in
-                if isPresented {
-                    isUploadViewPresented = true
-                }
+
+            .onDisappear() {
+                print("Snap Listener has closed.")
+                fileViewerViewModel.closeSnapshotListener()
             }
         }
     }
-    
-    struct QLPreviewView: UIViewControllerRepresentable {
-        let url: URL
+}
+
+struct QLPreviewView: UIViewControllerRepresentable {
+    let url: URL
+    @Binding var isPresented: Bool
+
+    func makeUIViewController(context: Context) -> UINavigationController {
+        let previewController = QLPreviewController()
+        previewController.dataSource = context.coordinator
+        let navigationController = UINavigationController(rootViewController: previewController)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: context.coordinator, action: #selector(context.coordinator.dismissPreview))
+        previewController.navigationItem.rightBarButtonItem = doneButton
+        return navigationController
+    }
+
+    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {}
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(url: url, isPresented: $isPresented)
+    }
+
+    class Coordinator: NSObject, QLPreviewControllerDataSource {
+        let previewItemURL: URL
         @Binding var isPresented: Bool
-        
-        func makeUIViewController(context: Context) -> UINavigationController {
-            let previewController = QLPreviewController()
-            previewController.dataSource = context.coordinator
-            let navigationController = UINavigationController(rootViewController: previewController)
-            let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: context.coordinator, action: #selector(context.coordinator.dismissPreview))
-            previewController.navigationItem.rightBarButtonItem = doneButton
-            return navigationController
+
+        init(url: URL, isPresented: Binding<Bool>) {
+            self.previewItemURL = url
+            _isPresented = isPresented
+            super.init()
         }
-        
-        func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {}
-        
-        func makeCoordinator() -> Coordinator {
-            Coordinator(url: url, isPresented: $isPresented)
+
+        func numberOfPreviewItems(in controller: QLPreviewController) -> Int { 1 }
+
+        func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
+            return previewItemURL as NSURL as QLPreviewItem
         }
-        
-        class Coordinator: NSObject, QLPreviewControllerDataSource {
-            let previewItemURL: URL
-            @Binding var isPresented: Bool
-            
-            init(url: URL, isPresented: Binding<Bool>) {
-                self.previewItemURL = url
-                _isPresented = isPresented
-                super.init()
-            }
-            
-            func numberOfPreviewItems(in controller: QLPreviewController) -> Int { 1 }
-            
-            func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
-                return previewItemURL as NSURL as QLPreviewItem
-            }
-            
-            @objc func dismissPreview() {
-                isPresented = false
-            }
+
+        @objc func dismissPreview() {
+            isPresented = false
         }
     }
 }
@@ -173,8 +170,6 @@ struct AllView: View {
                 if displayedDocuments.isEmpty {
                     Text("No documents found.")
                         .foregroundColor(.white)
-                } else if let errorMessage = fileViewerViewModel.errorMessage {
-                    Text("Error: \(errorMessage)").foregroundColor(.red)
                 } else {
                     LazyVGrid(columns: columns, spacing: 16) {
                         ForEach(displayedDocuments) { document in
@@ -182,8 +177,8 @@ struct AllView: View {
                                              viewModel: fileViewerViewModel,
                                              isAddMode: $isAddMode, selectedDocuments: $selectedDocuments)
                         }
-                        .padding()
                     }
+                    .padding()
                 }
             }
         }
@@ -258,15 +253,14 @@ struct DocumentItemView: View {
             favoriteAlertMessage = document.isFavorite
                 ? "\(document.fileName) removed from Favorites"
                 : "\(document.fileName) added to Favorites"
-                isShowingFavoriteAlert = true
-            }
-            .alert(isPresented: $isShowingFavoriteAlert) {
-                Alert(
-                    title: Text("Favorites"),
-                    message: Text(favoriteAlertMessage),
-                    dismissButton: .default(Text("OK"))
-                )
-            }
+            isShowingFavoriteAlert = true
+        }
+        .alert(isPresented: $isShowingFavoriteAlert) {
+            Alert(
+                title: Text("Favorites"),
+                message: Text(favoriteAlertMessage),
+                dismissButton: .default(Text("OK"))
+            )
         }
     }
     func presentFavoritesActionSheet() {
