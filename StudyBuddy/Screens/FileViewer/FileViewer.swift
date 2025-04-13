@@ -18,34 +18,42 @@ enum FileName: String, CaseIterable, Identifiable {
 struct FileViewer: View {
     @StateObject private var fileViewerViewModel = FileViewerViewModel()
     @State private var selection: FileName = .allFile
-    @State private var isDocumentPickerPresented = false // State to control DocumentPickerView presentation
-    @State private var isUploadViewPresented = false
-    @StateObject private var uploadViewModel = UploadViewModel() // Added UploadViewModel instance
-
-    
+    @State private var add: Bool = false
+    @State private var selectedDocuments: [Document] = []
+    @EnvironmentObject private var studySetViewModel: StudySetViewModel
+    @State var presentSets: Bool = false
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
+                // File Library Section
                 HStack {
                     Text("File Library")
                         .font(.title)
                         .bold()
-                    Spacer()
-                    Button(action: {
-                        isDocumentPickerPresented = true
-                    }) {
-                        HStack {
-                            Image(systemName: "plus")
-                            Text("Upload")
-                        }
-                        .padding()
-                        .background(Color.blue)
                         .foregroundColor(.white)
-                        .cornerRadius(20)
+                        .padding(.horizontal)
+                    if !selectedDocuments.isEmpty {
+                        Button(action: {
+                            presentSets.toggle()
+                        }) {
+                            Text("Add Set")
+                                .font(.subheadline)
+                                .bold()
+                                .foregroundColor(.white)
+                                .padding(.horizontal)
+                        }
+                    }
+                        Spacer()
+                    
+                    Button(action: {
+                        add.toggle()
+                    }) {
+                        Image(systemName: add ? "checkmark.circle.fill" : "plus.circle")
+                            .font(.title2)
+                            .foregroundColor(add ? .green : .blue)
+                            .padding(.horizontal)
                     }
                 }
-                .padding(.horizontal)
-              
                 Picker("Select a tab", selection: $selection) {
                     ForEach(FileName.allCases) { file in
                         Text(file.rawValue).tag(file)
@@ -58,13 +66,13 @@ struct FileViewer: View {
                 
                 switch selection {
                 case .allFile:
-                    AllView(fileViewerViewModel: fileViewerViewModel)
+                    AllView(fileViewerViewModel: fileViewerViewModel, isAddMode: $add, selectedDocuments: $selectedDocuments)
                 case .recent:
                     Text("Recents View")
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 case .favorites:
-                    AllView(fileViewerViewModel: fileViewerViewModel, isFavoritesView: true)
+                    AllView(fileViewerViewModel: fileViewerViewModel, isFavoritesView: true, isAddMode: $add, selectedDocuments: $selectedDocuments) // Use AllView for Favorites
                 case .folders:
                     Text("Folders View")
                         .foregroundColor(.white)
@@ -85,8 +93,12 @@ struct FileViewer: View {
                     Text("Error: \(error)").foregroundColor(.red)
                 }
             }
-            .sheet(isPresented: $isDocumentPickerPresented) {
-                DocumentPickerView(uploadViewModel: uploadViewModel) // Present DocumentPickerView
+            .sheet(isPresented: $presentSets) {
+                SelectSet(isPresented: $presentSets, selectedDocuments: $selectedDocuments)
+
+            }
+            .onAppear {
+                fileViewerViewModel.listenToUserDocuments()
             }
             .sheet(isPresented: $isUploadViewPresented) {
                 UploadView(uploadViewModel: uploadViewModel)
@@ -139,30 +151,36 @@ struct FileViewer: View {
             }
         }
     }
-    
-    struct AllView: View {
-        @ObservedObject var fileViewerViewModel: FileViewerViewModel
-        let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
-        var isFavoritesView: Bool = false
-        
-        var body: some View {
-            ScrollView {
-                if fileViewerViewModel.isLoading {
-                    ProgressView("Fetching Documents...")
+}
+
+struct AllView: View {
+    @ObservedObject var fileViewerViewModel: FileViewerViewModel
+    let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
+    var isFavoritesView: Bool = false // New flag
+    @Binding var isAddMode: Bool
+    @Binding var selectedDocuments: [Document]
+
+    var body: some View {
+        ScrollView {
+            if fileViewerViewModel.isLoading {
+                ProgressView("Fetching Documents...")
+                    .foregroundColor(.white)
+            } else if let errorMessage = fileViewerViewModel.errorMessage {
+                Text("Error: \(errorMessage)").foregroundColor(.red)
+            } else {
+                let displayedDocuments = isFavoritesView ? fileViewerViewModel.favoriteDocuments : fileViewerViewModel.documents
+
+                if displayedDocuments.isEmpty {
+                    Text("No documents found.")
                         .foregroundColor(.white)
                 } else if let errorMessage = fileViewerViewModel.errorMessage {
                     Text("Error: \(errorMessage)").foregroundColor(.red)
                 } else {
-                    let displayedDocuments = isFavoritesView ? fileViewerViewModel.favoriteDocuments : fileViewerViewModel.documents
-                    
-                    if displayedDocuments.isEmpty {
-                        Text("No documents found.")
-                            .foregroundColor(.white)
-                    } else {
-                        LazyVGrid(columns: columns, spacing: 16) {
-                            ForEach(displayedDocuments) { document in
-                                DocumentItemView(document: document, viewModel: fileViewerViewModel)
-                            }
+                    LazyVGrid(columns: columns, spacing: 16) {
+                        ForEach(displayedDocuments) { document in
+                            DocumentItemView(document: document,
+                                             viewModel: fileViewerViewModel,
+                                             isAddMode: $isAddMode, selectedDocuments: $selectedDocuments)
                         }
                         .padding()
                     }
@@ -170,22 +188,36 @@ struct FileViewer: View {
             }
         }
     }
-    
-    struct DocumentItemView: View {
-        let document: Document
-        @ObservedObject var viewModel: FileViewerViewModel
-        @State private var isShowingFavoriteAlert = false
-        @State private var favoriteAlertMessage = ""
-        
-        var body: some View {
+}
+
+struct DocumentItemView: View {
+    let document: Document
+    @ObservedObject var viewModel: FileViewerViewModel
+    @State private var isShowingFavoriteAlert = false
+    @State private var favoriteAlertMessage = ""
+    @Binding var isAddMode: Bool
+    @Binding var selectedDocuments: [Document]
+
+    @State private var isSelected = false
+    var body: some View {
+        ZStack(alignment: .topTrailing) {
             VStack {
-                Image(systemName: document.type == .folder ? "folder.fill" : "doc.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 60, height: 60)
-                    .foregroundColor(.white)
-                    .padding(4)
-                
+                if document.type == .folder {
+                    Image(systemName: "folder.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60, height: 60)
+                        .foregroundColor(.white)
+                        .padding(4)
+                } else {
+                    Image(systemName: "doc.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60, height: 60)
+                        .foregroundColor(.white)
+                        .padding(4)
+
+                }
                 Text(document.fileName)
                     .font(.caption)
                     .lineLimit(1)
@@ -193,14 +225,37 @@ struct FileViewer: View {
             }
             .frame(maxWidth: .infinity)
             .padding()
-            .background(Color(hex: "#71569E"))
+            .background(Color(.systemGray6))
             .cornerRadius(8)
-            .onTapGesture {
+            if isAddMode {
+                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                    .font(.title2)
+                    .foregroundColor(isSelected ? .green : .gray)
+                    .padding(6)
+            }
+
+        }
+        .frame(maxWidth: .infinity)
+        .padding()
+        .background(Color(hex: "#71569E"))
+        .cornerRadius(8)
+        .onTapGesture {
+            if isAddMode {
+                if !selectedDocuments.contains(where: { $0.id == document.id }) {
+                    selectedDocuments.append(document)
+                } else {
+                    print("Document already selected")
+                }
+                isSelected.toggle()
+                print(selectedDocuments.count)
+                
+            } else {
                 viewModel.openFile(document: document)
             }
-            .onLongPressGesture {
-                viewModel.toggleFavorite(document: document)
-                favoriteAlertMessage = document.isFavorite
+        }
+        .onLongPressGesture {
+            viewModel.toggleFavorite(document: document)
+            favoriteAlertMessage = document.isFavorite
                 ? "\(document.fileName) removed from Favorites"
                 : "\(document.fileName) added to Favorites"
                 isShowingFavoriteAlert = true
@@ -214,4 +269,83 @@ struct FileViewer: View {
             }
         }
     }
+    func presentFavoritesActionSheet() {
+        // Implement action sheet or context menu for favorites
+        print("Long pressed on \(document.fileName)")
+        // Example using an action sheet (requires a @State var to control presentation)
+        // You'll need to add a @State var in AllView to handle this.
+        // isPresentingFavoritesOptions = true
+    }
+}
+struct SelectSet: View {
+    @EnvironmentObject private var studySetViewModel: StudySetViewModel
+    @Binding var isPresented: Bool
+    @Binding var selectedDocuments: [Document]
+
+    var body: some View {
+        ZStack {
+            ScrollView {
+                VStack(spacing: 12) {
+                    ForEach(studySetViewModel.studySets) { set in
+                        StudySetCard(set: set)
+                            .onTapGesture {
+                                handleStudySetSelection(set: set)
+                                //show something that says sucess here
+                                isPresented = false
+                            }
+                    }
+                }
+                .padding(.top)
+            }
+
+        }
+    }
+
+    private func handleStudySetSelection(set: StudySetModel) {
+        studySetViewModel.updateStudySetDocument(studySet: set, documents: selectedDocuments)
+    }
+}
+
+struct StudySetCard: View {
+    var set: StudySetModel
+
+    var body: some View {
+        VStack(spacing: 0) {
+            VStack(alignment: .leading, spacing: 6) {
+                Text(set.name)
+                    .font(.headline)
+
+                HStack(spacing: 8) {
+                    Circle()
+                        .fill(Color.white.opacity(0.3))
+                        .frame(width: 20, height: 20)
+                    Text("john_doe18")
+                        .foregroundColor(.black)
+                        .font(.subheadline)
+                }
+
+                Text("48 terms")
+                    .font(.subheadline)
+                    .foregroundColor(.black)
+
+                Text("23 terms mastered")
+                    .font(.subheadline)
+                    .foregroundColor(.black)
+
+                Spacer().frame(height: 6)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding()
+        }
+        .background(Color.gray.opacity(0.8))
+        .cornerRadius(12)
+        .padding(.horizontal)
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
+
+
+#Preview {
+    FileViewer()
 }

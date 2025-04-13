@@ -57,10 +57,12 @@
 		CABC81AC2D764E9D002D5657 /* MLXLMCommon in Frameworks */ = {isa = PBXBuildFile; productRef = CABC81AB2D764E9D002D5657 /* MLXLMCommon */; };
 		CABC81B02D77BBEF002D5657 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC81AF2D77BBEF002D5657 /* Models.swift */; };
 		CABC81B22D77BC1D002D5657 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC81B12D77BC1B002D5657 /* ModelData.swift */; };
+		EA135DCA2DA6219C00E9DD9C /* CreateSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA135DC92DA6219C00E9DD9C /* CreateSetView.swift */; };
 		CABC81B52D77C17A002D5657 /* ModelUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC81B42D77C17A002D5657 /* ModelUI.swift */; };
 		EA89AA4E2D71142F0033CFDF /* FileLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA89AA4D2D71142F0033CFDF /* FileLibraryView.swift */; };
 		EAB1733C2D711BE2005A8CA0 /* FileLibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB1733B2D711BE2005A8CA0 /* FileLibraryViewModel.swift */; };
 		EA25407E2D77CE8F00BDD841 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = EA25407D2D77CE8F00BDD841 /* FirebaseCore */; };
+		EAACE10E2DA8889C0075C5F1 /* FileToSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAACE10D2DA8889C0075C5F1 /* FileToSetView.swift */; };
 		EAFA58462D5D417600ADC214 /* UploadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA58452D5D417600ADC214 /* UploadModel.swift */; };
 		EAFA58482D5D417D00ADC214 /* UploadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA58472D5D417D00ADC214 /* UploadViewModel.swift */; };
 		EAFA584A2D5D418700ADC214 /* UploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA58492D5D418700ADC214 /* UploadView.swift */; };
@@ -108,6 +110,8 @@
 		CAAA3AC32D5B116300D9A631 /* IntelligenceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceModel.swift; sourceTree = "<group>"; };
 		CABC81AF2D77BBEF002D5657 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		CABC81B12D77BC1B002D5657 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
+		EA135DC92DA6219C00E9DD9C /* CreateSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSetView.swift; sourceTree = "<group>"; };
+		EAACE10D2DA8889C0075C5F1 /* FileToSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileToSetView.swift; sourceTree = "<group>"; };
 		CABC81B42D77C17A002D5657 /* ModelUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelUI.swift; sourceTree = "<group>"; };
 		EA89AA4D2D71142F0033CFDF /* FileLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLibraryView.swift; sourceTree = "<group>"; };
 		EAB1733B2D711BE2005A8CA0 /* FileLibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLibraryViewModel.swift; sourceTree = "<group>"; };
@@ -142,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				9124041F2D77A0EF00A0C7AC /* FileViewer.swift */,
+				EAACE10D2DA8889C0075C5F1 /* FileToSetView.swift */,
 			);
 			path = FileViewer;
 			sourceTree = "<group>";
@@ -180,6 +185,7 @@
 				946D8D952D7A536200E4B384 /* AuthViewModel.swift */,
 				946D8D972D7A538800E4B384 /* ChangePasswordView.swift */,
 				946D8DA52D7A545100E4B384 /* LoginView.swift */,
+				EA135DC92DA6219C00E9DD9C /* CreateSetView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -454,6 +460,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAACE10E2DA8889C0075C5F1 /* FileToSetView.swift in Sources */,
+				EA135DCA2DA6219C00E9DD9C /* CreateSetView.swift in Sources */,
 				CAAA3AC42D5B116300D9A631 /* IntelligenceModel.swift in Sources */,
 				946D8D982D7A538800E4B384 /* ChangePasswordView.swift in Sources */,
 				9234242D2D67FEE5004FC038 /* OpenAIManager.swift in Sources */,

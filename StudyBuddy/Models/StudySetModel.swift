@@ -1,14 +1,20 @@
+//
+//  StudySetModel.swift
+//  StudyBuddy
+//
+//  Created by Tejeshwar Natarajan on 2/6/25.
+//
+
 import Foundation
 import FirebaseFirestore
-class StudySetModel: Identifiable, Codable {
-    @DocumentID var id: String?
+struct StudySetModel: Identifiable, Codable {
+    //contains a list of flashcards objects
+    //includes meta data when it was created who created it etc
+    @DocumentID var id: String? /* = UUID().uuidString*/ //temporary for local use
     var flashcards: [FlashcardModel]
-    var dateCreated: Date
+    var dateCreated: Date //date format
     var createdBy: String
-
-    init(flashcards: [FlashcardModel], dateCreated: Date, createdBy: String) {
-        self.flashcards = flashcards
-        self.dateCreated = dateCreated
-        self.createdBy = createdBy
-    }
+    var name: String
+    var documentIDs: [String]
+    //create multiple study sets and initialize it with values
 }

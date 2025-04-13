@@ -1,50 +1,58 @@
+//
+//  StudyView.swift
+//  StudyBuddy
+//
+//  Created by Jihoon Kim on 2/11/25.
+//
+
 import SwiftUI
 
 struct StudyView: View {
-
-    // Using the view model for study sets instead of the model directly
-    @ObservedObject var studySetVM: StudySetViewModel
+    @ObservedObject var studySet: StudySet
     @State private var flashCardIndex = 0
     @State private var showBack = false
-    
 
+    init(studySet: StudySet) {
+        self.studySet = studySet
+    }
 
     var body: some View {
         VStack {
+            Spacer()
             Spacer()
             cardView()
             Spacer()
             navBar()
             Spacer()
         }
+        .padding()
+        .background(Color(hex: "#321C58").edgesIgnoringSafeArea(.all))
     }
 
     private func cardView() -> some View {
-        let flashcards = studySetVM.currentlyChosenStudySet.flashcards
-        if flashcards.indices.contains(flashCardIndex) {
-            return AnyView(
-                ZStack {
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.blue)
-                        .frame(width: 300, height: 200)
-                        .shadow(radius: 5)
-                    Text(showBack ? flashcards[flashCardIndex].back : flashcards[flashCardIndex].front)
-                        .font(.title)
-                        .multilineTextAlignment(.center)
-                        .padding()
-                }
-                .onTapGesture {
-                    showBack.toggle()
-                }
+        ZStack {
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color(hex: "#71569E"))
+                .frame(width: 300, height: 200)
+                .shadow(radius: 5)
+
+            Text(
+                (showBack
+                 ? studySet.set["\(flashCardIndex)"]?.1 ?? "back"
+                 : studySet.set["\(flashCardIndex)"]?.0 ?? "front")
             )
-        } else {
-            return AnyView(Text("No flashcard available"))
+            .font(.title)
+            .foregroundColor(.white)
+            .multilineTextAlignment(.center)
+            .padding()
+        }
+        .onTapGesture {
+            showBack.toggle()
         }
     }
 
-    // nav bar to switch carfs
     private func navBar() -> some View {
-        HStack {
+        HStack(spacing: 40) {
             Button(action: {
                 if flashCardIndex > 0 {
                     flashCardIndex -= 1
@@ -60,8 +68,9 @@ struct StudyView: View {
                 .background(Color(hex: "#6213D0"))
                 .cornerRadius(10)
             }
+
             Button(action: {
-                if flashCardIndex < studySetVM.currentlyChosenStudySet.flashcards.count - 1 {
+                if flashCardIndex < studySet.set.count - 1 {
                     flashCardIndex += 1
                     showBack = false
                 }
@@ -78,17 +87,15 @@ struct StudyView: View {
         }
     }
 }
-struct StudyView_Previews: PreviewProvider {
-    static var previews: some View {
-        let sampleFlashcards = [
-            FlashcardModel(front: "Hello", back: "World", createdBy: "Calvin", mastered: false),
-            FlashcardModel(front: "Swift", back: "UI", createdBy: "Calvin", mastered: false),
-            FlashcardModel(front: "SwiftUI", back: "Is awesome", createdBy: "Calvin", mastered: false)
-        ]
-        let sampleStudySet = StudySetModel(flashcards: sampleFlashcards, dateCreated: Date(), createdBy: "Calvin")
 
-        let sampleVM = StudySetViewModel.shared
-        sampleVM.currentlyChosenStudySet = sampleStudySet
-        return StudyView(studySetVM: sampleVM)
-    }
+#Preview {
+    StudyView(
+        studySet: StudySet(set: [
+            "0": ("Hello", "World"),
+            "1": ("Swift", "UI"),
+            "2": ("SwiftUI", "booo"),
+            "3": ("Card", "definition"),
+            "4": ("Onemore", "card")
+        ])
+    )
 }
