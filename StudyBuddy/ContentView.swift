@@ -9,9 +9,9 @@ import SwiftUI
 struct ContentView: View {
     @State var selectedView: TabSelection = .home
     @State private var isPickerPresented: Bool = false
-    @StateObject private var uploadViewModel = UploadViewModel()
+    @EnvironmentObject private var uploadViewModel: UploadViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
-
+    
     var body: some View {
         TabView(selection: $selectedView) {
             HomeView().tabItem {
