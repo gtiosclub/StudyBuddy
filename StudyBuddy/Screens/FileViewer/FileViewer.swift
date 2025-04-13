@@ -30,17 +30,12 @@ struct FileViewer: View {
                     Text("File Library")
                         .font(.title)
                         .bold()
-                        .foregroundColor(.white)
                         .padding(.horizontal)
                     if !selectedDocuments.isEmpty {
                         Button(action: {
                             presentSets.toggle()
                         }) {
                             Text("Add Set")
-                                .font(.subheadline)
-                                .bold()
-                                .foregroundColor(.white)
-                                .padding(.horizontal)
                         }
                     }
                         Spacer()
@@ -156,6 +151,7 @@ struct AllView: View {
     var isFavoritesView: Bool = false // New flag
     @Binding var isAddMode: Bool
     @Binding var selectedDocuments: [Document]
+    var isFavoritesView: Bool = false
 
     var body: some View {
         ScrollView {
