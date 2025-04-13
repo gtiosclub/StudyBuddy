@@ -26,7 +26,7 @@ class FileViewerViewModel: ObservableObject {
     }
 
     public func listenToUserDocuments() {
-        //var userID: String = Auth.auth().currentUser?.uid ?? "user not found"
+        let userID = Auth.auth().currentUser?.uid ?? "user not found"
         let storageReference = storage.reference().child(storagePath)
         documentsListener = db.collection("Documents")
             .addSnapshotListener { snapshot, error in
@@ -38,12 +38,11 @@ class FileViewerViewModel: ObservableObject {
                     self.documents = snapshot.documents.compactMap { document in
                         do {
                             let decodedDoc = try document.data(as: Document.self)
-                            if decodedDoc.isPrivate && !(Auth.auth().getUserID() == decodedDoc.userID) {
-                                print("Private doc detected in listenToUserDocuments")
-                                return nil
-                            } else {
-                                print(decodedDoc.userID == Auth.auth().getUserID())
+                            // Only include documents that belong to the current user
+                            if decodedDoc.userID == userID {
                                 return decodedDoc
+                            } else {
+                                return nil
                             }
                         } catch {
                             print("Error decoding document in fileviewModel: \(error)")
@@ -63,10 +62,10 @@ class FileViewerViewModel: ObservableObject {
                             }
                         }
                     }
-
                 }
             }
     }
+
     public func closeSnapshotListener() {
         documentsListener?.remove()
     }
