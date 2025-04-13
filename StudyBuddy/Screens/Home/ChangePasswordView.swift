@@ -17,19 +17,25 @@ struct ChangePasswordView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(spacing: 20) {
                 SecureField("Current Password", text: $currentPassword)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
+                    .background(Color.white)
+                    .foregroundColor(.black)
+                    .cornerRadius(10)
+                    .padding(.horizontal)
 
                 SecureField("New Password", text: $newPassword)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
+                    .background(Color.white)
+                    .foregroundColor(.black)
+                    .cornerRadius(10)
+                    .padding(.horizontal)
 
                 if let errorMessage = errorMessage {
                     Text(errorMessage)
                         .foregroundColor(.red)
-                        .padding()
+                        .padding(.horizontal)
                 }
 
                 Button(action: changePassword) {
@@ -37,18 +43,23 @@ struct ChangePasswordView: View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.green)
+                        .background(Color(hex: "#6213D0"))
                         .cornerRadius(10)
                 }
-                .padding()
+                .padding(.horizontal)
 
                 Button("Cancel") {
                     showPasswordChange = false
                 }
                 .foregroundColor(.red)
                 .padding()
+
+                Spacer()
             }
+            .padding(.top)
+            .background(Color(hex: "#321C58").edgesIgnoringSafeArea(.all))
             .navigationTitle("Change Password")
+            .foregroundColor(.white)
         }
     }
 
