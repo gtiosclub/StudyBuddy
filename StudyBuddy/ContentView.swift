@@ -25,9 +25,6 @@ struct ContentView: View {
             FileViewer().tabItem {
                 Label("Files", systemImage: "folder.fill")
             }.tag(TabSelection.files)
-            SetView().tabItem {
-                Label("Study", systemImage: "book.pages")
-            }.tag(TabSelection.profile)
             HomeView().tabItem {
                 Label("Chat", systemImage: "bubble.left.and.text.bubble.right.fill")
             }.tag(TabSelection.chat)
