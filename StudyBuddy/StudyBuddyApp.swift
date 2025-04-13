@@ -24,20 +24,20 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct StudyBuddyApp: App {
     @StateObject private var authViewModel = AuthViewModel()
-    @StateObject private var uploadViewModel = UploadViewModel()
-    @StateObject private var studySetViewModel = StudySetViewModel()
+    @StateObject private var userViewModel = UserViewModel.shared
+
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
     var body: some Scene {
         WindowGroup {
             if authViewModel.isLoggedIn {
-                ContentView().environmentObject(authViewModel)
-                    .environmentObject(uploadViewModel)
-                    .environmentObject(studySetViewModel)
+                ContentView()
+                    .environmentObject(authViewModel)
+                    .environmentObject(userViewModel)
             } else {
-                LoginView().environmentObject(authViewModel)
-                    .environmentObject(uploadViewModel)
-                    .environmentObject(studySetViewModel)
+                LoginView()
+                    .environmentObject(authViewModel)
+                    .environmentObject(userViewModel)
             }
         }
     }

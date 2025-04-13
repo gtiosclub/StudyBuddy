@@ -5,7 +5,6 @@
 //  Created by Krish Kapoor on 20/02/2025.
 //
 import Foundation
-import FirebaseFirestore
 enum DocumentType: String, Codable {
     case file
     case folder
@@ -13,7 +12,7 @@ enum DocumentType: String, Codable {
 /// Represents a document in the StudyBuddy app.
 /// Stores the document name, raw content, parsed content (if available), and creation date.
 struct Document: Identifiable, Codable {
-    @DocumentID var id: String?  // Firestore's document ID automatically assigned
+    let id: UUID  // Unique identifier for each document
     let fileName: String  // Name of the document file
     let content: String  // Raw content of the document
     let dateCreated: Date  // Timestamp when the document was created
@@ -34,6 +33,7 @@ struct Document: Identifiable, Codable {
     init(fileName: String, content: String, parsedContent: String? = nil,
          fileData: Data? = nil, fileURL: String? = nil,
          type: DocumentType = .file, isFavorite: Bool = false, userID: String, isPrivate: Bool) {
+        self.id = UUID()  // Generate a unique ID
         self.fileName = fileName
         self.content = content
         self.dateCreated = Date()  // Set creation timestamp

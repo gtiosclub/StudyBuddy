@@ -18,42 +18,16 @@ enum FileName: String, CaseIterable, Identifiable {
 struct FileViewer: View {
     @StateObject private var fileViewerViewModel = FileViewerViewModel()
     @State private var selection: FileName = .allFile
-    @State private var add: Bool = false
-    @State private var selectedDocuments: [Document] = []
-    @EnvironmentObject private var studySetViewModel: StudySetViewModel
-    @State var presentSets: Bool = false
+
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                // File Library Section
-                HStack {
-                    Text("File Library")
-                        .font(.title)
-                        .bold()
-                        .foregroundColor(.white)
-                        .padding(.horizontal)
-                    if !selectedDocuments.isEmpty {
-                        Button(action: {
-                            presentSets.toggle()
-                        }) {
-                            Text("Add Set")
-                                .font(.subheadline)
-                                .bold()
-                                .foregroundColor(.white)
-                                .padding(.horizontal)
-                        }
-                    }
-                        Spacer()
-                    
-                    Button(action: {
-                        add.toggle()
-                    }) {
-                        Image(systemName: add ? "checkmark.circle.fill" : "plus.circle")
-                            .font(.title2)
-                            .foregroundColor(add ? .green : .blue)
-                            .padding(.horizontal)
-                    }
-                }
+                Text("File Library")
+                    .font(.title)
+                    .bold()
+                    .foregroundColor(.white)
+                    .padding(.horizontal)
+
                 Picker("Select a tab", selection: $selection) {
                     ForEach(FileName.allCases) { file in
                         Text(file.rawValue).tag(file)
@@ -66,13 +40,13 @@ struct FileViewer: View {
 
                 switch selection {
                 case .allFile:
-                    AllView(fileViewerViewModel: fileViewerViewModel, isAddMode: $add, selectedDocuments: $selectedDocuments)
+                    AllView(fileViewerViewModel: fileViewerViewModel)
                 case .recent:
                     Text("Recents View")
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 case .favorites:
-                    AllView(fileViewerViewModel: fileViewerViewModel, isFavoritesView: true, isAddMode: $add, selectedDocuments: $selectedDocuments) // Use AllView for Favorites
+                    AllView(fileViewerViewModel: fileViewerViewModel, isFavoritesView: true)
                 case .folders:
                     Text("Folders View")
                         .foregroundColor(.white)
@@ -92,10 +66,6 @@ struct FileViewer: View {
                 } else if let error = fileViewerViewModel.errorMessage {
                     Text("Error: \(error)").foregroundColor(.red)
                 }
-            }
-            .sheet(isPresented: $presentSets) {
-                SelectSet(isPresented: $presentSets, selectedDocuments: $selectedDocuments)
-
             }
             .onAppear {
                 fileViewerViewModel.listenToUserDocuments()
@@ -153,9 +123,7 @@ struct QLPreviewView: UIViewControllerRepresentable {
 struct AllView: View {
     @ObservedObject var fileViewerViewModel: FileViewerViewModel
     let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
-    var isFavoritesView: Bool = false // New flag
-    @Binding var isAddMode: Bool
-    @Binding var selectedDocuments: [Document]
+    var isFavoritesView: Bool = false
 
     var body: some View {
         ScrollView {
@@ -173,9 +141,7 @@ struct AllView: View {
                 } else {
                     LazyVGrid(columns: columns, spacing: 16) {
                         ForEach(displayedDocuments) { document in
-                            DocumentItemView(document: document,
-                                             viewModel: fileViewerViewModel,
-                                             isAddMode: $isAddMode, selectedDocuments: $selectedDocuments)
+                            DocumentItemView(document: document, viewModel: fileViewerViewModel)
                         }
                     }
                     .padding()
@@ -190,63 +156,27 @@ struct DocumentItemView: View {
     @ObservedObject var viewModel: FileViewerViewModel
     @State private var isShowingFavoriteAlert = false
     @State private var favoriteAlertMessage = ""
-    @Binding var isAddMode: Bool
-    @Binding var selectedDocuments: [Document]
 
-    @State private var isSelected = false
     var body: some View {
-        ZStack(alignment: .topTrailing) {
-            VStack {
-                if document.type == .folder {
-                    Image(systemName: "folder.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 60, height: 60)
-                        .foregroundColor(.white)
-                        .padding(4)
-                } else {
-                    Image(systemName: "doc.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 60, height: 60)
-                        .foregroundColor(.white)
-                        .padding(4)
+        VStack {
+            Image(systemName: document.type == .folder ? "folder.fill" : "doc.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 60, height: 60)
+                .foregroundColor(.white)
+                .padding(4)
 
-                }
-                Text(document.fileName)
-                    .font(.caption)
-                    .lineLimit(1)
-                    .foregroundColor(.white)
-            }
-            .frame(maxWidth: .infinity)
-            .padding()
-            .background(Color(.systemGray6))
-            .cornerRadius(8)
-            if isAddMode {
-                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                    .font(.title2)
-                    .foregroundColor(isSelected ? .green : .gray)
-                    .padding(6)
-            }
-
+            Text(document.fileName)
+                .font(.caption)
+                .lineLimit(1)
+                .foregroundColor(.white)
         }
         .frame(maxWidth: .infinity)
         .padding()
         .background(Color(hex: "#71569E"))
         .cornerRadius(8)
         .onTapGesture {
-            if isAddMode {
-                if !selectedDocuments.contains(where: { $0.id == document.id }) {
-                    selectedDocuments.append(document)
-                } else {
-                    print("Document already selected")
-                }
-                isSelected.toggle()
-                print(selectedDocuments.count)
-                
-            } else {
-                viewModel.openFile(document: document)
-            }
+            viewModel.openFile(document: document)
         }
         .onLongPressGesture {
             viewModel.toggleFavorite(document: document)
@@ -263,83 +193,4 @@ struct DocumentItemView: View {
             )
         }
     }
-    func presentFavoritesActionSheet() {
-        // Implement action sheet or context menu for favorites
-        print("Long pressed on \(document.fileName)")
-        // Example using an action sheet (requires a @State var to control presentation)
-        // You'll need to add a @State var in AllView to handle this.
-        // isPresentingFavoritesOptions = true
-    }
-}
-struct SelectSet: View {
-    @EnvironmentObject private var studySetViewModel: StudySetViewModel
-    @Binding var isPresented: Bool
-    @Binding var selectedDocuments: [Document]
-
-    var body: some View {
-        ZStack {
-            ScrollView {
-                VStack(spacing: 12) {
-                    ForEach(studySetViewModel.studySets) { set in
-                        StudySetCard(set: set)
-                            .onTapGesture {
-                                handleStudySetSelection(set: set)
-                                //show something that says sucess here
-                                isPresented = false
-                            }
-                    }
-                }
-                .padding(.top)
-            }
-
-        }
-    }
-
-    private func handleStudySetSelection(set: StudySetModel) {
-        studySetViewModel.updateStudySetDocument(studySet: set, documents: selectedDocuments)
-    }
-}
-
-struct StudySetCard: View {
-    var set: StudySetModel
-
-    var body: some View {
-        VStack(spacing: 0) {
-            VStack(alignment: .leading, spacing: 6) {
-                Text(set.name)
-                    .font(.headline)
-
-                HStack(spacing: 8) {
-                    Circle()
-                        .fill(Color.white.opacity(0.3))
-                        .frame(width: 20, height: 20)
-                    Text("john_doe18")
-                        .foregroundColor(.black)
-                        .font(.subheadline)
-                }
-
-                Text("48 terms")
-                    .font(.subheadline)
-                    .foregroundColor(.black)
-
-                Text("23 terms mastered")
-                    .font(.subheadline)
-                    .foregroundColor(.black)
-
-                Spacer().frame(height: 6)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding()
-        }
-        .background(Color.gray.opacity(0.8))
-        .cornerRadius(12)
-        .padding(.horizontal)
-        .frame(maxWidth: .infinity, alignment: .leading)
-    }
-}
-
-
-
-#Preview {
-    FileViewer()
 }

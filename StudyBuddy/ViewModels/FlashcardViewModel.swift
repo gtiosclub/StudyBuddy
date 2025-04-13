@@ -8,8 +8,6 @@
 import Foundation
 import FirebaseCore
 import FirebaseFirestore
-import SwiftUICore
-
 class FlashcardViewModel: ObservableObject {
     static let shared = FlashcardViewModel()
     @Published var flashcards: [FlashcardModel] = []
@@ -17,7 +15,6 @@ class FlashcardViewModel: ObservableObject {
     private let db = Firestore.firestore()
     private var user = UserViewModel.shared.user
     private var currentlyChosenStudySet = StudySetViewModel.shared.currentlyChosenStudySet
-    @EnvironmentObject private var studySetViewModel: StudySetViewModel
     func createFlashcardDocument() {
         let ref = db.collection("Flashcards")
         do {
@@ -27,7 +24,8 @@ class FlashcardViewModel: ObservableObject {
             print(error.localizedDescription)
         }
     }
-    func fetchFlashcards()
+    func fetchFlashcards() {
+
             for flashcard in currentlyChosenStudySet.flashcards {
                 guard let flashcardDocumentID = flashcard.id else {
                     print("flashcardDocumentID is nil")
