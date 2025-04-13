@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseCore
 import FirebaseFirestore
+import SwiftUICore
 class FlashcardViewModel: ObservableObject {
     static let shared = FlashcardViewModel()
     @Published var flashcards: [FlashcardModel] = []
@@ -15,6 +16,7 @@ class FlashcardViewModel: ObservableObject {
     private let db = Firestore.firestore()
     private var user = UserViewModel.shared.user
     private var currentlyChosenStudySet = StudySetViewModel.shared.currentlyChosenStudySet
+    @EnvironmentObject private var studySetViewModel: StudySetViewModel
     func createFlashcardDocument() {
         let ref = db.collection("Flashcards")
         do {
@@ -25,23 +27,21 @@ class FlashcardViewModel: ObservableObject {
         }
     }
     func fetchFlashcards() {
-
-            for flashcard in currentlyChosenStudySet.flashcards {
-                guard let flashcardDocumentID = flashcard.id else {
-                    print("flashcardDocumentID is nil")
-                    return
-                }
-                //            let flashcardDocumentID = "nTukpvPyc6ca2492rcR1"
-                let ref = db.collection("Flashcards").document(flashcardDocumentID)
-                do {
-                    ref.getDocument(as: FlashcardModel.self) { result in
-                        switch result {
-                        case .success(let flashcard):
-                            print("Successfully fetched data")
-                            self.flashcards.append(flashcard)
-                        case .failure(let error):
-                            print("Error decoding document: \(error.localizedDescription)")
-                        }
+        for flashcard in studySetViewModel.currentlyChosenStudySet.flashcards {
+            guard let flashcardDocumentID = flashcard.id else {
+                print("flashcardDocumentID is nil")
+                return
+            }
+            //            let flashcardDocumentID = "nTukpvPyc6ca2492rcR1"
+            let ref = db.collection("Flashcards").document(flashcardDocumentID)
+            do {
+                ref.getDocument(as: FlashcardModel.self) { result in
+                    switch result {
+                    case .success(let flashcard):
+                        print("Successfully fetched data")
+                        self.flashcards.append(flashcard)
+                    case .failure(let error):
+                        print("Error decoding document: \(error.localizedDescription)")
                     }
                 }
             }

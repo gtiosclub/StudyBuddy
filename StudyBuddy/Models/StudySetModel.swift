@@ -5,10 +5,7 @@ class StudySetModel: Identifiable, Codable {
     var flashcards: [FlashcardModel]
     var dateCreated: Date
     var createdBy: String
-
-    init(flashcards: [FlashcardModel], dateCreated: Date, createdBy: String) {
-        self.flashcards = flashcards
-        self.dateCreated = dateCreated
-        self.createdBy = createdBy
-    }
+    var name: String
+    var documentIDs: [String]
+    //create multiple study sets and initialize it with values
 }

@@ -61,8 +61,7 @@ struct DocumentPickerView: UIViewControllerRepresentable {
                             if !self.parent.uploadViewModel.selectedDocumentNames.contains(url.lastPathComponent) {
                                 self.parent.uploadViewModel.selectedDocumentNames.append(url.lastPathComponent)
                             }
-
-                            self.parent.uploadViewModel.documents.append(finalDocument)
+                            self.parent.uploadViewModel.selectedDocuments.append(finalDocument)
 
                             self.parent.uploadViewModel.uploadFileToFirebase(
                                 fileName: url.lastPathComponent,

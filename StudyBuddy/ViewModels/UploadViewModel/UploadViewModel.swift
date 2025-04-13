@@ -5,6 +5,7 @@ import FirebaseFirestore
 class UploadViewModel: ObservableObject {
     @Published var selectedDocumentNames: [String] = []
     @Published var documents: [Document] = []
+    @Published var selectedDocuments: [Document] = []
     @Published var isUploadPresented: Bool = false
     private let storage = Storage.storage(url: "gs://studybuddy-7df38.firebasestorage.app")
     private let database = Firestore.firestore()
