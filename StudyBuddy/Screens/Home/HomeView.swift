@@ -9,10 +9,9 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
-    @State private var selectedTab: Tab = .all
     @EnvironmentObject var studySetViewModel: StudySetViewModel
+    @State private var selectedTab: Tab = .all
     @State private var showPopup = false
-    @State private var selectedBottomTab: Int = 0
 
     enum Tab: String, CaseIterable {
         case all = "All Sets"
@@ -24,6 +23,8 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             ZStack {
+                Color(hex: "#321C58").ignoresSafeArea()
+                
                 VStack(spacing: 0) {
                     HStack {
                         NavigationLink(destination: ViewEditProfile()
@@ -31,19 +32,26 @@ struct HomeView: View {
                             .environmentObject(UserViewModel())) {
                                 Circle()
                                     .fill(Color.white.opacity(0.3))
-                            .bold()
+                                    .frame(width: 32, height: 32)
+                            }
                         Spacer()
                         Text("StudyBuddy")
                             .font(.title2)
                             .bold()
+                            .foregroundColor(.white)
+                        Spacer()
+                        Button {
+                            withAnimation {
+                                showPopup = true
+                            }
+                        } label: {
                             Image(systemName: "plus")
                                 .font(.title2)
+                                .foregroundColor(.white)
                         }
-
                     }
                     .padding([.horizontal, .top])
-                    
-                    // Tabs
+
                     HStack(spacing: 20) {
                         ForEach(Tab.allCases, id: \.self) { tab in
                             Button(action: {
@@ -52,19 +60,19 @@ struct HomeView: View {
                                 Text(tab.rawValue)
                                     .fontWeight(tab == selectedTab ? .bold : .regular)
                                     .underline(tab == selectedTab)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.white)
                             }
                         }
                     }
                     .padding(.horizontal)
                     .padding(.vertical, 8)
-                    
+
                     Divider().background(Color.white.opacity(0.3))
+
                     ScrollView {
                         VStack(spacing: 12) {
                             ForEach(studySetViewModel.studySets) { set in
                                 VStack(spacing: 0) {
-                                    // Card content
                                     VStack(alignment: .leading, spacing: 6) {
                                         Text(set.name)
                                             .font(.headline)
@@ -81,120 +89,80 @@ struct HomeView: View {
                                         
                                         Text("48 terms")
                                             .font(.subheadline)
-                                            .foregroundColor(.black)
+                                            .foregroundColor(.white)
                                         
                                         Text("23 terms mastered")
                                             .font(.subheadline)
                                             .foregroundColor(.white)
-                                        
                                         Spacer().frame(height: 6)
+
                                     }
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .padding()
                                     
                                     Divider().background(Color.white.opacity(0.3))
-
+                                    
                                     HStack(spacing: 0) {
                                         Button(action: {
-                                            // Chatbot functionality
+                                            // Chatbot
                                         }) {
                                             Text("Chatbot")
                                                 .font(.subheadline)
                                                 .bold()
                                                 .frame(maxWidth: .infinity)
                                                 .padding()
-                                                .foregroundColor(.black)
+                                                .foregroundColor(.white)
+                                                .background(Color(hex: "#6213D0"))
                                         }
-                                        
-                                        Rectangle()
-                                            .frame(width: 1, height: 33)
-                                            .foregroundColor(.gray.opacity(0.6))
-                                        
+
                                         Button(action: {
-                                            // Flashcards functionality
                                         }) {
                                             Text("Flashcards")
                                                 .font(.subheadline)
                                                 .bold()
                                                 .frame(maxWidth: .infinity)
                                                 .padding()
-                                                .foregroundColor(.black)
+                                                .foregroundColor(.white)
+                                                .background(Color(hex: "#6213D0"))
                                         }
-                                    }
-                                    .background(Color.white.opacity(0.5))
-                                                .padding()
-                                                .foregroundColor(.black)
-                                        }
-                                    }
-                                    .background(Color.white.opacity(0.5))
-                                .padding()
-
-                                Divider().background(Color.white.opacity(0.3))
-
-                                HStack(spacing: 0) {
-                                    Button(action: {
-                                        // Chatbot functionality
-                                    }) {
-                                        Text("Chatbot")
-                                            .font(.subheadline)
-                                            .bold()
-                                            .frame(maxWidth: .infinity)
-                                            .padding()
-                                            .foregroundColor(.white)
-                                            .background(Color(hex: "#6213D0"))
-                                    }
-
-                                    Rectangle()
-                                        .frame(width: 1, height: 33)
-                                        .foregroundColor(.white.opacity(0.5))
-
-                                    Button(action: {
-                                        // Flashcards functionality
-                                    }) {
-                                        Text("Flashcards")
-                                            .font(.subheadline)
-                                            .bold()
-                                            .frame(maxWidth: .infinity)
-                                            .padding()
-                                            .foregroundColor(.white)
-                                            .background(Color(hex: "#6213D0"))
                                     }
                                 }
+                                .background(Color(hex: "#71569E"))
+                                .cornerRadius(12)
+                                .padding(.horizontal)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             }
-                            .background(Color(hex: "#71569E"))
-                            .cornerRadius(12)
-                            .padding(.horizontal)
-                            .frame(maxWidth: .infinity, alignment: .leading)
                         }
+                        .padding(.top)
                     }
-                    .padding(.top)
-                        }
-                    }
-                    .padding(.top, 4)
-                    .padding(.bottom, 10)
-                    .background(Color.white.shadow(radius: 2))
+
                 }
-                .allowsHitTesting(!showPopup)
-                .navigationBarHidden(true)
+                .background(Color(hex: "#321C58").edgesIgnoringSafeArea(.all))
+
                 if showPopup {
                     Color.black.opacity(0.4)
                         .ignoresSafeArea()
                         .onTapGesture {
+                            withAnimation {
+                                showPopup = false
+                            }
+                        }
+
                     CreateSetView(showPopup: $showPopup)
                         .transition(.scale)
                         .zIndex(1)
                 }
-//                    ForEach(0..<5) { index in
-        }
-        .onAppear {
-            studySetViewModel.listenToUserDocuments()
-        }
-        .onDisappear() {
-            print("Snap Listener has closed.")
-            studySetViewModel.closeSnapshotListener()
+            }
+            .navigationBarHidden(true)
+            .onAppear {
+                studySetViewModel.listenToUserDocuments()
+            }
+            .onDisappear {
+                studySetViewModel.closeSnapshotListener()
+            }
+            .background(Color(hex: "#321C58").edgesIgnoringSafeArea(.all))
 
         }
-        .background(Color(hex: "#321C58").edgesIgnoringSafeArea(.all))
     }
 }
 

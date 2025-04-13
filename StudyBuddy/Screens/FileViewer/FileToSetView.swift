@@ -21,11 +21,11 @@ struct FileToSetView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                // File Library Section
                 HStack {
                     Text("File Library")
                         .font(.title)
                         .bold()
+                        .foregroundColor(.white)
                         .padding(.horizontal)
                     if !selectedDocuments.isEmpty {
                         Button(action: {
@@ -45,20 +45,25 @@ struct FileToSetView: View {
                 }
                 .pickerStyle(.segmented)
                 .padding(.horizontal)
-                // Content based on selected tab
+                .background(Color(hex: "#71569E"))
+                .cornerRadius(8)
+
                 switch selection {
                 case .allFile:
                     AllView(fileViewerViewModel: fileViewerViewModel, isAddMode: $add, selectedDocuments: $selectedDocuments)
                 case .recent:
                     Text("Recents View")
+                        .foregroundColor(.white)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 case .favorites:
                     AllView(fileViewerViewModel: fileViewerViewModel, isFavoritesView: true, isAddMode: $add, selectedDocuments: $selectedDocuments) // Use AllView for Favorites
                 case .folders:
                     Text("Folders View")
+                        .foregroundColor(.white)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
+            .background(Color(hex: "#321C58").edgesIgnoringSafeArea(.all))
             .sheet(isPresented: $fileViewerViewModel.isPresentingFilePreview, onDismiss: {
                 fileViewerViewModel.selectedFileURL = nil
                 fileViewerViewModel.localFileURL = nil
