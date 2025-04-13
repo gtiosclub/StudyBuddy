@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct SetView: View {
-
     @StateObject var studySetVM: StudySetViewModel = StudySetViewModel.shared
     @State private var frontText: String = ""
     @State private var backText: String = ""
@@ -281,6 +280,7 @@ struct SetView: View {
                 }
                 .padding()
             }
+            .background(Color(hex: "#321C58").edgesIgnoringSafeArea(.all))
         }
     }
 
@@ -384,6 +384,7 @@ struct SwipeAction<Calv: View>: View {
         return direction == .trailing ? (minX > 0 ? -minX : 0) : (minX < 0 ? -minX : 0)
     }
 }
+
 // Swipe Direction
 enum SwipeDirection {
     case leading
@@ -413,5 +414,3 @@ struct ActionBuiler {
         return components
     }
 }
-
-

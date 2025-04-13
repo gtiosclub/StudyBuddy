@@ -10,75 +10,75 @@ import FirebaseFirestore
 import SwiftUICore
 
 class StudySetViewModel: ObservableObject {
-    // singleton var
     static let shared = StudySetViewModel()
-    // list of all studysets
+
     @Published var studySets: [StudySetModel] = []
-    //initially empty instead of having to make it optional and deal with nil everywhere
     @Published var currentlyChosenStudySet: StudySetModel = StudySetModel(flashcards: [], dateCreated: Date(), createdBy: "")
 
     private let db = Firestore.firestore()
-    private var user: UserModel = UserViewModel.shared.user
+
     func createStudySetDocument() {
         let ref = db.collection("StudySets")
         do {
-            let newDocReference = try ref.addDocument(from: self.currentlyChosenStudySet)
-            print("StudySet stored with new document reference: \(newDocReference)")
+            let newDocRef = try ref.addDocument(from: currentlyChosenStudySet)
+            print("StudySet stored: \(newDocRef)")
         } catch {
-            print("Error creating document: \(error.localizedDescription)")
+            print("Error storing StudySet: \(error.localizedDescription)")
         }
     }
 
     func fetchStudySets() {
+        guard let user = UserViewModel.shared.user else {
+            print("User not loaded yet")
+            return
+        }
+
         for studySet in user.studySets {
             guard let studySetDocumentID = studySet.id else {
-                print("Error: Document ID is nil")
-                return
+                print("Missing StudySet ID")
+                continue
             }
-//            let studySetDocumentID = "VnLPYjY9q4nCBj8BR7qk"
+
             let ref = db.collection("StudySets").document(studySetDocumentID)
             ref.getDocument(as: StudySetModel.self) { result in
                 switch result {
-                case .success(let studySet):
-                    print("Successfully fetched data for study set with id: \(studySetDocumentID)")
+                case .success(let fetchedSet):
                     DispatchQueue.main.async {
-                        self.studySets.append(studySet)
+                        self.studySets.append(fetchedSet)
                     }
                 case .failure(let error):
-                    print("Error decoding document: \(error.localizedDescription)")
+                    print("Error fetching set: \(error.localizedDescription)")
                 }
             }
         }
     }
 
-    //function that updates a spefici stored study set with the new values saved in currently chosen studyset
     func updateStudySetData() {
-        guard let studySetDocumentID = currentlyChosenStudySet.id else {
-            print("Error: currentlyChosenStudySet.id is nil")
+        guard let id = currentlyChosenStudySet.id else {
+            print("No ID on current study set")
             return
         }
-        let ref = db.collection("StudySets").document(studySetDocumentID)
+
+        let ref = db.collection("StudySets").document(id)
         do {
-        //  merge important so it doesn't overwrite
-            try ref.setData(from: self.currentlyChosenStudySet, merge: true)
-            print("Successfully updated study set data")
+            try ref.setData(from: currentlyChosenStudySet, merge: true)
+            print("StudySet updated")
         } catch {
-            print("Error updating study set data: \(error.localizedDescription)")
+            print("Failed to update: \(error.localizedDescription)")
         }
     }
 
-    //cleares the data stored in this instance
     func deleteStudySetData() {
-        guard let studySetDocumentID = currentlyChosenStudySet.id else {
-            print("Error: currentlyChosenStudySet.documentID is nil")
+        guard let id = currentlyChosenStudySet.id else {
+            print("No ID on current study set")
             return
         }
-        let ref = db.collection("StudySets").document(studySetDocumentID)
-        ref.delete { error in
-            if let error = error {
-                print("Error deleting document: \(error.localizedDescription)")
+
+        db.collection("StudySets").document(id).delete { error in
+            if let error {
+                print("Delete failed: \(error.localizedDescription)")
             } else {
-                print("Document successfully deleted")
+                print("StudySet deleted successfully")
             }
         }
     }

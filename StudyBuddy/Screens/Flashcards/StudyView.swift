@@ -1,11 +1,13 @@
 import SwiftUI
 
 struct StudyView: View {
+
     // Using the view model for study sets instead of the model directly
     @ObservedObject var studySetVM: StudySetViewModel
     @State private var flashCardIndex = 0
     @State private var showBack = false
     
+
 
     var body: some View {
         VStack {
@@ -51,8 +53,12 @@ struct StudyView: View {
             }) {
                 HStack {
                     Image(systemName: "arrow.left")
-                    Text("Left")
+                    Text("Previous")
                 }
+                .padding()
+                .foregroundColor(.white)
+                .background(Color(hex: "#6213D0"))
+                .cornerRadius(10)
             }
             Button(action: {
                 if flashCardIndex < studySetVM.currentlyChosenStudySet.flashcards.count - 1 {
@@ -61,14 +67,17 @@ struct StudyView: View {
                 }
             }) {
                 HStack {
-                    Text("Right")
+                    Text("Next")
                     Image(systemName: "arrow.right")
                 }
+                .padding()
+                .foregroundColor(.white)
+                .background(Color(hex: "#6213D0"))
+                .cornerRadius(10)
             }
         }
     }
 }
-
 struct StudyView_Previews: PreviewProvider {
     static var previews: some View {
         let sampleFlashcards = [

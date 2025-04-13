@@ -4,7 +4,6 @@ struct AddView: View {
     @ObservedObject var studySetVM: StudySetViewModel
     @State private var frontText: String = ""
     @State private var backText: String = ""
-
     var body: some View {
         NavigationView {
             VStack(spacing: 16) {
@@ -35,13 +34,13 @@ struct AddView: View {
                 Spacer()
             }
             .navigationTitle("Add Flashcard")
+            .background(Color(hex: "#321C58").edgesIgnoringSafeArea(.all))
         }
     }
 }
 
 struct AddView_Previews: PreviewProvider {
     static var previews: some View {
-
         let sampleFlashcards = [
             FlashcardModel(front: "Example Front", back: "Example Back", createdBy: "Example User", mastered: false)
         ]

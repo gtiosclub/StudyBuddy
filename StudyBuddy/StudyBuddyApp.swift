@@ -13,25 +13,31 @@ class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
     FirebaseApp.configure()
-
+    
     // Initialize Storage Bucket
-    let storage = Storage.storage(url: "gs://studybuddy-7df38.appspot.com")
+    let _ = Storage.storage(url: "gs://studybuddy-7df38.appspot.com")
 
     return true
   }
 }
-@main
 
+@main
 struct StudyBuddyApp: App {
     @StateObject private var authViewModel = AuthViewModel()
-    
+    @StateObject private var userViewModel = UserViewModel.shared
+
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+
     var body: some Scene {
         WindowGroup {
             if authViewModel.isLoggedIn {
-                ContentView().environmentObject(authViewModel)
+                ContentView()
+                    .environmentObject(authViewModel)
+                    .environmentObject(userViewModel)
             } else {
-                LoginView().environmentObject(authViewModel)
+                LoginView()
+                    .environmentObject(authViewModel)
+                    .environmentObject(userViewModel)
             }
         }
     }

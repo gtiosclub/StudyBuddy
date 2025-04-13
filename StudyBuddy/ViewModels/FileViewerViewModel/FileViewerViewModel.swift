@@ -7,7 +7,8 @@
 import Foundation
 import FirebaseStorage
 import QuickLook
-
+import FirebaseAuth
+import FirebaseFirestore
 class FileViewerViewModel: ObservableObject {
     @Published var documents: [Document] = []
     @Published var isLoading: Bool = false
@@ -15,7 +16,8 @@ class FileViewerViewModel: ObservableObject {
     @Published var selectedFileURL: URL?
     @Published var isPresentingFilePreview: Bool = false
     @Published var localFileURL: URL?
-
+    private let db = Firestore.firestore()
+    private var documentsListener: ListenerRegistration?
     private let storage = Storage.storage()
     private let storagePath = "documents/"
 
@@ -23,6 +25,52 @@ class FileViewerViewModel: ObservableObject {
         fetchDocumentsFromStorage()
     }
 
+    public func listenToUserDocuments() {
+        //var userID: String = Auth.auth().currentUser?.uid ?? "user not found"
+        let storageReference = storage.reference().child(storagePath)
+        documentsListener = db.collection("Documents")
+            .addSnapshotListener { snapshot, error in
+                guard let snapshot = snapshot else {
+                    print("Error getting documents in fileViewerViewModel: \(error?.localizedDescription ?? "Unknown error")")
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.documents = snapshot.documents.compactMap { document in
+                        do {
+                            let decodedDoc = try document.data(as: Document.self)
+                            if decodedDoc.isPrivate && !(Auth.auth().getUserID() == decodedDoc.userID) {
+                                print("Private doc detected in listenToUserDocuments")
+                                return nil
+                            } else {
+                                print(decodedDoc.userID == Auth.auth().getUserID())
+                                return decodedDoc
+                            }
+                        } catch {
+                            print("Error decoding document in fileviewModel: \(error)")
+                            return nil
+                        }
+                    }
+                    for index in 0..<self.documents.count {
+                        let document = self.documents[index]
+                        let fileReference = storageReference.child(document.fileName)
+                        fileReference.downloadURL { (url, error) in
+                            if let error = error as NSError? {
+                                print("Error getting download URL for \(document.fileName): \(error.localizedDescription) (Code: \(error.code), Domain: \(error.domain))")
+                            } else if let downloadURL = url {
+                                DispatchQueue.main.async {
+                                    self.documents[index].fileURL = downloadURL.absoluteString
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+    }
+    public func closeSnapshotListener() {
+        documentsListener?.remove()
+    }
+    
     func fetchDocumentsFromStorage() {
         isLoading = true
         errorMessage = nil
@@ -38,30 +86,7 @@ class FileViewerViewModel: ObservableObject {
                     print("Error fetching files from Storage: \(error)")
                     return
                 }
-
-                guard let items = result?.items else {
-                    print("No files found in Storage at path: \(self.storagePath)")
-                    return
-                }
-
-                self.documents = items.map { item in
-                    let fileName = item.name
-                    return Document(fileName: fileName, content: "", fileURL: nil, type: .file, isFavorite: false) // Initialize isFavorite to false
-                }
-
-                for index in 0..<self.documents.count {
-                    let document = self.documents[index]
-                    let fileReference = storageReference.child(document.fileName)
-                    fileReference.downloadURL { (url, error) in
-                        if let error = error as NSError? {
-                            print("Error getting download URL for \(document.fileName): \(error.localizedDescription) (Code: \(error.code), Domain: \(error.domain))")
-                        } else if let downloadURL = url {
-                            DispatchQueue.main.async {
-                                self.documents[index].fileURL = downloadURL.absoluteString
-                            }
-                        }
-                    }
-                }
+                self.listenToUserDocuments()
             }
         }
     }
@@ -132,4 +157,19 @@ class FileViewerViewModel: ObservableObject {
     var favoriteDocuments: [Document] {
         return documents.filter { $0.isFavorite }
     }
+
+
+    //created simple method to get documents from database
+    func getDocument(documentID: String) async -> Document? {
+        let docRef = db.collection("Documents").document(documentID)
+        do {
+            let document = try await docRef.getDocument(as: Document.self)
+            return document
+        } catch {
+            print("Error in FileViewModel while doing getDocument \(error)")
+            return nil
+        }
+    }
+    
+
 }
