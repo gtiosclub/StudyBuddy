@@ -1,13 +1,13 @@
 //
-//  StudySetViewModel.swift
+//  FlashcardViewModel.swift
 //  StudyBuddy
 //
 //  Created by John Mermigkas on 2/20/25.
-//
 
 import Foundation
 import FirebaseCore
 import FirebaseFirestore
+import SwiftUICore
 
 class StudySetViewModel: ObservableObject, Identifiable {
     @Published var studySets: [StudySetModel] = []
@@ -112,5 +112,45 @@ class StudySetViewModel: ObservableObject, Identifiable {
         } catch {
             print("Error updating study set data \(error.localizedDescription)")
         }
+    }
+    func addFlashcard(front: String, back: String, createdBy: String = "USERIDNEEDTOINPUT") {
+        let newFlashcard = FlashcardModel(front: front, back: back, createdBy: createdBy, mastered: false)
+        currentlyChosenStudySet.flashcards.append(newFlashcard)
+        // reassign to trigger published (idk if this is the best way)?
+        currentlyChosenStudySet = currentlyChosenStudySet
+        updateStudySetData()
+    }
+    func deleteFlashcard(_ flashcard: FlashcardModel) {
+        guard let index = currentlyChosenStudySet.flashcards.firstIndex(where: { card in
+            return card.id == flashcard.id
+        }) else {
+            return
+        }
+
+        currentlyChosenStudySet.flashcards.remove(at: index)
+        currentlyChosenStudySet = currentlyChosenStudySet
+        updateStudySetData()
+    }
+    
+    func editFlashcard(flashcard: FlashcardModel, newFront: String, newBack: String) {
+        // Find the index of the flashcard in the flashcards array
+        guard let index = currentlyChosenStudySet.flashcards.firstIndex(where: { $0.id == flashcard.id }) else {
+            print("Flashcard not found!")
+            return
+        }
+
+        // Update the flashcard's content
+        currentlyChosenStudySet.flashcards[index].front = newFront
+        currentlyChosenStudySet.flashcards[index].back = newBack
+
+        // Reassigning currentlyChosenStudySet triggers the @Published property to update the UI
+        currentlyChosenStudySet = currentlyChosenStudySet
+
+        // Update the study set document in Firestore so the changes are persisted
+        updateStudySetData()
+    }
+
+    func getUser() -> String {
+        return currentlyChosenStudySet.createdBy
     }
 }

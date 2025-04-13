@@ -9,12 +9,13 @@ import Foundation
 import FirebaseCore
 import FirebaseFirestore
 import SwiftUICore
-class FlashcardViewModel {
+class FlashcardViewModel: ObservableObject {
     static let shared = FlashcardViewModel()
     @Published var flashcards: [FlashcardModel] = []
-    @Published var currentlyChosenFlashcard = FlashcardModel(text: "", createdBy: "", mastered: false)
+    @Published var currentlyChosenFlashcard = FlashcardModel(front: "", back: "", createdBy: "", mastered: false)
     private let db = Firestore.firestore()
     private var user = UserViewModel.shared.user
+    private var currentlyChosenStudySet = StudySetViewModel.shared.currentlyChosenStudySet
     @EnvironmentObject private var studySetViewModel: StudySetViewModel
     func createFlashcardDocument() {
         let ref = db.collection("Flashcards")
@@ -44,40 +45,6 @@ class FlashcardViewModel {
                     }
                 }
             }
-        }
-        
-        //        guard let userDocumentID = user.id, let studySetDocumentID = currentlyChosenStudySet.id else {
-        //            print("Error: either user.documentID or currentlyChosenStudyset.documentID is nil")
-        //            return
-        //        }
-        //
-        //        let ref = db.collection("Users").document("\(userDocumentID)").collection("StudySets").document("\(studySetDocumentID)").collection("Flashcards")
-        //
-        //        ref.getDocuments { querySnapshot, error in
-        //            if let error {
-        //                print("Error getting document: \(error.localizedDescription)")
-        //            }
-        //
-        //            guard let documents = querySnapshot?.documents else {
-        //                print("Error getting documents")
-        //                return
-        //            }
-        //
-        //            do {
-        //                self.flashcards = try documents.map { document in
-        //                    try document.data(as: FlashcardModel.self)
-        //                }
-        //            } catch {
-        //                print("Error decoding flashcards: \(error.localizedDescription)")
-        //            }
-        //
-        ////            for document in documents {
-        ////                let data = document.data()
-        ////                let text = data["text"] as? String ?? ""
-        ////                let createdBy = data["createdBy"] as? String ?? ""
-        ////                self.flashcards.append(FlashcardModel(text: text, createdBy: createdBy))
-        ////            }
-        //        }
     }
     func updateFlashcardData() {
         guard let flashcardDocumentID = currentlyChosenFlashcard.id else {
@@ -109,6 +76,10 @@ class FlashcardViewModel {
             }
         }
     }
+//
+//    func editFlashCardData(front: String, back: String) {
+//        
+//    }
     func testFunctions() {
         ////        createFlashcardDocument() <--- works
         //        currentlyChosenStudySet = StudySetModel(flashcards: [], dateCreated: Date(), createdBy: "eileen")
