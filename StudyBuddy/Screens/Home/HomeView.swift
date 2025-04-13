@@ -143,8 +143,6 @@ struct HomeView: View {
 
                 Divider()
 
-                // Bottom Tab Bar
-                
 //                Divider().background(Color.white.opacity(0.3))
 //
 //                // Bottom Tab Bar

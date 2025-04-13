@@ -21,11 +21,11 @@ struct FileViewer: View {
     @State private var isDocumentPickerPresented = false // State to control DocumentPickerView presentation
     @State private var isUploadViewPresented = false
     @StateObject private var uploadViewModel = UploadViewModel() // Added UploadViewModel instance
+
     
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                
                 HStack {
                     Text("File Library")
                         .font(.title)
@@ -45,7 +45,7 @@ struct FileViewer: View {
                     }
                 }
                 .padding(.horizontal)
-                
+              
                 Picker("Select a tab", selection: $selection) {
                     ForEach(FileName.allCases) { file in
                         Text(file.rawValue).tag(file)
