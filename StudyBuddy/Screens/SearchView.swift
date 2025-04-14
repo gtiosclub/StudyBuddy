@@ -223,6 +223,10 @@ struct FlashcardSetRow: View {
                 }
             }
         }
+        .navigationBarHidden(true)
+        .onAppear {
+            studySetViewModel.listenToUserDocuments()
+        }
         .background(Color(hex: "#71569E"))
         .cornerRadius(12)
         .padding(.horizontal)
@@ -239,10 +243,6 @@ struct FlashcardSetRow: View {
                     DispatchQueue.main.async {
                         self.creatorName = "Unknown Creator"
                     }
-                }
-                .navigationBarHidden(true)
-                .onAppear {
-                    studySetViewModel.listenToUserDocuments()
                 }
             }
         }
