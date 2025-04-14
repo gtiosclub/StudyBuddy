@@ -34,7 +34,7 @@ struct FileViewer: View {
                     Text("File Library")
                         .font(.title)
                         .bold()
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(hex: "#E0D7FF")) // Softer light purple
                         .padding(.horizontal)
                     if !selectedDocuments.isEmpty {
                         Button(action: {
@@ -43,7 +43,7 @@ struct FileViewer: View {
                             Text("Add Set")
                                 .font(.subheadline)
                                 .bold()
-                                .foregroundColor(.white)
+                                .foregroundColor(Color(hex: "#E0D7FF")) // Softer light purple
                                 .padding(.horizontal)
                         }
                     }
@@ -54,7 +54,7 @@ struct FileViewer: View {
                     }) {
                         Image(systemName: "plus.circle")
                             .font(.title2)
-                            .foregroundColor(.blue)
+                            .foregroundColor(Color(hex: "#A3C4F3")) // Softer blue
                             .padding(.horizontal)
                     }
                 }
@@ -65,7 +65,7 @@ struct FileViewer: View {
                 }
                 .pickerStyle(.segmented)
                 .padding(.horizontal)
-                .background(Color(hex: "#71569E"))
+                .background(Color(hex: "#5A3E85")) // Slightly lighter purple for better contrast
                 .cornerRadius(8)
 
                 switch selection {
@@ -73,17 +73,17 @@ struct FileViewer: View {
                     AllView(fileViewerViewModel: fileViewerViewModel, isAddMode: $add, selectedDocuments: $selectedDocuments)
                 case .recent:
                     Text("Recents View")
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(hex: "#E0D7FF")) // Softer light purple
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 case .favorites:
                     AllView(fileViewerViewModel: fileViewerViewModel, isFavoritesView: true, isAddMode: $add, selectedDocuments: $selectedDocuments) // Use AllView for Favorites
                 case .folders:
                     Text("Folders View")
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(hex: "#E0D7FF")) // Softer light purple
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
-            .background(Color(hex: "#321C58").edgesIgnoringSafeArea(.all))
+            .background(Color(hex: "#432A6E").edgesIgnoringSafeArea(.all)) // Adjusted purple for better contrast
             .sheet(isPresented: $fileViewerViewModel.isPresentingFilePreview, onDismiss: {
                 fileViewerViewModel.selectedFileURL = nil
                 fileViewerViewModel.localFileURL = nil
@@ -92,9 +92,9 @@ struct FileViewer: View {
                     QLPreviewView(url: url, isPresented: $fileViewerViewModel.isPresentingFilePreview)
                 } else if fileViewerViewModel.isLoading {
                     ProgressView("Downloading File...")
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(hex: "#E0D7FF")) // Softer light purple
                 } else if let error = fileViewerViewModel.errorMessage {
-                    Text("Error: \(error)").foregroundColor(.red)
+                    Text("Error: \(error)").foregroundColor(Color(hex: "#FFB3B3")) // Softer red for errors
                 }
             }
             .sheet(isPresented: $presentSets) {
@@ -176,7 +176,7 @@ struct AllView: View {
         ScrollView {
             if fileViewerViewModel.isLoading {
                 ProgressView("Fetching Documents...")
-                    .foregroundColor(.white)
+                    .foregroundColor(Color(hex: "#E0D7FF")) // Softer light purple
             } else if let errorMessage = fileViewerViewModel.errorMessage {
                 Text("Error: \(errorMessage)").foregroundColor(.red)
             } else {
@@ -184,7 +184,7 @@ struct AllView: View {
 
                 if displayedDocuments.isEmpty {
                     Text("No documents found.")
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(hex: "#E0D7FF")) // Softer light purple
                 } else {
                     LazyVGrid(columns: columns, spacing: 16) {
                         ForEach(displayedDocuments) { document in
@@ -193,7 +193,7 @@ struct AllView: View {
                                              isAddMode: $isAddMode, selectedDocuments: $selectedDocuments)
                         }
                     }
-                    .padding()
+                    // .padding()
                 }
             }
         }
@@ -235,7 +235,7 @@ struct DocumentItemView: View {
             }
             .frame(maxWidth: .infinity)
             .padding()
-            .background(Color(.systemGray6))
+            .background(Color(hex: "#5A3E85")) // Slightly lighter purple for document items
             .cornerRadius(8)
             if isAddMode {
                 Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
@@ -247,7 +247,7 @@ struct DocumentItemView: View {
         }
         .frame(maxWidth: .infinity)
         .padding()
-        .background(Color(hex: "#71569E"))
+        .background(Color(hex: "#5A3E85")) // Slightly lighter purple for document items
         .cornerRadius(8)
         .onTapGesture {
             if isAddMode {
@@ -274,7 +274,7 @@ struct DocumentItemView: View {
             Alert(
                 title: Text("Favorites"),
                 message: Text(favoriteAlertMessage),
-                dismissButton: .default(Text("OK"))
+                dismissButton: .default(Text("OK").foregroundColor(Color(hex: "#A3C4F3"))) // Softer blue for alert button
             )
         }
     }
@@ -346,7 +346,7 @@ struct StudySetCard: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
         }
-        .background(Color.gray.opacity(0.8))
+        .background(Color(hex: "#71569E")) // Adjusted purple for card background
         .cornerRadius(12)
         .padding(.horizontal)
         .frame(maxWidth: .infinity, alignment: .leading)
