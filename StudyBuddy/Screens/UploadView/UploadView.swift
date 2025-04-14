@@ -39,21 +39,27 @@ struct UploadView: View {
                 .foregroundColor(.white)
                 .padding(.top)
 
-            HStack {
-                Text("Private")
-                    .foregroundColor(.white)
-                    .bold()
-                    .font(.title3)
+            VStack {
+                HStack {
+                    Text("Private")
+                        .foregroundColor(.white)
+                        .bold()
+                        .font(.title3)
 
-                Toggle("", isOn: $isPublic)
-                    .toggleStyle(SwitchToggleStyle(tint: .green))
-                    .labelsHidden()
+                    Toggle("", isOn: $isPublic)
+                        .toggleStyle(SwitchToggleStyle(tint: .green)) // Ensure toggle is blue
+                        .labelsHidden()
+                        .foregroundColor(.white)
 
-                Text("Public")
-                    .foregroundColor(.green)
-                    .bold()
-                    .font(.title3)
+                    Text("Public")
+                        .foregroundColor(.green)
+                        .bold()
+                        .font(.title3)
+                }
+                .padding()
             }
+            .background(Color(hex: "#D1C4E9").opacity(0.3)) // Lighter purple background
+            .cornerRadius(12)
             .padding()
 
             Button(action: {
@@ -61,8 +67,7 @@ struct UploadView: View {
                     var doc: Document = document
                     doc.isPrivate = !isPublic
 
-                    // update call to upload the file to Firebase
-
+                    // Upload the file to Firebase
                     uploadViewModel.uploadFileToFirebase(
                         fileName: document.fileName,
                         fileData: document.fileData!,
