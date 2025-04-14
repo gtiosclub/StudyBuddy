@@ -88,11 +88,11 @@ struct HomeView: View {
                                                     .font(.subheadline)
                                             }
                                             
-                                            Text("0")
+                                            Text("\(set.flashcards.count) terms")
                                                 .font(.subheadline)
                                                 .foregroundColor(.white)
                                             
-                                            Text("23 terms mastered")
+                                            Text("\(Int(set.flashcards.count/3)) terms mastered")
                                                 .font(.subheadline)
                                                 .foregroundColor(.white)
                                             Spacer().frame(height: 6)
