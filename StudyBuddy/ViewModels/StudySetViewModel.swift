@@ -50,7 +50,7 @@ class StudySetViewModel: ObservableObject, Identifiable {
             print("Document ID not found in updateStudySetDocument.")
             return
         }
-        let documentIDs: [String] = documents.map { $0.id.uuidString }
+        let documentIDs: [String] = documents.compactMap { $0.id }
         let docRef = db.collection("StudySets").document(studySetID)
         print(documentIDs)
         docRef.updateData([
