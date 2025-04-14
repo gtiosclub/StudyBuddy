@@ -55,17 +55,19 @@ struct ViewEditProfile: View {
 
             Form {
                 Section(header: Text("Personal Information").foregroundColor(.white)) {
-                    TextField("First Name", text: $firstName)
-                        .foregroundColor(.black)
-                        .padding(8)
-                        .background(Color.white)
-                        .cornerRadius(6)
-
-                    TextField("Last Name", text: $lastName)
-                        .foregroundColor(.black)
-                        .padding(8)
-                        .background(Color.white)
-                        .cornerRadius(6)
+                    EditTextField(placeholder: "First Name", text: $firstName, horizontalPadding: 5)
+                    EditTextField(placeholder: "Last Name", text: $lastName, horizontalPadding: 5)
+//                    TextField("First Name", text: $firstName)
+//                        .foregroundColor(.black)
+//                        .padding(8)
+//                        .background(Color.white)
+//                        .cornerRadius(6)
+//
+//                    TextField("Last Name", text: $lastName)
+//                        .foregroundColor(.black)
+//                        .padding(8)
+//                        .background(Color.white)
+//                        .cornerRadius(6)
 
                     Text(email)
                         .foregroundColor(.white)
@@ -75,8 +77,8 @@ struct ViewEditProfile: View {
                             Text("Change Password")
                                 .foregroundColor(.white)
                             Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(.white)
+//                            Image(systemName: "chevron.right")
+//                                .foregroundColor(.white)
                         }
                     }
                 }

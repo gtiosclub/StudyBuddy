@@ -39,69 +39,74 @@ struct ChatInterfaceView: View {
 //    @Environment(LLMEvaluator.self) var llm
 
     var body: some View {
-        VStack(spacing: 0) {
-            // Model Picker
-            Picker("AI Model", selection: $selectedModel) {
-                ForEach(models, id: \ .self) { model in
-                    Text(model).tag(model)
-                }
-            }
-            .pickerStyle(SegmentedPickerStyle())
-            .padding()
-            .background(Color(UIColor.systemGray6))
-            .cornerRadius(12)
-            .padding(.horizontal)
-
-            // Chat History
-            ScrollViewReader { scrollView in
-                ScrollView {
-                    LazyVStack(alignment: .leading, spacing: 10) {
-                        ForEach(messages) { message in
-                            ChatBubble(message: message)
-                                .id(message.id)
-                        }
+        ZStack {
+            Color(hex: "#321C58").edgesIgnoringSafeArea(.all)
+            VStack(spacing: 0) {
+                // Model Picker
+                Picker("AI Model", selection: $selectedModel) {
+                    ForEach(models, id: \ .self) { model in
+                        Text(model).tag(model)
                     }
-                    .padding()
                 }
-                .background(Color(UIColor.systemBackground))
+                .pickerStyle(SegmentedPickerStyle())
+                .padding()
+                .background(Color.lightPurple.opacity(0.2))
+                .tint(.purple)
                 .cornerRadius(12)
                 .padding(.horizontal)
-            }
-            .frame(maxHeight: .infinity)
 
-            // Improved Input Field
-            HStack(spacing: 10) {
-                TextField("Type a message...", text: $inputText)
-                    .padding(14)
-                    .background(RoundedRectangle(cornerRadius: 20).fill(Color(UIColor.systemGray6)))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                    )
-                    .padding(.leading, 10)
-
-                Button(action: {
-                    Task {
-                        do {
-                            try await sendMessage()
-                        } catch {
-                            print("Error sending message: \(error)")
+                // Chat History
+                ScrollViewReader { scrollView in
+                    ScrollView {
+                        LazyVStack(alignment: .leading, spacing: 10) {
+                            ForEach(messages) { message in
+                                ChatBubble(message: message)
+                                    .id(message.id)
+                            }
                         }
+                        .padding()
                     }
-                }) {
-                    Image(systemName: "paperplane.fill")
-                        .foregroundColor(.white)
-                        .padding(14)
-                        .background(Circle().fill(Color.blue))
-                        .shadow(radius: 4)
+                    .background(Color(hex: "#321C58"))
+                    .cornerRadius(12)
+                    .padding(.horizontal)
                 }
-                .padding(.trailing, 10)
+                .frame(maxHeight: .infinity)
+
+                // Improved Input Field
+                HStack(spacing: 10) {
+                    
+                    TextField("Type a message...", text: $inputText)
+                        .padding(14)
+                        .background(RoundedRectangle(cornerRadius: 20).fill(Color(hex: "#432A6E")))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color(hex: "#432A6E").opacity(0.3), lineWidth: 1)
+                        )
+                        .padding(.leading, 10)
+
+                    Button(action: {
+                        Task {
+                            do {
+                                try await sendMessage()
+                            } catch {
+                                print("Error sending message: \(error)")
+                            }
+                        }
+                    }) {
+                        Image(systemName: "paperplane.fill")
+                            .foregroundColor(.white)
+                            .padding(14)
+                            .background(Circle().fill(Color("cardColor")))
+                            .shadow(radius: 4)
+                    }
+                    .padding(.trailing, 10)
+                }
+                .padding(.vertical, 8)
             }
-            .padding(.vertical, 8)
-        }
-        .task {
-            await getDocuments()
-            print("Document fetching completed!")
+            .task {
+                await getDocuments()
+                print("Document fetching completed!")
+            }
         }
     }
 
@@ -229,7 +234,7 @@ struct ChatBubble: View {
                 Spacer()
                 Text(message.text)
                     .padding()
-                    .background(Color.blue)
+                    .background(Color("cardColor"))
                     .foregroundColor(.white)
                     .cornerRadius(16)
                     .shadow(radius: 2)
@@ -237,7 +242,7 @@ struct ChatBubble: View {
             } else {
                 Text(message.text)
                     .padding()
-                    .background(Color.gray.opacity(0.3))
+                    .background(Color("calvinColor").opacity(0.3))
                     .cornerRadius(16)
                     .shadow(radius: 2)
                     .frame(maxWidth: UIScreen.main.bounds.width * 0.75, alignment: .leading)

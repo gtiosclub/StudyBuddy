@@ -22,6 +22,7 @@ struct SearchView: View {
     }
 
     var body: some View {
+        
         NavigationView {
             ZStack {
                 Color(hex: "#321C58").ignoresSafeArea()
@@ -105,60 +106,7 @@ struct SearchView: View {
                             ScrollView {
                                 VStack(spacing: 12) {
                                     ForEach(filteredSets) { set in
-                                        VStack(spacing: 0) {
-                                            VStack(alignment: .leading, spacing: 6) {
-                                                Text(set.name)
-                                                    .font(.headline)
-                                                    .foregroundColor(.white)
-
-                                                HStack(spacing: 8) {
-                                                    Circle()
-                                                        .fill(Color.white.opacity(0.3))
-                                                        .frame(width: 20, height: 20)
-                                                    Text(set.createdBy)
-                                                        .foregroundColor(.white)
-                                                        .font(.subheadline)
-                                                }
-
-                                                Text("\(set.flashcards.count) terms")
-                                                    .font(.subheadline)
-                                                    .foregroundColor(.white)
-
-                                                Spacer().frame(height: 6)
-                                            }
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .padding()
-
-                                            Divider().background(Color.white.opacity(0.3))
-
-                                            HStack(spacing: 0) {
-                                                NavigationLink(destination: ChatInterfaceView(set: set)) {
-                                                    Text("Chatbot")
-                                                        .font(.subheadline)
-                                                        .bold()
-                                                        .frame(maxWidth: .infinity)
-                                                        .padding()
-                                                        .foregroundColor(.white)
-                                                        .background(Color(hex: "#6213D0"))
-                                                }
-
-                                                NavigationLink(destination: SetView().onAppear {
-                                                    studySetViewModel.currentlyChosenStudySet = set
-                                                }) {
-                                                    Text("Flashcards")
-                                                        .font(.subheadline)
-                                                        .bold()
-                                                        .frame(maxWidth: .infinity)
-                                                        .padding()
-                                                        .foregroundColor(.white)
-                                                        .background(Color(hex: "#6213D0"))
-                                                }
-                                            }
-                                        }
-                                        .background(Color(hex: "#71569E"))
-                                        .cornerRadius(12)
-                                        .padding(.horizontal)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        FlashcardSetRow(set: set)
                                     }
                                 }
                                 .padding(.top)
@@ -177,60 +125,7 @@ struct SearchView: View {
                                 VStack(spacing: 12) {
                                     if studySetViewModel.studySets.count > 0 {
                                         ForEach(studySetViewModel.studySets.prefix(5)) { set in
-                                            VStack(spacing: 0) {
-                                                VStack(alignment: .leading, spacing: 6) {
-                                                    Text(set.name)
-                                                        .font(.headline)
-                                                        .foregroundColor(.white)
-
-                                                    HStack(spacing: 8) {
-                                                        Circle()
-                                                            .fill(Color.white.opacity(0.3))
-                                                            .frame(width: 20, height: 20)
-                                                        Text(set.createdBy)
-                                                            .foregroundColor(.white)
-                                                            .font(.subheadline)
-                                                    }
-
-                                                    Text("\(set.flashcards.count) terms")
-                                                        .font(.subheadline)
-                                                        .foregroundColor(.white)
-
-                                                    Spacer().frame(height: 6)
-                                                }
-                                                .frame(maxWidth: .infinity, alignment: .leading)
-                                                .padding()
-
-                                                Divider().background(Color.white.opacity(0.3))
-
-                                                HStack(spacing: 0) {
-                                                    NavigationLink(destination: ChatInterfaceView(set: set)) {
-                                                        Text("Chatbot")
-                                                            .font(.subheadline)
-                                                            .bold()
-                                                            .frame(maxWidth: .infinity)
-                                                            .padding()
-                                                            .foregroundColor(.white)
-                                                            .background(Color(hex: "#6213D0"))
-                                                    }
-
-                                                    NavigationLink(destination: SetView().onAppear {
-                                                        studySetViewModel.currentlyChosenStudySet = set
-                                                    }) {
-                                                        Text("Flashcards")
-                                                            .font(.subheadline)
-                                                            .bold()
-                                                            .frame(maxWidth: .infinity)
-                                                            .padding()
-                                                            .foregroundColor(.white)
-                                                            .background(Color(hex: "#6213D0"))
-                                                    }
-                                                }
-                                            }
-                                            .background(Color(hex: "#71569E"))
-                                            .cornerRadius(12)
-                                            .padding(.horizontal)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            FlashcardSetRow(set: set)
                                         }
                                     } else {
                                         Text("No Sets")
@@ -245,8 +140,6 @@ struct SearchView: View {
                 .navigationBarHidden(true)
                 .onAppear {
                     studySetViewModel.listenToUserDocuments()
-                    UITabBar.appearance().backgroundColor = UIColor.white
-                    UITabBar.appearance().barTintColor = UIColor.white
                 }
             }
         }
@@ -267,5 +160,91 @@ struct SearchView: View {
         searchText = ""
         isSearching = false
         filteredSets = []
+    }
+}
+
+
+struct FlashcardSetRow: View {
+    let set: StudySetModel
+    @EnvironmentObject var studySetViewModel: StudySetViewModel
+    
+    @State private var creatorName: String = "Loading..."
+    @StateObject private var userViewModel = UserViewModel()
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            VStack(alignment: .leading, spacing: 6) {
+                Text(set.name)
+                    .font(.headline)
+                    .foregroundColor(.white)
+                
+                HStack(spacing: 8) {
+                    Circle()
+                        .fill(Color.white.opacity(0.3))
+                        .frame(width: 20, height: 20)
+                    
+                    Text(creatorName)
+                        .foregroundColor(.white)
+                        .font(.subheadline)
+                }
+                
+                Text("\(set.flashcards.count) terms")
+                    .font(.subheadline)
+                    .foregroundColor(.white)
+                
+                Spacer().frame(height: 6)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding()
+            
+            Divider().background(Color.white.opacity(0.3))
+            
+            HStack(spacing: 0) {
+                NavigationLink(destination: ChatInterfaceView(set: set)) {
+                    Text("Chatbot")
+                        .font(.subheadline)
+                        .bold()
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .foregroundColor(.white)
+                        .background(Color(hex: "#6213D0"))
+                }
+
+                NavigationLink(destination: SetView().onAppear {
+                    studySetViewModel.currentlyChosenStudySet = set
+                }) {
+                    Text("Flashcards")
+                        .font(.subheadline)
+                        .bold()
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .foregroundColor(.white)
+                        .background(Color(hex: "#6213D0"))
+                }
+            }
+        }
+        .background(Color(hex: "#71569E"))
+        .cornerRadius(12)
+        .padding(.horizontal)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        // Trigger the network call when the view appears.
+        .task {
+            userViewModel.fetchUserName(documentID: set.createdBy) { firstName, lastName in
+                print(firstName)
+                if let first = firstName, let last = lastName {
+                    DispatchQueue.main.async {
+                        self.creatorName = "\(first) \(last)"
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.creatorName = "Unknown Creator"
+                    }
+                }
+                .navigationBarHidden(true)
+                .onAppear {
+                    studySetViewModel.listenToUserDocuments()
+                }
+            }
+        }
     }
 }
