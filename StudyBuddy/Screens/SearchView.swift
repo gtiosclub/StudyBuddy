@@ -39,11 +39,12 @@ struct SearchView: View {
                         }, onCommit: {
                             performSearch()
                         })
+                        .foregroundColor(.white)
                         .padding(10)
                         .background(Color.white.opacity(0.2))
                         .cornerRadius(8)
                         .padding(.horizontal)
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
 
                         if isSearching {
                             Button(action: {
