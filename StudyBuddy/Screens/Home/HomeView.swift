@@ -83,12 +83,12 @@ struct HomeView: View {
                                                 Circle()
                                                     .fill(Color.white.opacity(0.3))
                                                     .frame(width: 20, height: 20)
-                                                Text("john_doe18")
+                                                Text("Me")
                                                     .foregroundColor(.white)
                                                     .font(.subheadline)
                                             }
                                             
-                                            Text("48 terms")
+                                            Text("0")
                                                 .font(.subheadline)
                                                 .foregroundColor(.white)
                                             

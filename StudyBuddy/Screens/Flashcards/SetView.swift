@@ -21,6 +21,7 @@ struct SetView: View {
 
     @State private var flashcards: [FlashcardModel] = []
     
+    
     var body: some View {
         ZStack {
             // Main Content
