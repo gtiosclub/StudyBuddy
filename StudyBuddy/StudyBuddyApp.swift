@@ -25,6 +25,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct StudyBuddyApp: App {
     @StateObject private var authViewModel = AuthViewModel()
     @StateObject private var userViewModel = UserViewModel.shared
+    @StateObject private var studySetViewModel = StudySetViewModel.shared
 
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
@@ -34,6 +35,7 @@ struct StudyBuddyApp: App {
                 ContentView()
                     .environmentObject(authViewModel)
                     .environmentObject(userViewModel)
+                    .environmentObject(studySetViewModel)
             } else {
                 LoginView()
                     .environmentObject(authViewModel)

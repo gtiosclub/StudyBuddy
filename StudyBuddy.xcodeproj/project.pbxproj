@@ -37,6 +37,8 @@
 		9B883B362D713DA400AE3DEF /* LLMEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B883B352D713DA400AE3DEF /* LLMEvaluator.swift */; };
 		AA0AB33A2D77D5AC001EFC78 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0AB3392D77D5AC001EFC78 /* ContentView.swift */; };
 		AADE96032D6E983B008DD19B /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADE96022D6E983B008DD19B /* AddView.swift */; };
+		AAE94D2E2DACBB4A00A523EC /* CreateSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE94D2D2DACBB4A00A523EC /* CreateSetView.swift */; };
+		AAE94D302DACBBB500A523EC /* FileToSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE94D2F2DACBBB500A523EC /* FileToSetView.swift */; };
 		C7BCD2BC2D5DAA8A00F89A0C /* DocumentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BCD2BB2D5DAA8100F89A0C /* DocumentPickerView.swift */; };
 		CA0CE2CC2D5C2AE600DD8FD2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */; };
 		CA0CE2D02D5C2AF500DD8FD2 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2CD2D5C2AF500DD8FD2 /* SetView.swift */; };
@@ -88,6 +90,8 @@
 		9B883B352D713DA400AE3DEF /* LLMEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMEvaluator.swift; sourceTree = "<group>"; };
 		AA0AB3392D77D5AC001EFC78 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AADE96022D6E983B008DD19B /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
+		AAE94D2D2DACBB4A00A523EC /* CreateSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSetView.swift; sourceTree = "<group>"; };
+		AAE94D2F2DACBBB500A523EC /* FileToSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileToSetView.swift; sourceTree = "<group>"; };
 		C7BCD2BB2D5DAA8100F89A0C /* DocumentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerView.swift; sourceTree = "<group>"; };
 		CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CA0CE2CD2D5C2AF500DD8FD2 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
@@ -137,6 +141,7 @@
 		912404202D77A0EF00A0C7AC /* FileViewer */ = {
 			isa = PBXGroup;
 			children = (
+				AAE94D2F2DACBBB500A523EC /* FileToSetView.swift */,
 				9124041F2D77A0EF00A0C7AC /* FileViewer.swift */,
 			);
 			path = FileViewer;
@@ -170,6 +175,7 @@
 		CA0CE2CB2D5C2AE600DD8FD2 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				AAE94D2D2DACBB4A00A523EC /* CreateSetView.swift */,
 				4094F0892DA754ED00C10C53 /* ImagePicker.swift */,
 				4094F0872DA7534D00C10C53 /* ViewEditProfile.swift */,
 				CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */,
@@ -452,6 +458,7 @@
 				946D8D962D7A536200E4B384 /* AuthViewModel.swift in Sources */,
 				4094F0882DA7535300C10C53 /* ViewEditProfile.swift in Sources */,
 				94FCD6442D960EBF00051CE8 /* FlashcardViewModel.swift in Sources */,
+				AAE94D302DACBBB500A523EC /* FileToSetView.swift in Sources */,
 				94FCD6422D960EA800051CE8 /* StudySetViewModel.swift in Sources */,
 				966B69C42D67F9DA00BB11DE /* DocumentsModel.swift in Sources */,
 				CA0CE2CC2D5C2AE600DD8FD2 /* HomeView.swift in Sources */,
@@ -466,6 +473,7 @@
 				94B653E12D6562EE001D3727 /* StudySetModel.swift in Sources */,
 				CA0CE2D02D5C2AF500DD8FD2 /* SetView.swift in Sources */,
 				C7BCD2BC2D5DAA8A00F89A0C /* DocumentPickerView.swift in Sources */,
+				AAE94D2E2DACBB4A00A523EC /* CreateSetView.swift in Sources */,
 				AA0AB33A2D77D5AC001EFC78 /* ContentView.swift in Sources */,
 				CA0CE2D12D5C2AF500DD8FD2 /* StudyView.swift in Sources */,
 				EAFA584A2D5D418700ADC214 /* UploadView.swift in Sources */,
