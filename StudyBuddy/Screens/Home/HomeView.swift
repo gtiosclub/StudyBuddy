@@ -73,7 +73,7 @@ struct HomeView: View {
                             VStack(spacing: 0) {
                                 // Card content
                                 VStack(alignment: .leading, spacing: 6) {
-                                    Text("MATH 1554 Linear Algebra")
+                                    Text("Intro to Swift")
                                         .font(.headline)
                                         .foregroundColor(.white)
 
@@ -102,9 +102,7 @@ struct HomeView: View {
                                 Divider().background(Color.white.opacity(0.3))
 
                                 HStack(spacing: 0) {
-                                    Button(action: {
-                                        // Chatbot functionality
-                                    }) {
+                                    NavigationLink(destination: ChatInterfaceView()) {
                                         Text("Chatbot")
                                             .font(.subheadline)
                                             .bold()
@@ -118,9 +116,7 @@ struct HomeView: View {
                                         .frame(width: 1, height: 33)
                                         .foregroundColor(.white.opacity(0.5))
 
-                                    Button(action: {
-                                        // Flashcards functionality
-                                    }) {
+                                    NavigationLink(destination: SetView()) {
                                         Text("Flashcards")
                                             .font(.subheadline)
                                             .bold()

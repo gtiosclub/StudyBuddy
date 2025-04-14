@@ -145,7 +145,7 @@ struct SetView: View {
     private func fcardButton() -> some View {
         VStack {
             HStack {
-                NavigationLink(destination: StudyView(studySetVM: studySetVM)) {
+                NavigationLink(destination: StudyView(/*studySetVM: studySetVM*/)) {
                     HStack(spacing: 4) {  // Spacing between image and text.
                         Image("cardsImage")
                             .resizable()
@@ -171,7 +171,7 @@ struct SetView: View {
     private func chatBotButton() -> some View {
         VStack {
             HStack {
-                NavigationLink(destination: StudyView(studySetVM: studySetVM)) {
+                NavigationLink(destination: ChatInterfaceView()) {
                     HStack(spacing: 4) {  // Spacing between image and text.
                         Image("chatBotImage")
                             .resizable()
@@ -197,7 +197,7 @@ struct SetView: View {
     private func viewFilesButton() -> some View {
         VStack {
             HStack {
-                NavigationLink(destination: StudyView(studySetVM: studySetVM)) {
+                NavigationLink(destination: StudyView(/*studySetVM: studySetVM*/)) {
                     HStack(spacing: 4) {  // Spacing between image and text.
                         Image("filesImage")
                             .resizable()

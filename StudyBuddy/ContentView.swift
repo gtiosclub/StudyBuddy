@@ -23,7 +23,7 @@ struct ContentView: View {
                 Label("Search", systemImage: "magnifyingglass")
             }.tag(TabSelection.search)
                 .environmentObject(authViewModel)
-            HomeView().tabItem {
+            ChatInterfaceView().tabItem {
                 Label("Chat", systemImage: "bubble.left.and.text.bubble.right.fill")
             }.tag(TabSelection.chat)
                 .environmentObject(authViewModel)
