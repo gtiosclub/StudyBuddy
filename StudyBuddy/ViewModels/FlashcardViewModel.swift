@@ -47,10 +47,10 @@ class FlashcardViewModel: ObservableObject {
             }
     }
 
-    func fetchFlashcardsFromIDs() async throws {
+    func fetchFlashcardsFromIDs() async throws -> [FlashcardModel] {
         guard let setID = currentlyChosenStudySet.id else {
             print("Error: currentlyChosenStudySet.id is nil")
-            return
+            throw NSError(domain: "FlashcardViewModel", code: 1, userInfo: [NSLocalizedDescriptionKey: "StudySet ID is nil"])
         }
 
         let ref = db.collection("StudySets").document(setID)
@@ -58,10 +58,12 @@ class FlashcardViewModel: ObservableObject {
 
         guard let flashcardIDs = document.data()?["flashcardIDs"] as? [String] else {
             print("Error: flashcardIDs is nil")
-            return
+            throw NSError(domain: "FlashcardViewModel", code: 2, userInfo: [NSLocalizedDescriptionKey: "Flashcard IDs are nil"])
         }
 
         print("Flashcard IDs: \(flashcardIDs)")
+        
+        var results: [FlashcardModel] = []
 
             for flashcard in flashcardIDs {
                 let ref = db.collection("Flashcards").document(flashcard)
@@ -69,6 +71,7 @@ class FlashcardViewModel: ObservableObject {
                     let flashcard = try await ref.getDocument(as: FlashcardModel.self)
 
                     self.flashcards.append(flashcard)
+                    results.append(flashcard)
                     StudySetViewModel.shared.currentlyChosenStudySet.flashcards.append(flashcard)
 
                     print(flashcard)
@@ -77,6 +80,8 @@ class FlashcardViewModel: ObservableObject {
                     continue
                 }
             }
+        
+        return results
     }
 
     func updateFlashcardData() {

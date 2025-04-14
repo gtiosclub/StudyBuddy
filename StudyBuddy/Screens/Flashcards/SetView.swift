@@ -18,6 +18,9 @@ struct SetView: View {
     @State private var flashcardToEdit: FlashcardModel? = nil
     @State private var showAddCard: Bool = false
     @Environment(\.dismiss) var dismiss
+
+    @State private var flashcards: [FlashcardModel] = []
+    
     var body: some View {
         ZStack {
             // Main Content
@@ -160,7 +163,7 @@ struct SetView: View {
     private func fcardButton() -> some View {
         VStack {
             HStack {
-                NavigationLink(destination: StudyView(/*studySetVM: studySetVM*/)) {
+                NavigationLink(destination: StudyView(studySet: flashcards)) {
                     HStack(spacing: 4) {  // Spacing between image and text.
                         Image("cardsImage")
                             .resizable()
@@ -290,8 +293,8 @@ struct SetView: View {
             ScrollView {
                 VStack(spacing: 8) {
                     let flashcardsToDisplay = filteredText.isEmpty ?
-                        studySetVM.currentlyChosenStudySet.flashcards :
-                        studySetVM.currentlyChosenStudySet.flashcards.filter { flashcard in
+                        flashcards :
+                        flashcards.filter { flashcard in
                             let combinedText = flashcard.front + flashcard.back
                             return combinedText.lowercased().contains(filteredText.lowercased())
                         }
@@ -343,12 +346,18 @@ struct SetView: View {
 
     private func fetchFlashcards() async {
         do {
-            try await FlashcardViewModel.shared.fetchFlashcardsFromIDs()
+            let flashcardsFetched = try await FlashcardViewModel.shared.fetchFlashcardsFromIDs()
+
+            for flashcard in flashcardsFetched {
+                if !self.flashcards.contains(where: { $0.id == flashcard.id }) {
+                    self.flashcards.append(flashcard)
+                }
+            }
         } catch {
             print("Error fetching flashcards: \(error)")
         }
-        
-        let setFlashcards = studySetVM.currentlyChosenStudySet.flashcards
+
+//        let setFlashcards = studySetVM.currentlyChosenStudySet.flashcards
     }
 
 }
