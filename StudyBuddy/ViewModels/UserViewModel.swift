@@ -52,6 +52,31 @@ class UserViewModel: ObservableObject {
             }
         }
     }
+    
+    func fetchUserName(documentID: String, completion: @escaping (_ firstName: String?, _ lastName: String?) -> Void) {
+        
+        let docRef = db.collection("Users").document(documentID)
+        
+        docRef.getDocument { (document, error) in
+            if let error = error {
+                print("Error fetching document: \(error.localizedDescription)")
+                completion(nil, nil)
+                return
+            }
+            
+            guard let document = document, document.exists, let data = document.data() else {
+                print("Document does not exist for id: \(documentID)")
+                completion(nil, nil)
+                return
+            }
+            
+            let firstName = data["firstName"] as? String
+            print(firstName)
+            let lastName = data["lastName"] as? String
+            
+            completion(firstName, lastName)
+        }
+    }
 
     // Update the current user’s Firestore document
     func updateUserData() {

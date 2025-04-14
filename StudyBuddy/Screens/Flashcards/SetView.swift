@@ -18,11 +18,14 @@ struct SetView: View {
     @State private var flashcardToEdit: FlashcardModel? = nil
     @State private var showAddCard: Bool = false
     @Environment(\.dismiss) var dismiss
+    @State private var creatorName: String = "Loading..."
+
 
     @State private var flashcards: [FlashcardModel] = []
     
     var body: some View {
         ZStack {
+            Color(hex: "#321C58").edgesIgnoringSafeArea(.all)
             // Main Content
             NavigationStack {
                 VStack(alignment: .center, spacing: 15) {
@@ -35,8 +38,9 @@ struct SetView: View {
                             await fetchFlashcards()
                         }
                 }
-                .background(Color("setViewBackground"))
+                .background(Color(hex: "#321C58").edgesIgnoringSafeArea(.all))
             }
+            .foregroundColor(Color.purpleGrey)
 
             if let flashcard = flashcardToEdit {
                 Color.black.opacity(0.3) // Dim background.
@@ -47,13 +51,9 @@ struct SetView: View {
                         .font(.headline)
                         .padding(.top, 12)
 
-                    TextField("Term", text: $frontEditText)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.horizontal)
-
-                    TextField("Definition", text: $backEditText)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.horizontal)
+                    EditTextField(placeholder: "Term", text: $frontEditText)
+                    
+                    EditTextField(placeholder: "Definition", text: $backEditText)
 
                     Button(action: {
                         if !frontEditText.isEmpty && !backEditText.isEmpty {
@@ -85,19 +85,20 @@ struct SetView: View {
             if showAddCard {
                 Color.black.opacity(0.3) // Dim background.
                     .ignoresSafeArea()
-
+                    .onTapGesture {
+                        withAnimation {
+                            showAddCard = false
+                        }
+                    }
                 VStack(spacing: 16) {
                     Text("Add Flashcard")
+                        .foregroundColor(Color("blah"))
                         .font(.headline)
                         .padding(.top, 12)
 
-                    TextField("Term", text: $frontText)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.horizontal)
-
-                    TextField("Definition", text: $backText)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.horizontal)
+                    EditTextField(placeholder: "Term", text: $frontText)
+                    
+                    EditTextField(placeholder: "Definition", text: $backText)
 
                     Button(action: {
                         if !frontText.isEmpty && !backText.isEmpty {
@@ -151,12 +152,23 @@ struct SetView: View {
                 Circle()
                     .frame(width: 30, height: 30)
                     .foregroundColor(.gray)
-                Text(studySetVM.currentlyChosenStudySet.createdBy)
+                Text(self.creatorName)
                     .foregroundColor(Color(.white))
                     .font(.headline)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 25)
+        }
+        .onAppear {
+            UserViewModel.shared.fetchUserName(documentID: studySetVM.currentlyChosenStudySet.createdBy) { firstName, lastName in
+                DispatchQueue.main.async {
+                    if let first = firstName, let last = lastName {
+                        self.creatorName = "\(first) \(last)"
+                    } else {
+                        self.creatorName = "Unknown User"
+                    }
+                }
+            }
         }
     }
 
@@ -178,7 +190,7 @@ struct SetView: View {
                             .padding(.vertical, 10)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color("cardColor"))
+                    .background(Color(hex: "#6213D0"))
                     .cornerRadius(30)
                 }
                 .padding(.horizontal, 20)
@@ -204,7 +216,7 @@ struct SetView: View {
                             .padding(.vertical, 10)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color("cardColor"))
+                    .background(Color(hex: "#6213D0"))
                     .cornerRadius(30)
                 }
                 .padding(.horizontal, 20)
@@ -215,7 +227,7 @@ struct SetView: View {
     private func viewFilesButton() -> some View {
         VStack {
             HStack {
-                NavigationLink(destination: StudyView(/*studySetVM: studySetVM*/)) {
+                NavigationLink(destination: FileViewer(/*studySetVM: studySetVM*/)) {
                     HStack(spacing: 4) {  // Spacing between image and text.
                         Image("filesImage")
                             .resizable()
@@ -230,7 +242,7 @@ struct SetView: View {
                             .padding(.vertical, 10)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color("cardColor"))
+                    .background(Color(hex: "#6213D0"))
                     .cornerRadius(30)
                 }
                 .padding(.horizontal, 20)
@@ -284,12 +296,11 @@ struct SetView: View {
                     .padding(5)
                 TextField("", text: $filteredText)
                     .foregroundColor(.black)
-                    .background(Color("blah"))
+                    .background(Color(hex: "#71569E"))
                     .padding(.horizontal, 10)
             }
-            .background(RoundedRectangle(cornerRadius: 80).fill(Color("blah")))
+            .background(RoundedRectangle(cornerRadius: 80).fill(Color(hex: "#71569E")))
             .padding(.horizontal, 20)
-
             ScrollView {
                 VStack(spacing: 8) {
                     let flashcardsToDisplay = filteredText.isEmpty ?
@@ -438,6 +449,31 @@ struct SwipeAction<Calv: View>: View {
     func scrollOffset(_ proxy: GeometryProxy) -> CGFloat {
         let minX = proxy.frame(in: .scrollView(axis: .horizontal)).minX
         return direction == .trailing ? (minX > 0 ? -minX : 0) : (minX < 0 ? -minX : 0)
+    }
+}
+
+struct EditTextField: View {
+    var placeholder: String
+    @Binding var text: String
+    var horizontalPadding: CGFloat = 16
+
+    var body: some View {
+        ZStack(alignment: .leading) {
+            TextField("", text: $text)
+                .padding(10)
+                .foregroundColor(.black)
+                .background(Color.white)
+                .cornerRadius(8)
+            
+            if text.isEmpty {
+                Text(placeholder)
+                    .foregroundColor(.gray)
+                    .opacity(0.5)
+                    .background(Color.white)
+                    .padding(10)
+            }
+        }
+        .padding(.horizontal, horizontalPadding)
     }
 }
 

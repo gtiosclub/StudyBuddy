@@ -319,37 +319,7 @@ struct StudySetCard: View {
     var set: StudySetModel
 
     var body: some View {
-        VStack(spacing: 0) {
-            VStack(alignment: .leading, spacing: 6) {
-                Text(set.name)
-                    .font(.headline)
-
-                HStack(spacing: 8) {
-                    Circle()
-                        .fill(Color.white.opacity(0.3))
-                        .frame(width: 20, height: 20)
-                    Text("john_doe18")
-                        .foregroundColor(.black)
-                        .font(.subheadline)
-                }
-
-                Text("48 terms")
-                    .font(.subheadline)
-                    .foregroundColor(.black)
-
-                Text("23 terms mastered")
-                    .font(.subheadline)
-                    .foregroundColor(.black)
-
-                Spacer().frame(height: 6)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding()
-        }
-        .background(Color(hex: "#71569E")) // Adjusted purple for card background
-        .cornerRadius(12)
-        .padding(.horizontal)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        FlashcardSetRow(set: set)
     }
 }
 

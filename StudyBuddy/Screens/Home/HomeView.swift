@@ -73,64 +73,7 @@ struct HomeView: View {
                         VStack(spacing: 12) {
                             if studySetViewModel.studySets.count > 0 {
                                 ForEach(studySetViewModel.studySets) { set in
-                                    VStack(spacing: 0) {
-                                        VStack(alignment: .leading, spacing: 6) {
-                                            Text(set.name)
-                                                .font(.headline)
-                                                .foregroundColor(.white)
-                                            
-                                            HStack(spacing: 8) {
-                                                Circle()
-                                                    .fill(Color.white.opacity(0.3))
-                                                    .frame(width: 20, height: 20)
-                                                Text("john_doe18")
-                                                    .foregroundColor(.white)
-                                                    .font(.subheadline)
-                                            }
-                                            
-                                            Text("48 terms")
-                                                .font(.subheadline)
-                                                .foregroundColor(.white)
-                                            
-                                            Text("23 terms mastered")
-                                                .font(.subheadline)
-                                                .foregroundColor(.white)
-                                            Spacer().frame(height: 6)
-                                            
-                                        }
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .padding()
-                                        
-                                        Divider().background(Color.white.opacity(0.3))
-                                        
-                                        HStack(spacing: 0) {
-                                            NavigationLink(destination: ChatInterfaceView(set: set)) {
-                                                                                    Text("Chatbot")
-                                                                                        .font(.subheadline)
-                                                                                        .bold()
-                                                                                        .frame(maxWidth: .infinity)
-                                                                                        .padding()
-                                                                                        .foregroundColor(.white)
-                                                                                        .background(Color(hex: "#6213D0"))
-                                                                                }
-                                            
-                                            NavigationLink(destination: SetView().onAppear {
-                                                studySetViewModel.currentlyChosenStudySet = set
-                                            }) {
-                                                                                    Text("Flashcards")
-                                                                                        .font(.subheadline)
-                                                                                        .bold()
-                                                                                        .frame(maxWidth: .infinity)
-                                                                                        .padding()
-                                                                                        .foregroundColor(.white)
-                                                                                        .background(Color(hex: "#6213D0"))
-                                                                                }
-                                        }
-                                    }
-                                    .background(Color(hex: "#71569E"))
-                                    .cornerRadius(12)
-                                    .padding(.horizontal)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    FlashcardSetRow(set: set)
                                 }
                             } else {
                                 Text("No Sets")
@@ -175,64 +118,7 @@ struct HomeView: View {
             VStack(spacing: 12) {
                 if studySetViewModel.studySets.count > 0 {
                     ForEach(studySetViewModel.studySets) { set in
-                        VStack(spacing: 0) {
-                            VStack(alignment: .leading, spacing: 6) {
-                                Text(set.name)
-                                    .font(.headline)
-                                    .foregroundColor(.white)
-                                
-                                HStack(spacing: 8) {
-                                    Circle()
-                                        .fill(Color.white.opacity(0.3))
-                                        .frame(width: 20, height: 20)
-                                    Text("john_doe18")
-                                        .foregroundColor(.white)
-                                        .font(.subheadline)
-                                }
-                                
-                                Text("48 terms")
-                                    .font(.subheadline)
-                                    .foregroundColor(.white)
-                                
-                                Text("23 terms mastered")
-                                    .font(.subheadline)
-                                    .foregroundColor(.white)
-                                Spacer().frame(height: 6)
-                                
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding()
-                            
-                            Divider().background(Color.white.opacity(0.3))
-                            
-                            HStack(spacing: 0) {
-                                NavigationLink(destination: ChatInterfaceView(set: set)) {
-                                                                        Text("Chatbot")
-                                                                            .font(.subheadline)
-                                                                            .bold()
-                                                                            .frame(maxWidth: .infinity)
-                                                                            .padding()
-                                                                            .foregroundColor(.white)
-                                                                            .background(Color(hex: "#6213D0"))
-                                                                    }
-                                
-                                NavigationLink(destination: SetView().onAppear {
-                                    studySetViewModel.currentlyChosenStudySet = set
-                                }) {
-                                                                        Text("Flashcards")
-                                                                            .font(.subheadline)
-                                                                            .bold()
-                                                                            .frame(maxWidth: .infinity)
-                                                                            .padding()
-                                                                            .foregroundColor(.white)
-                                                                            .background(Color(hex: "#6213D0"))
-                                                                    }
-                            }
-                        }
-                        .background(Color(hex: "#71569E"))
-                        .cornerRadius(12)
-                        .padding(.horizontal)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        FlashcardSetRow(set: set)
                     }
                 } else {
                     Text("No Sets")
@@ -244,6 +130,7 @@ struct HomeView: View {
         .environmentObject(studySetViewModel)
     }
 }
+
 
 extension Color {
     init(hex: String) {
