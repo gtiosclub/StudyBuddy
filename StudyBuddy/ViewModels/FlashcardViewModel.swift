@@ -93,6 +93,7 @@ class FlashcardViewModel: ObservableObject {
         let ref = db.collection("Flashcards").document(flashcardDocumentID)
         do {
             try ref.setData(from: self.currentlyChosenFlashcard)
+            print("Updated flashcard data")
         } catch {
             print("Error updating flashcard data \(error.localizedDescription)")
         }
