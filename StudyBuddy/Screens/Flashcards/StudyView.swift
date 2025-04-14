@@ -40,6 +40,8 @@ extension Color {
 }
 
 struct StudyView: View {
+    @StateObject var flashcardViewModel: FlashcardViewModel = FlashcardViewModel.shared
+    @StateObject var studySetViewModel: StudySetViewModel = StudySetViewModel.shared
     @State var studySet: [FlashcardModel] = [flashcard1, flashcard2, flashcard3]
     //@StateObject private var studySetViewmodel: StudySetViewModel
     @State private var flashCardIndex = 0
@@ -48,6 +50,7 @@ struct StudyView: View {
     @State private var unmaster: Int = 0
     @State private var dragOffset = CGSize.zero // for rectangle dragging
     @Environment(\.dismiss) var dismiss
+    @State private var goToMasteryView = false
     
     /*init(studySetViewmodel: StudySetViewModel) {
         self.studySetViewmodel = studySetViewmodel
@@ -62,24 +65,23 @@ struct StudyView: View {
                 topNavView()
                 topStatusView()
                 Spacer()
-                cardView()
-                Spacer()
-                navBar()
-                Spacer()
+                if !goToMasteryView {
+                    cardView()
+                    Spacer()
+                    navBar()
+                    Spacer()
+                } else {
+                    FinishedView(total: master + unmaster, mastered: master)
+                }
             }
             .foregroundColor(Color.purpleGrey)
             .onAppear {
                 updateMaster()
             }
             .navigationBarBackButtonHidden(true)
-            .navigationBarBackButtonHidden(true)
             .toolbar(.hidden, for: .tabBar)
         }
     }
-        
-        
-        
-
     private func topNavView() -> some View {
         HStack {
             Button(action: {
@@ -156,10 +158,14 @@ struct StudyView: View {
                                     //  update counters for mastered/struggled
                                     if dragOffset.width > 0 {
                                         studySet[flashCardIndex].mastered = true
+                                        flashcardViewModel.currentlyChosenFlashcard = studySet[flashCardIndex]
+                                        flashcardViewModel.updateFlashcardData()
                                         
                                         
                                     } else {
                                         studySet[flashCardIndex].mastered = false
+                                        flashcardViewModel.currentlyChosenFlashcard = studySet[flashCardIndex]
+                                        flashcardViewModel.updateFlashcardData()
                                     }
                                 
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
@@ -167,6 +173,9 @@ struct StudyView: View {
                                         dragOffset = .zero
                                         showBack = true
                                         updateMaster()
+                                        if flashCardIndex >= studySet.count {
+                                            goToMasteryView = true
+                                        }
                                         
                                                                             }
                                     
@@ -240,7 +249,47 @@ struct StudyView: View {
         self.unmaster = studySet.count - mastered
     }
 }
-
+struct FinishedView: View {
+    let total: Int
+    let mastered: Int
+    var percentage: Int {
+        Int((Double(mastered) / Double(total)) * 100)
+    }
+    @Environment(\.presentationMode) var presentationMode
+    var body: some View {
+        VStack {
+            Text("🔥")
+                .frame(alignment: .center)
+                .font(.system(size: 80))
+            Text("You're doing great you've mastered \(percentage)% of the set! Keep it up!")
+                .frame(width: 330, alignment: .center)
+                .multilineTextAlignment(.center)
+                .foregroundColor(Color.white)
+                .font(.system(size:20))
+            
+            ProgressBarView(termsMastered: mastered, totalTerms: total)
+            
+            Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }) {
+                            Text("Go Back")
+                                .font(.system(size: 18, weight: .semibold))
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(Color.white.opacity(0.2))
+                                .foregroundColor(.white)
+                                .cornerRadius(12)
+                                .padding(.horizontal, 40)
+                        }
+            
+            
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.background)
+        .ignoresSafeArea()
+        
+    }
+}
 struct ProgressBarView: View {
     let termsMastered: Int
     let totalTerms: Int
@@ -258,37 +307,39 @@ struct ProgressBarView: View {
             VStack(alignment: .leading) {
                 Text("Your Progress")
                     .font(.headline)
-                    .foregroundColor(Color(.darkGray))
+                    .foregroundColor(Color.purpleGrey)
                     
                 HStack(spacing: 0) {
                     Text("\(percentageValue)")
                         .font(.system(size: 80, weight: .bold))
-                        .foregroundColor(Color(.white))
+                        .foregroundColor(Color.purpleGrey)
                         .padding(.bottom, 5)
                     
                     Text("%")
                         .font(.system(size: 80))
-                        .foregroundColor(Color(.white))
+                        .foregroundColor(Color.purpleGrey)
                 }
 
                 Text("\(termsMastered)/\(totalTerms) terms mastered")
                     .font(.subheadline)
-                    .foregroundColor(Color(.darkGray))
+                    .foregroundColor(Color.purpleGrey)
                     .padding(.bottom, 8)
 
                 ProgressView(value: progressValue)
                     .progressViewStyle(LinearProgressViewStyle())
-                    .tint(Color.gray)
+                    .tint(Color.green)
                     .scaleEffect(x: 1, y: 2, anchor: .center)
                     .padding(.bottom, 8)
             }
             .padding()
-            .background(RoundedRectangle(cornerRadius: 10).fill(Color(.systemGray4)))
+            .background(RoundedRectangle(cornerRadius: 10).fill(Color.purpleLight))
             .padding()
         }
+        .navigationBarBackButtonHidden(true)
+        .background(Color.background)
     }
 }
 
 #Preview {
-    StudyView()
+    FinishedView(total: 100, mastered: 5)
 }

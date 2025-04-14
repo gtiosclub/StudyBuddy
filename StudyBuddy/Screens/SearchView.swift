@@ -165,7 +165,7 @@ struct SearchView: View {
 
 
 struct FlashcardSetRow: View {
-    let set: StudySetModel // Your model that includes properties like 'name', 'createdBy', and 'flashcards'
+    let set: StudySetModel
     @EnvironmentObject var studySetViewModel: StudySetViewModel
     
     @State private var creatorName: String = "Loading..."
@@ -183,7 +183,6 @@ struct FlashcardSetRow: View {
                         .fill(Color.white.opacity(0.3))
                         .frame(width: 20, height: 20)
                     
-                    // Display the fetched creator name instead of the raw 'createdBy' value.
                     Text(creatorName)
                         .foregroundColor(.white)
                         .font(.subheadline)
@@ -240,6 +239,10 @@ struct FlashcardSetRow: View {
                     DispatchQueue.main.async {
                         self.creatorName = "Unknown Creator"
                     }
+                }
+                .navigationBarHidden(true)
+                .onAppear {
+                    studySetViewModel.listenToUserDocuments()
                 }
             }
         }

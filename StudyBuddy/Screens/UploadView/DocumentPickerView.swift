@@ -39,7 +39,11 @@ struct DocumentPickerView: UIViewControllerRepresentable {
         func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
             for url in urls {
                 do {
+                    let isAccessing = url.startAccessingSecurityScopedResource()
                     let fileData = try Data(contentsOf: url)
+                    if isAccessing {
+                        url.stopAccessingSecurityScopedResource()
+                    }
                     guard let userID = Auth.auth().getUserID() else {
                         print("Error in DocumentPickerView: couldn't retrieve userID")
                         return

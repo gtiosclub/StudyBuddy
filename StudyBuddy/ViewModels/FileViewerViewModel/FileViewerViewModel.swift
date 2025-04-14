@@ -49,14 +49,27 @@ class FileViewerViewModel: ObservableObject {
                             return nil
                         }
                     }
-                    for index in 0..<self.documents.count {
-                        let document = self.documents[index]
+//                    for index in 0..<self.documents.count {
+//                        let document = self.documents[index]
+//                        let fileReference = storageReference.child(document.fileName)
+//                        fileReference.downloadURL { (url, error) in
+//                            if let error = error as NSError? {
+//                                print("Error getting download URL for \(document.fileName): \(error.localizedDescription) (Code: \(error.code), Domain: \(error.domain))")
+//                            } else if let downloadURL = url {
+//                                DispatchQueue.main.async {
+//                                    self.documents[index].fileURL = downloadURL.absoluteString
+//                                }
+//                            }
+//                        }
+//                    }
+                    for document in self.documents {
                         let fileReference = storageReference.child(document.fileName)
                         fileReference.downloadURL { (url, error) in
                             if let error = error as NSError? {
                                 print("Error getting download URL for \(document.fileName): \(error.localizedDescription) (Code: \(error.code), Domain: \(error.domain))")
                             } else if let downloadURL = url {
                                 DispatchQueue.main.async {
+                                    guard let index = self.documents.firstIndex(where: { $0.id == document.id }) else { return }
                                     self.documents[index].fileURL = downloadURL.absoluteString
                                 }
                             }

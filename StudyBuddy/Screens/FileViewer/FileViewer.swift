@@ -109,6 +109,7 @@ struct FileViewer: View {
             }
             .onChange(of: uploadViewModel.isUploadPresented) { isPresented in
                 if isPresented {
+                    uploadViewModel.selectedDocumentNames = []
                     isUploadViewPresented = true
                 }
             }
