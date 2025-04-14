@@ -12,16 +12,9 @@ struct SearchView: View {
     @State private var isSearching: Bool = false
     @State private var recentSearches: [String] = ["CS2200", "MATH1554", "CS1332", "CS3240", "CS4400"]
     @State private var showAllSearches: Bool = false
-    @State private var filteredSets: [String] = []
     @State private var sortOption: SortOption = .popularity
-
-    private var trendingSets: [String] = [
-        "CS2200 Exam 1",
-        "CS1332 Exam 2",
-        "MATH1554 Review",
-        "CS3240 Midterm",
-        "CS4400 Final Exam"
-    ]
+    @State private var filteredSets: [StudySetModel] = []
+    @EnvironmentObject var studySetViewModel: StudySetViewModel
 
     enum SortOption: String, CaseIterable {
         case popularity = "Popularity"
@@ -30,251 +23,249 @@ struct SearchView: View {
 
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading, spacing: 16) {
-                Text("Search")
-                    .font(.largeTitle)
-                    .bold()
-                    .padding(.horizontal)
+            ZStack {
+                Color(hex: "#321C58").ignoresSafeArea()
 
-                HStack {
-                    TextField("Search...", text: $searchText, onEditingChanged: { isEditing in
-                        isSearching = isEditing
-                        if (!isEditing) {
-                            filteredSets = []
-                        }
-                    }, onCommit: {
-                        if (!searchText.isEmpty) {
-                            filteredSets = trendingSets.filter { $0.localizedCaseInsensitiveContains(searchText) }
-                            recentSearches.insert(searchText, at: 0)
-                            if (recentSearches.count > 10) { // Limit recent searches to 10
-                                recentSearches.removeLast()
-                            }
-                            searchText = ""
-                        }
-                    })
-                    .padding(10)
-                    .background(Color.gray.opacity(0.2))
-                    .cornerRadius(8)
-                    .padding(.horizontal)
+                VStack(alignment: .leading, spacing: 16) {
+                    Text("Search")
+                        .font(.largeTitle)
+                        .bold()
+                        .foregroundColor(.white)
+                        .padding(.horizontal)
 
-                    if (isSearching) {
-                        Button(action: {
-                            searchText = ""
-                            isSearching = false
-                            filteredSets = []
-                        }) {
-                            Text("Cancel")
-                                .foregroundColor(.blue)
-                        }
-                        .padding(.trailing)
-                    }
-                }
+                    HStack {
+                        TextField("Search...", text: $searchText, onEditingChanged: { isEditing in
+                            isSearching = isEditing
+                        }, onCommit: {
+                            performSearch()
+                        })
+                        .foregroundColor(.white)
+                        .padding(10)
+                        .background(Color.white.opacity(0.2))
+                        .cornerRadius(8)
+                        .padding(.horizontal)
+                        .foregroundStyle(.white)
 
-                if (isSearching) {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Recent Searches")
-                            .font(.headline)
-                            .padding(.horizontal)
-
-                        ForEach(showAllSearches ? recentSearches : Array(recentSearches.prefix(5)), id: \.self) { search in
+                        if isSearching {
                             Button(action: {
-                                searchText = search
-                                filteredSets = trendingSets.filter { $0.localizedCaseInsensitiveContains(search) }
-                                isSearching = false
+                                clearSearch()
                             }) {
-                                Text(search)
-                                    .padding(.horizontal)
-                                    .foregroundColor(.gray)
+                                Text("Cancel")
+                                    .foregroundColor(.white)
                             }
-                        }
-
-                        if (recentSearches.count > 5 && !showAllSearches) {
-                            Button(action: {
-                                showAllSearches.toggle()
-                            }) {
-                                Text("Show More")
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
-                                    .padding()
-                                    .frame(maxWidth: .infinity)
-                            }
-                        }
-
-                        if (showAllSearches) {
-                            Button(action: {
-                                recentSearches.removeAll()
-                                showAllSearches = false
-                            }) {
-                                Text("Clear History")
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
-                                    .padding()
-                                    .frame(maxWidth: .infinity)
-                            }
+                            .padding(.trailing)
                         }
                     }
-                } else {
-                    if (!filteredSets.isEmpty) {
-                        HStack {
-                            Picker("Sort by", selection: $sortOption) {
-                                ForEach(SortOption.allCases, id: \.self) { option in
-                                    Text(option.rawValue).tag(option)
+
+                    if isSearching {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Recent Searches")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding(.horizontal)
+
+                            ForEach(showAllSearches ? recentSearches : Array(recentSearches.prefix(5)), id: \.self) { search in
+                                Button(action: {
+                                    searchText = search
+                                    performSearch()
+                                }) {
+                                    Text(search)
+                                        .padding(.horizontal)
+                                        .foregroundColor(.white)
                                 }
                             }
-                            .pickerStyle(SegmentedPickerStyle())
-                            .padding(.horizontal)
-                        }
-                        .padding(.top)
 
-                        ScrollView {
-                            VStack(spacing: 12) {
-                                ForEach(Array(filteredSets.enumerated()), id: \.offset) { index, set in
-                                    VStack(spacing: 0) {
-                                        // Card content
-                                        VStack(alignment: .leading, spacing: 6) {
-                                            Text(set)
-                                                .font(.headline)
-
-                                            HStack(spacing: 8) {
-                                                Circle()
-                                                    .fill(Color.white.opacity(0.3))
-                                                    .frame(width: 20, height: 20)
-                                                Text("john_doe18")
-                                                    .foregroundColor(.black)
-                                                    .font(.subheadline)
-                                            }
-
-                                            Text("48 terms")
-                                                .font(.subheadline)
-                                                .foregroundColor(.black)
-
-                                            Text("23 terms mastered")
-                                                .font(.subheadline)
-                                                .foregroundColor(.black)
-
-                                            Spacer().frame(height: 6)
-                                        }
-                                        .frame(maxWidth: .infinity, alignment: .leading)
+                            if recentSearches.count > 5 && !showAllSearches {
+                                Button(action: {
+                                    showAllSearches.toggle()
+                                }) {
+                                    Text("Show More")
+                                        .font(.subheadline)
+                                        .foregroundColor(.white)
                                         .padding()
-
-                                        Divider()
-
-                                        HStack(spacing: 0) {
-                                            Button(action: {
-                                                // Chatbot functionality
-                                            }) {
-                                                Text("Chatbot")
-                                                    .font(.subheadline)
-                                                    .bold()
-                                                    .frame(maxWidth: .infinity)
-                                                    .padding()
-                                                    .foregroundColor(.black)
-                                            }
-
-                                            Rectangle()
-                                                .frame(width: 1, height: 33)
-                                                .foregroundColor(.gray.opacity(0.6))
-
-                                            Button(action: {
-                                                // Flashcards functionality
-                                            }) {
-                                                Text("Flashcards")
-                                                    .font(.subheadline)
-                                                    .bold()
-                                                    .frame(maxWidth: .infinity)
-                                                    .padding()
-                                                    .foregroundColor(.black)
-                                            }
-                                        }
-                                        .background(Color.white.opacity(0.5))
-                                    }
-                                    .background(Color.gray.opacity(0.8))
-                                    .cornerRadius(12)
-                                    .padding(.horizontal)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                        .frame(maxWidth: .infinity)
                                 }
                             }
-                            .padding(.top)
+
+                            if showAllSearches {
+                                Button(action: {
+                                    recentSearches.removeAll()
+                                    showAllSearches = false
+                                }) {
+                                    Text("Clear History")
+                                        .font(.subheadline)
+                                        .foregroundColor(.white)
+                                        .padding()
+                                        .frame(maxWidth: .infinity)
+                                }
+                            }
                         }
                     } else {
-                        Text("Recently Trending")
-                            .font(.headline)
-                            .padding(.horizontal)
+                        if !filteredSets.isEmpty {
+                            ScrollView {
+                                VStack(spacing: 12) {
+                                    ForEach(filteredSets) { set in
+                                        VStack(spacing: 0) {
+                                            VStack(alignment: .leading, spacing: 6) {
+                                                Text(set.name)
+                                                    .font(.headline)
+                                                    .foregroundColor(.white)
 
-                        ScrollView {
-                            VStack(spacing: 12) {
-                                ForEach(Array(trendingSets.enumerated()), id: \.offset) { index, set in
-                                    VStack(spacing: 0) {
-                                        // Card content
-                                        VStack(alignment: .leading, spacing: 6) {
-                                            Text(set)
-                                                .font(.headline)
+                                                HStack(spacing: 8) {
+                                                    Circle()
+                                                        .fill(Color.white.opacity(0.3))
+                                                        .frame(width: 20, height: 20)
+                                                    Text(set.createdBy)
+                                                        .foregroundColor(.white)
+                                                        .font(.subheadline)
+                                                }
 
-                                            HStack(spacing: 8) {
-                                                Circle()
-                                                    .fill(Color.white.opacity(0.3))
-                                                    .frame(width: 20, height: 20)
-                                                Text("john_doe18")
-                                                    .foregroundColor(.black)
+                                                Text("\(set.flashcards.count) terms")
                                                     .font(.subheadline)
+                                                    .foregroundColor(.white)
+
+                                                Spacer().frame(height: 6)
                                             }
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .padding()
 
-                                            Text("48 terms")
-                                                .font(.subheadline)
-                                                .foregroundColor(.black)
+                                            Divider().background(Color.white.opacity(0.3))
 
-                                            Text("23 terms mastered")
-                                                .font(.subheadline)
-                                                .foregroundColor(.black)
+                                            HStack(spacing: 0) {
+                                                NavigationLink(destination: ChatInterfaceView(set: set)) {
+                                                    Text("Chatbot")
+                                                        .font(.subheadline)
+                                                        .bold()
+                                                        .frame(maxWidth: .infinity)
+                                                        .padding()
+                                                        .foregroundColor(.white)
+                                                        .background(Color(hex: "#6213D0"))
+                                                }
 
-                                            Spacer().frame(height: 6)
+                                                NavigationLink(destination: SetView().onAppear {
+                                                    studySetViewModel.currentlyChosenStudySet = set
+                                                }) {
+                                                    Text("Flashcards")
+                                                        .font(.subheadline)
+                                                        .bold()
+                                                        .frame(maxWidth: .infinity)
+                                                        .padding()
+                                                        .foregroundColor(.white)
+                                                        .background(Color(hex: "#6213D0"))
+                                                }
+                                            }
                                         }
+                                        .background(Color(hex: "#71569E"))
+                                        .cornerRadius(12)
+                                        .padding(.horizontal)
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                        .padding()
-
-                                        Divider()
-
-                                        HStack(spacing: 0) {
-                                            Button(action: {
-                                                // Chatbot functionality
-                                            }) {
-                                                Text("Chatbot")
-                                                    .font(.subheadline)
-                                                    .bold()
-                                                    .frame(maxWidth: .infinity)
-                                                    .padding()
-                                                    .foregroundColor(.black)
-                                            }
-
-                                            Rectangle()
-                                                .frame(width: 1, height: 33)
-                                                .foregroundColor(.gray.opacity(0.6))
-
-                                            Button(action: {
-                                                // Flashcards functionality
-                                            }) {
-                                                Text("Flashcards")
-                                                    .font(.subheadline)
-                                                    .bold()
-                                                    .frame(maxWidth: .infinity)
-                                                    .padding()
-                                                    .foregroundColor(.black)
-                                            }
-                                        }
-                                        .background(Color.white.opacity(0.5))
                                     }
-                                    .background(Color.gray.opacity(0.8))
-                                    .cornerRadius(12)
-                                    .padding(.horizontal)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
                                 }
+                                .padding(.top)
                             }
-                            .padding(.top)
+                        } else if !searchText.isEmpty {
+                            Text("No Results Found")
+                                .foregroundColor(.white)
+                                .padding(.horizontal)
+                        } else {
+                            Text("Recently Trending")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding(.horizontal)
+
+                            ScrollView {
+                                VStack(spacing: 12) {
+                                    if studySetViewModel.studySets.count > 0 {
+                                        ForEach(studySetViewModel.studySets.prefix(5)) { set in
+                                            VStack(spacing: 0) {
+                                                VStack(alignment: .leading, spacing: 6) {
+                                                    Text(set.name)
+                                                        .font(.headline)
+                                                        .foregroundColor(.white)
+
+                                                    HStack(spacing: 8) {
+                                                        Circle()
+                                                            .fill(Color.white.opacity(0.3))
+                                                            .frame(width: 20, height: 20)
+                                                        Text(set.createdBy)
+                                                            .foregroundColor(.white)
+                                                            .font(.subheadline)
+                                                    }
+
+                                                    Text("\(set.flashcards.count) terms")
+                                                        .font(.subheadline)
+                                                        .foregroundColor(.white)
+
+                                                    Spacer().frame(height: 6)
+                                                }
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .padding()
+
+                                                Divider().background(Color.white.opacity(0.3))
+
+                                                HStack(spacing: 0) {
+                                                    NavigationLink(destination: ChatInterfaceView(set: set)) {
+                                                        Text("Chatbot")
+                                                            .font(.subheadline)
+                                                            .bold()
+                                                            .frame(maxWidth: .infinity)
+                                                            .padding()
+                                                            .foregroundColor(.white)
+                                                            .background(Color(hex: "#6213D0"))
+                                                    }
+
+                                                    NavigationLink(destination: SetView().onAppear {
+                                                        studySetViewModel.currentlyChosenStudySet = set
+                                                    }) {
+                                                        Text("Flashcards")
+                                                            .font(.subheadline)
+                                                            .bold()
+                                                            .frame(maxWidth: .infinity)
+                                                            .padding()
+                                                            .foregroundColor(.white)
+                                                            .background(Color(hex: "#6213D0"))
+                                                    }
+                                                }
+                                            }
+                                            .background(Color(hex: "#71569E"))
+                                            .cornerRadius(12)
+                                            .padding(.horizontal)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                        }
+                                    } else {
+                                        Text("No Sets")
+                                            .foregroundColor(.white)
+                                    }
+                                }
+                                .padding(.top)
+                            }
                         }
                     }
                 }
+                .navigationBarHidden(true)
+                .onAppear {
+                    studySetViewModel.listenToUserDocuments()
+                    UITabBar.appearance().backgroundColor = UIColor.white
+                    UITabBar.appearance().barTintColor = UIColor.white
+                }
             }
-            .navigationBarHidden(true)
         }
+    }
+
+    private func performSearch() {
+        if !searchText.isEmpty {
+            filteredSets = studySetViewModel.studySets.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+            recentSearches.insert(searchText, at: 0)
+            if recentSearches.count > 10 {
+                recentSearches.removeLast()
+            }
+            isSearching = false // Exit recent searches view
+        }
+    }
+
+    private func clearSearch() {
+        searchText = ""
+        isSearching = false
+        filteredSets = []
     }
 }

@@ -88,6 +88,7 @@ struct HomeView: View {
                                                     .font(.subheadline)
                                             }
                                             
+
                                             Text("\(set.flashcards.count) terms")
                                                 .font(.subheadline)
                                                 .foregroundColor(.white)

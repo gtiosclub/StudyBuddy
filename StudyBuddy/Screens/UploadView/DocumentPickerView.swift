@@ -39,7 +39,11 @@ struct DocumentPickerView: UIViewControllerRepresentable {
         func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
             for url in urls {
                 do {
+                    let isAccessing = url.startAccessingSecurityScopedResource()
                     let fileData = try Data(contentsOf: url)
+                    if isAccessing {
+                        url.stopAccessingSecurityScopedResource()
+                    }
                     guard let userID = Auth.auth().getUserID() else {
                         print("Error in DocumentPickerView: couldn't retrieve userID")
                         return
@@ -63,22 +67,14 @@ struct DocumentPickerView: UIViewControllerRepresentable {
                             }
 
                             self.parent.uploadViewModel.documents.append(finalDocument)
-
-                            self.parent.uploadViewModel.uploadFileToFirebase(
-                                fileName: url.lastPathComponent,
-                                fileData: fileData,
-                                document: finalDocument,
-                                isPublic: false
-                            )
-
                         }
                     }
                 } catch {
                     print("Error reading file data: \(error)")
                 }
             }
-            print("Document Uploaded sucessfully")
-            // Dismiss the document picker and present the upload view
+            print("Documents added to upload queue")
+            // Dismiss the document picker
             self.parent.presentationMode.wrappedValue.dismiss()
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 self.parent.uploadViewModel.isUploadPresented = true // Trigger UploadView
