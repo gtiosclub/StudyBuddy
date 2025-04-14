@@ -47,9 +47,10 @@ class UploadViewModel: ObservableObject {
         let collectionRef = Firestore.firestore().collection("Documents")
         do {
             var newDocument = document
-            let docRef = try collectionRef.addDocument(from: newDocument)
-            newDocument.firestoreDocumentId = docRef.documentID
-            print("Document stored in FileViewModel\(docRef.documentID)")
+            
+            guard let id = newDocument.id else { return }
+            try collectionRef.document(id).setData(from: newDocument)
+            print("Document stored in FileViewModel\(newDocument.id)")
         } catch {
             print("Error in UploadViewModel while doing uploadDocument \(error)")
         }

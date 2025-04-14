@@ -21,6 +21,7 @@ struct SetView: View {
 
     @State private var flashcards: [FlashcardModel] = []
     
+    
     var body: some View {
         ZStack {
             // Main Content
@@ -254,7 +255,7 @@ struct SetView: View {
                             let flashcards = try await studySetVM.generateFlashcards()
                             print(flashcards)
 
-                            studySetVM.currentlyChosenStudySet.flashcards.append(contentsOf: flashcards)
+                            self.flashcards.append(contentsOf: flashcards)
                         } catch {
                             print("Error generating flashcards: \(error)")
                         }
