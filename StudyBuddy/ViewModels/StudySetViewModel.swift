@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseCore
 import FirebaseFirestore
+import FirebaseAuth
 
 class StudySetViewModel: ObservableObject, Identifiable {
     
@@ -177,8 +178,72 @@ class StudySetViewModel: ObservableObject, Identifiable {
             print("Error updating study set data \(error.localizedDescription)")
         }
     }
-    
+
     func getUser() -> String {
             return currentlyChosenStudySet.createdBy
         }
+
+    func generateFlashcards() async throws -> [FlashcardModel] {
+        var contents: [String] = []
+
+        let set = currentlyChosenStudySet
+        let docs = set.documentIDs
+
+//        print("Currently chosen study set", set)
+//        print("Documents to generate flashcards", docs)
+
+        for docID in docs {
+            let docRef = db.collection("Documents").document(docID)
+            do {
+                let document = try await docRef.getDocument(as: Document.self)
+                let content = document.parsedContent
+
+                guard let content else {
+                    print("Error: Content is nil")
+                    continue
+                }
+
+                contents.append(content)
+            } catch {
+                print("Error fetching document: \(error)")
+                continue
+            }
+        }
+
+//        print("Contents to generate flashcards", contents)
+
+        let flashcardTuples = try await OpenAIManager.shared.makeFlashcards(content: contents)
+
+//        print("Generated flashcards", flashcardTuples)
+
+        var returnedFlashcards: [FlashcardModel] = []
+        for tuple in flashcardTuples {
+            let uid = Auth.auth().currentUser?.uid ?? "USERIDNEEDTOINPUT"
+            let flashcardID = UUID().uuidString
+            let newFlashcard = FlashcardModel(
+                id: flashcardID,
+                front: tuple.0,
+                back: tuple.1,
+                createdBy: uid,
+                mastered: false)
+
+            let flashcardRef = db.collection("Flashcards").document(flashcardID)
+            try flashcardRef.setData(from: newFlashcard)
+            returnedFlashcards.append(newFlashcard)
+        }
+
+        guard let studySetDocumentID = currentlyChosenStudySet.id else {
+            print("Error: currentlyChosenStudyset.id is nil")
+            return []
+        }
+
+        let flashcardIDs = returnedFlashcards.map { $0.id }
+
+        let setRef = db.collection("StudySets").document(studySetDocumentID)
+        try await setRef.updateData([
+            "flashcardIDs": FieldValue.arrayUnion(flashcardIDs)
+        ])
+
+        return returnedFlashcards
+    }
 }

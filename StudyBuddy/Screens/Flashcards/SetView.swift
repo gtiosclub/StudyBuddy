@@ -28,6 +28,9 @@ struct SetView: View {
                     chatBotButton()
                     viewFilesButton()
                     fcardDisplay()
+                        .task {
+                            await fetchFlashcards()
+                        }
                 }
                 .background(Color("setViewBackground"))
             }
@@ -183,7 +186,7 @@ struct SetView: View {
     private func chatBotButton() -> some View {
         VStack {
             HStack {
-                NavigationLink(destination: ChatInterfaceView()) {
+                NavigationLink(destination: ChatInterfaceView(set: studySetVM.currentlyChosenStudySet)) {
                     HStack(spacing: 4) {  // Spacing between image and text.
                         Image("chatBotImage")
                             .resizable()
@@ -236,20 +239,42 @@ struct SetView: View {
         VStack(alignment: .leading) {
             HStack {
                 Text("__Set Terms (\(studySetVM.currentlyChosenStudySet.flashcards.count))__")
-                    .padding(.horizontal, 20)
+//                    .padding(.horizontal, 20)
                     .font(.title2)
                     .foregroundColor(Color("calvinColor"))
+
+                Spacer()
+
+                Button(action: {
+                    Task {
+                        do {
+                            let flashcards = try await studySetVM.generateFlashcards()
+                            print(flashcards)
+
+                            studySetVM.currentlyChosenStudySet.flashcards.append(contentsOf: flashcards)
+                        } catch {
+                            print("Error generating flashcards: \(error)")
+                        }
+                    }
+                }) {
+                    Image(systemName: "brain")
+                        .foregroundColor(Color("calvinColor"))
+                        .font(.title)
+//                        .padding(.leading, 160)
+                }
+
                 Button(action: {
                     frontText = ""
                     backText = ""
                     showAddCard = true
                 }) {
-                    Text("+")
+                    Image(systemName: "plus")
                         .foregroundColor(Color("calvinColor"))
                         .font(.title)
-                        .padding(.leading, 160)
+//                        .padding(.leading, 160)
                 }
             }
+            .padding(.horizontal, 20)
 
             HStack(spacing: 0) {
                 Text("\u{1F50D}")
@@ -314,6 +339,16 @@ struct SetView: View {
         }
         .background(Color.gray)
         .cornerRadius(8)
+    }
+
+    private func fetchFlashcards() async {
+        do {
+            try await FlashcardViewModel.shared.fetchFlashcardsFromIDs()
+        } catch {
+            print("Error fetching flashcards: \(error)")
+        }
+        
+        let setFlashcards = studySetVM.currentlyChosenStudySet.flashcards
     }
 
 }

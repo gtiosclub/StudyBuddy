@@ -46,6 +46,39 @@ class FlashcardViewModel: ObservableObject {
                 }
             }
     }
+
+    func fetchFlashcardsFromIDs() async throws {
+        guard let setID = currentlyChosenStudySet.id else {
+            print("Error: currentlyChosenStudySet.id is nil")
+            return
+        }
+
+        let ref = db.collection("StudySets").document(setID)
+        let document = try await ref.getDocument()
+
+        guard let flashcardIDs = document.data()?["flashcardIDs"] as? [String] else {
+            print("Error: flashcardIDs is nil")
+            return
+        }
+
+        print("Flashcard IDs: \(flashcardIDs)")
+
+            for flashcard in flashcardIDs {
+                let ref = db.collection("Flashcards").document(flashcard)
+                do {
+                    let flashcard = try await ref.getDocument(as: FlashcardModel.self)
+
+                    self.flashcards.append(flashcard)
+                    StudySetViewModel.shared.currentlyChosenStudySet.flashcards.append(flashcard)
+
+                    print(flashcard)
+                } catch {
+                    print("Error fetching flashcard: \(error.localizedDescription)")
+                    continue
+                }
+            }
+    }
+
     func updateFlashcardData() {
         guard let flashcardDocumentID = currentlyChosenFlashcard.id else {
             print("Error: currentlyChosenFlashcard.documentID is nil")
