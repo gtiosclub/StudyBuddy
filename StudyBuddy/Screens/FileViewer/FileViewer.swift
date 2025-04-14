@@ -22,6 +22,10 @@ struct FileViewer: View {
     @State private var selectedDocuments: [Document] = []
     @EnvironmentObject private var studySetViewModel: StudySetViewModel
     @State var presentSets: Bool = false
+    @State private var isDocumentPickerPresented = false // State to control DocumentPickerView presentation
+    @State private var isUploadViewPresented = false
+    @StateObject private var uploadViewModel = UploadViewModel() // Added UploadViewModel instance
+
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
@@ -46,11 +50,11 @@ struct FileViewer: View {
                         Spacer()
                     
                     Button(action: {
-                        add.toggle()
+                        isDocumentPickerPresented = true
                     }) {
-                        Image(systemName: add ? "checkmark.circle.fill" : "plus.circle")
+                        Image(systemName: "plus.circle")
                             .font(.title2)
-                            .foregroundColor(add ? .green : .blue)
+                            .foregroundColor(.blue)
                             .padding(.horizontal)
                     }
                 }
@@ -96,6 +100,17 @@ struct FileViewer: View {
             .sheet(isPresented: $presentSets) {
                 SelectSet(isPresented: $presentSets, selectedDocuments: $selectedDocuments)
 
+            }
+            .sheet(isPresented: $isDocumentPickerPresented) {
+                DocumentPickerView(uploadViewModel: uploadViewModel) // Present DocumentPickerView
+            }
+            .sheet(isPresented: $isUploadViewPresented) {
+                UploadView(uploadViewModel: uploadViewModel) // Present UploadView
+            }
+            .onChange(of: uploadViewModel.isUploadPresented) { isPresented in
+                if isPresented {
+                    isUploadViewPresented = true
+                }
             }
             .onAppear {
                 fileViewerViewModel.listenToUserDocuments()
