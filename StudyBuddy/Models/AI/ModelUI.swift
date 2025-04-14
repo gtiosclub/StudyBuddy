@@ -6,6 +6,8 @@
 //
 import SwiftUI
 import MLXLMCommon
+import Firebase
+import FirebaseFirestore
 
 struct ChatMessage: Identifiable {
     let id = UUID()
@@ -15,24 +17,27 @@ struct ChatMessage: Identifiable {
 
 struct ChatInterfaceView: View {
     @Environment(\.modelContext) var modelContext
-    
-    @State private var messages: [ChatMessage] = []
+
+    @State var messages: [ChatMessage] = []
+    var set: StudySetModel?
+
     @State private var inputText: String = ""
     @State private var selectedModel: String = "OpenAI"
     let models = ["OpenAI", "LLaMA (On-Device)"]
-    
+
     @State private var llm = LLMEvaluator()
     @State private var thread = Thread()
-    
+
     @State private var intelligenceManager: IntelligenceManager = OpenAIManager.shared
-    
 
     @State var currentThread: Thread?
     @State var thinkingTime: TimeInterval?
-    
+
     @State private var generatingThreadID: UUID?
+    private let db = Firestore.firestore()
+    @State private var documentsContent: [String] = []
 //    @Environment(LLMEvaluator.self) var llm
-    
+
     var body: some View {
         VStack(spacing: 0) {
             // Model Picker
@@ -74,7 +79,7 @@ struct ChatInterfaceView: View {
                             .stroke(Color.gray.opacity(0.3), lineWidth: 1)
                     )
                     .padding(.leading, 10)
-                
+
                 Button(action: {
                     Task {
                         do {
@@ -94,8 +99,12 @@ struct ChatInterfaceView: View {
             }
             .padding(.vertical, 8)
         }
+        .task {
+            await getDocuments()
+            print("Document fetching completed!")
+        }
     }
-    
+
     func sendMessage() async throws {
         guard !inputText.isEmpty else { return }
         let userMessage = ChatMessage(text: inputText, isUser: true)
@@ -105,12 +114,19 @@ struct ChatInterfaceView: View {
         switch selectedModel {
         case "OpenAI":
             let openAIManager = OpenAIManager.shared
+            
+            let contentsAsMessages: [OpenAIRequest.Message] = documentsContent.map { content in
+                .init(role: "user", content: content)
+            }
+            
+            let fullContext: [OpenAIRequest.Message] = contentsAsMessages + messages.map { msg in
+                .init(role: msg.isUser ? "user" : "assistant", content: msg.text)
+            }
+            
             let req = OpenAIRequest(
                 input: userMessage.text,
                 model: .openai_4o_mini,
-                messages: messages.map { msg in
-                        .init(role: msg.isUser ? "user" : "assistant", content: msg.text)
-                },
+                messages: fullContext,
                 maxCompletionTokens: nil,
                 temperature: 0.8
             )
@@ -174,6 +190,33 @@ struct ChatInterfaceView: View {
         
         let aiMessage = ChatMessage(text: message.content, isUser: false)
         messages.append(aiMessage)
+    }
+    
+    private func getDocuments() async {
+        var contents: [String] = []
+
+        guard let set else { return } // no set passed in as context...
+        let docs = set.documentIDs
+
+        for docID in docs {
+            let docRef = db.collection("Documents").document(docID)
+            do {
+                let document = try await docRef.getDocument(as: Document.self)
+                let content = document.parsedContent
+
+                guard let content else {
+                    print("Error: Content is nil")
+                    continue
+                }
+
+                contents.append(content)
+            } catch {
+                print("Error fetching document: \(error)")
+                continue
+            }
+        }
+        
+        documentsContent.append(contentsOf: contents)
     }
 }
 
