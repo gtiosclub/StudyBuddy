@@ -17,6 +17,7 @@ struct SetView: View {
     @State private var backEditText: String = ""
     @State private var flashcardToEdit: FlashcardModel? = nil
     @State private var showAddCard: Bool = false
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         ZStack {
             // Main Content
@@ -118,23 +119,34 @@ struct SetView: View {
                 .transition(.scale)
             }
         }
+        .navigationBarBackButtonHidden(true)
         
     }
 
     private func topOfPage() -> some View {
         VStack {
             HStack {
-                Text(studySetVM.getUser())
+                Button(action: {
+                    dismiss()
+                }) {
+                    Image(systemName: "xmark")
+                        .padding()
+                        .foregroundStyle(Color(.white))
+                        .frame(width: 30, height: 30, alignment: .leading)
+                }
+                .frame(alignment: .leading)
+                Text(studySetVM.currentlyChosenStudySet.name)
                     .foregroundColor(Color("calvinColor"))
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .center)
-            }
+            }.padding()
+            
             HStack {
                 Circle()
                     .frame(width: 30, height: 30)
                     .foregroundColor(.gray)
-                Text(studySetVM.getUser())
-                    .foregroundColor(Color("calvinColor"))
+                Text(studySetVM.currentlyChosenStudySet.createdBy)
+                    .foregroundColor(Color(.white))
                     .font(.headline)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -145,7 +157,7 @@ struct SetView: View {
     private func fcardButton() -> some View {
         VStack {
             HStack {
-                NavigationLink(destination: StudyView(studySetVM: studySetVM)) {
+                NavigationLink(destination: StudyView(/*studySetVM: studySetVM*/)) {
                     HStack(spacing: 4) {  // Spacing between image and text.
                         Image("cardsImage")
                             .resizable()
@@ -171,7 +183,7 @@ struct SetView: View {
     private func chatBotButton() -> some View {
         VStack {
             HStack {
-                NavigationLink(destination: StudyView(studySetVM: studySetVM)) {
+                NavigationLink(destination: ChatInterfaceView()) {
                     HStack(spacing: 4) {  // Spacing between image and text.
                         Image("chatBotImage")
                             .resizable()
@@ -197,7 +209,7 @@ struct SetView: View {
     private func viewFilesButton() -> some View {
         VStack {
             HStack {
-                NavigationLink(destination: StudyView(studySetVM: studySetVM)) {
+                NavigationLink(destination: StudyView(/*studySetVM: studySetVM*/)) {
                     HStack(spacing: 4) {  // Spacing between image and text.
                         Image("filesImage")
                             .resizable()

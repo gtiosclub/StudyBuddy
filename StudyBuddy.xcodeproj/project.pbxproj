@@ -37,6 +37,8 @@
 		9B883B362D713DA400AE3DEF /* LLMEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B883B352D713DA400AE3DEF /* LLMEvaluator.swift */; };
 		AA0AB33A2D77D5AC001EFC78 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0AB3392D77D5AC001EFC78 /* ContentView.swift */; };
 		AADE96032D6E983B008DD19B /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADE96022D6E983B008DD19B /* AddView.swift */; };
+		AAE94D2E2DACBB4A00A523EC /* CreateSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE94D2D2DACBB4A00A523EC /* CreateSetView.swift */; };
+		AAE94D302DACBBB500A523EC /* FileToSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE94D2F2DACBBB500A523EC /* FileToSetView.swift */; };
 		C7BCD2BC2D5DAA8A00F89A0C /* DocumentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BCD2BB2D5DAA8100F89A0C /* DocumentPickerView.swift */; };
 		CA0CE2CC2D5C2AE600DD8FD2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */; };
 		CA0CE2D02D5C2AF500DD8FD2 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CE2CD2D5C2AF500DD8FD2 /* SetView.swift */; };
@@ -58,8 +60,6 @@
 		CABC81B02D77BBEF002D5657 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC81AF2D77BBEF002D5657 /* Models.swift */; };
 		CABC81B22D77BC1D002D5657 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC81B12D77BC1B002D5657 /* ModelData.swift */; };
 		CABC81B52D77C17A002D5657 /* ModelUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABC81B42D77C17A002D5657 /* ModelUI.swift */; };
-		EA89AA4E2D71142F0033CFDF /* FileLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA89AA4D2D71142F0033CFDF /* FileLibraryView.swift */; };
-		EAB1733C2D711BE2005A8CA0 /* FileLibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB1733B2D711BE2005A8CA0 /* FileLibraryViewModel.swift */; };
 		EA25407E2D77CE8F00BDD841 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = EA25407D2D77CE8F00BDD841 /* FirebaseCore */; };
 		EAFA58462D5D417600ADC214 /* UploadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA58452D5D417600ADC214 /* UploadModel.swift */; };
 		EAFA58482D5D417D00ADC214 /* UploadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA58472D5D417D00ADC214 /* UploadViewModel.swift */; };
@@ -90,6 +90,8 @@
 		9B883B352D713DA400AE3DEF /* LLMEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMEvaluator.swift; sourceTree = "<group>"; };
 		AA0AB3392D77D5AC001EFC78 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AADE96022D6E983B008DD19B /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
+		AAE94D2D2DACBB4A00A523EC /* CreateSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSetView.swift; sourceTree = "<group>"; };
+		AAE94D2F2DACBBB500A523EC /* FileToSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileToSetView.swift; sourceTree = "<group>"; };
 		C7BCD2BB2D5DAA8100F89A0C /* DocumentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerView.swift; sourceTree = "<group>"; };
 		CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CA0CE2CD2D5C2AF500DD8FD2 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
@@ -109,8 +111,6 @@
 		CABC81AF2D77BBEF002D5657 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		CABC81B12D77BC1B002D5657 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		CABC81B42D77C17A002D5657 /* ModelUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelUI.swift; sourceTree = "<group>"; };
-		EA89AA4D2D71142F0033CFDF /* FileLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLibraryView.swift; sourceTree = "<group>"; };
-		EAB1733B2D711BE2005A8CA0 /* FileLibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLibraryViewModel.swift; sourceTree = "<group>"; };
 		EAFA58452D5D417600ADC214 /* UploadModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadModel.swift; sourceTree = "<group>"; };
 		EAFA58472D5D417D00ADC214 /* UploadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewModel.swift; sourceTree = "<group>"; };
 		EAFA58492D5D418700ADC214 /* UploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadView.swift; sourceTree = "<group>"; };
@@ -141,6 +141,7 @@
 		912404202D77A0EF00A0C7AC /* FileViewer */ = {
 			isa = PBXGroup;
 			children = (
+				AAE94D2F2DACBBB500A523EC /* FileToSetView.swift */,
 				9124041F2D77A0EF00A0C7AC /* FileViewer.swift */,
 			);
 			path = FileViewer;
@@ -174,6 +175,7 @@
 		CA0CE2CB2D5C2AE600DD8FD2 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				AAE94D2D2DACBB4A00A523EC /* CreateSetView.swift */,
 				4094F0892DA754ED00C10C53 /* ImagePicker.swift */,
 				4094F0872DA7534D00C10C53 /* ViewEditProfile.swift */,
 				CA0CE2CA2D5C2AE600DD8FD2 /* HomeView.swift */,
@@ -296,22 +298,6 @@
 			children = (
 			);
 			path = AI;
-			sourceTree = "<group>";
-		};
-		EA89AA4B2D7113B70033CFDF /* FileLibraryView */ = {
-			isa = PBXGroup;
-			children = (
-				EA89AA4D2D71142F0033CFDF /* FileLibraryView.swift */,
-			);
-			path = FileLibraryView;
-			sourceTree = "<group>";
-		};
-		EA89AA4C2D7113C70033CFDF /* FileLibraryViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				EAB1733B2D711BE2005A8CA0 /* FileLibraryViewModel.swift */,
-			);
-			path = FileLibraryViewModel;
 			sourceTree = "<group>";
 		};
 		EAFA58412D5D413E00ADC214 /* UploadViewModel */ = {
@@ -472,6 +458,7 @@
 				946D8D962D7A536200E4B384 /* AuthViewModel.swift in Sources */,
 				4094F0882DA7535300C10C53 /* ViewEditProfile.swift in Sources */,
 				94FCD6442D960EBF00051CE8 /* FlashcardViewModel.swift in Sources */,
+				AAE94D302DACBBB500A523EC /* FileToSetView.swift in Sources */,
 				94FCD6422D960EA800051CE8 /* StudySetViewModel.swift in Sources */,
 				966B69C42D67F9DA00BB11DE /* DocumentsModel.swift in Sources */,
 				CA0CE2CC2D5C2AE600DD8FD2 /* HomeView.swift in Sources */,
@@ -486,6 +473,7 @@
 				94B653E12D6562EE001D3727 /* StudySetModel.swift in Sources */,
 				CA0CE2D02D5C2AF500DD8FD2 /* SetView.swift in Sources */,
 				C7BCD2BC2D5DAA8A00F89A0C /* DocumentPickerView.swift in Sources */,
+				AAE94D2E2DACBB4A00A523EC /* CreateSetView.swift in Sources */,
 				AA0AB33A2D77D5AC001EFC78 /* ContentView.swift in Sources */,
 				CA0CE2D12D5C2AF500DD8FD2 /* StudyView.swift in Sources */,
 				EAFA584A2D5D418700ADC214 /* UploadView.swift in Sources */,
@@ -634,7 +622,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyBuddy/Preview Content\"";
-				DEVELOPMENT_TEAM = 46A969A6K2;
+				DEVELOPMENT_TEAM = N7JQF9LRA3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = StudyBuddy;
@@ -648,7 +636,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = msubbiah3;
+				PRODUCT_BUNDLE_IDENTIFIER = jkim;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -664,7 +652,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyBuddy/Preview Content\"";
-				DEVELOPMENT_TEAM = 46A969A6K2;
+				DEVELOPMENT_TEAM = N7JQF9LRA3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = StudyBuddy;
@@ -678,7 +666,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = msubbiah3;
+				PRODUCT_BUNDLE_IDENTIFIER = jkim;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -45,7 +45,7 @@ struct AddView_Previews: PreviewProvider {
             FlashcardModel(front: "Example Front", back: "Example Back", createdBy: "Example User", mastered: false)
         ]
 
-        let sampleStudySet = StudySetModel(flashcards: sampleFlashcards, dateCreated: Date(), createdBy: "User")
+        let sampleStudySet = StudySetModel(flashcards: sampleFlashcards, dateCreated: Date(), createdBy: "User", name: "",documentIDs: [])
 
         let sampleVM = StudySetViewModel.shared
         sampleVM.currentlyChosenStudySet = sampleStudySet
