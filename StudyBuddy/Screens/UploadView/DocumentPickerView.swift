@@ -63,22 +63,14 @@ struct DocumentPickerView: UIViewControllerRepresentable {
                             }
 
                             self.parent.uploadViewModel.documents.append(finalDocument)
-
-                            self.parent.uploadViewModel.uploadFileToFirebase(
-                                fileName: url.lastPathComponent,
-                                fileData: fileData,
-                                document: finalDocument,
-                                isPublic: false
-                            )
-
                         }
                     }
                 } catch {
                     print("Error reading file data: \(error)")
                 }
             }
-            print("Document Uploaded sucessfully")
-            // Dismiss the document picker and present the upload view
+            print("Documents added to upload queue")
+            // Dismiss the document picker
             self.parent.presentationMode.wrappedValue.dismiss()
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 self.parent.uploadViewModel.isUploadPresented = true // Trigger UploadView
